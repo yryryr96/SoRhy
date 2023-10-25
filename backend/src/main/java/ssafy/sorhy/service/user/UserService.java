@@ -13,13 +13,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
+import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.util.Response;
 
+import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -31,9 +34,11 @@ public class UserService {
     @Value("${jwt.secret}")
     private String secretKey;
 
+    private final EntityManager em;
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
+    private final CompanyRepository companyRepository;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -44,9 +49,11 @@ public class UserService {
             throw new RuntimeException("닉네임이 이미 존재합니다.");
         }
 
-        User user = request.toEntity();
+        Company company = companyRepository.findById(request.getCompanyId()).get();
 
+        User user = request.toEntity(company);
         User saveUser = userRepository.save(user.hashPassword(encoder));
+
         return saveUser.toJoinDto();
     }
 
@@ -54,12 +61,11 @@ public class UserService {
     public String login(UserDto.loginReq request) {
 
         User user = userRepository.findByNickname(request.getNickname());
-        System.out.println("로그인시도 : 리퀘 비번" + request.getPassword() + " 유저 비번 : " + user.getPassword());
         if (encoder.matches(request.getPassword(), user.getPassword())) {
             String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60); // 만료시간 60분
             return token;
         } else {
-            throw new RuntimeException("비밀번호가 틀려요");
+            throw new RuntimeException("계정 정보가 일치하지 않습니다.");
         }
     }
 

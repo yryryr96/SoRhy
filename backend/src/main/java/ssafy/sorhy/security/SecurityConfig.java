@@ -49,6 +49,7 @@ public class SecurityConfig {
                     .antMatchers("/article/**").permitAll()
                     .antMatchers("/articles").permitAll()
                     .antMatchers("/game").permitAll()
+                    .antMatchers("/rank").permitAll()
                     .anyRequest().authenticated()
 
                 .and()

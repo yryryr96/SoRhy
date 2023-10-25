@@ -45,11 +45,19 @@ public class GameResultDto {
 
     @Data
     @Builder
-    public static class RankRes {
+    public static class personalRankRes {
 
         private String nickname;
         private int score;
         private String createdAt;
 //        private String company; // 회사
+    }
+
+    @Data
+    @Builder
+    public static class companyRankRes {
+
+        private String companyName;
+        private int companyScore;
     }
 }

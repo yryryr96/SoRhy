@@ -26,6 +26,7 @@ public class UserApiController {
     public Response<UserDto.joinRes> save(@RequestBody UserDto.joinReq request) {
 
         UserDto.joinRes response = userService.save(request);
+
         return new Response(201, "회원가입에 성공했습니다.", response);
     }
 

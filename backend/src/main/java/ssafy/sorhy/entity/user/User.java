@@ -51,6 +51,7 @@ public class User {
         this.totalScore += score;
     }
 
+
     public User hashPassword(BCryptPasswordEncoder encoder) {
         this.password = encoder.encode(this.password);
         return this;
