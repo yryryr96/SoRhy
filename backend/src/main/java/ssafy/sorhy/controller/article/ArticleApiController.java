@@ -1,6 +1,7 @@
 package ssafy.sorhy.controller.article;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.service.article.ArticleService;
@@ -15,7 +16,9 @@ public class ArticleApiController {
     private final ArticleService articleService;
 
     @PostMapping("/article")
-    public Response<ArticleDto.basicRes> save(@RequestParam String nickname, @RequestBody ArticleDto.saveReq request) {
+    public Response<ArticleDto.basicRes> save(@RequestBody ArticleDto.saveReq request, Authentication authentication) {
+
+        String nickname = authentication.getName();
         ArticleDto.basicRes response = articleService.save(nickname, request);
         return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
     }
@@ -27,7 +30,7 @@ public class ArticleApiController {
         return new Response(200, "게시글 전체 조회 성공", response);
     }
 
-    @GetMapping("/articles/{articleId}")
+    @GetMapping("/article/{articleId}")
     public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
 
         ArticleDto.detailRes response = articleService.findById(articleId);

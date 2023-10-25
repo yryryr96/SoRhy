@@ -12,12 +12,13 @@ public class GameResultDto {
 
     @Data
     @Builder
-    public static class Basic {
+    public static class basicRes {
 
         private GameTitle gameTitle;
         private int score;
         private Long characterId;
         private UserTeam team;
+        private boolean winner;
         private String createdAt;
     }
 
@@ -25,10 +26,10 @@ public class GameResultDto {
     public static class saveReq {
 
         private Long gameId;
-        private String nickname;
         private int score;
         private String team;
         private Long characterId;
+        private boolean winner;
     }
 
     @Data
@@ -36,8 +37,10 @@ public class GameResultDto {
     public static class saveRes {
 
         private Long gameId;
-        private String nickname;
         private int score;
+        private UserTeam team;
+        private Long characterId;
+        private boolean winner;
     }
 
     @Data

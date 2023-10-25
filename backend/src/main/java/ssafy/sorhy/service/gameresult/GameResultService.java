@@ -29,9 +29,9 @@ public class GameResultService {
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
 
-    public GameResultDto.saveRes save(@RequestBody @Valid GameResultDto.saveReq request) {
+    public GameResultDto.saveRes save(@RequestBody @Valid GameResultDto.saveReq request, String nickname) {
 
-        User findUser = userRepository.findByNickname(request.getNickname());
+        User findUser = userRepository.findByNickname(nickname);
         Game findGame = gameRepository.findById(request.getGameId()).get();
 
         GameResult gameResult = GameResult.builder()
@@ -39,6 +39,7 @@ public class GameResultService {
                 .user(findUser)
                 .score(request.getScore())
                 .characterId(request.getCharacterId())
+                .winner(request.isWinner())
                 .userTeam(UserTeam.valueOf(request.getTeam()))
                 .build();
 

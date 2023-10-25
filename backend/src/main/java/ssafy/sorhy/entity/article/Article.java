@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.article.ArticleDto;
+import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.user.User;
 
@@ -13,6 +14,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -44,6 +46,7 @@ public class Article {
                 .articleId(this.id)
                 .nickname(this.user.getNickname())
                 .title(this.title)
+                .createdAt(this.createdAt)
                 .build();
     }
 
@@ -55,6 +58,13 @@ public class Article {
                 .title(this.title)
                 .content(this.content)
                 .createdAt(this.createdAt)
+                .comments(getCommentBasicResList())
                 .build();
+    }
+
+    private List<CommentDto.basicRes> getCommentBasicResList() {
+        return this.comments.stream()
+                .map(comment -> comment.toBasicRes())
+                .collect(Collectors.toList());
     }
 }

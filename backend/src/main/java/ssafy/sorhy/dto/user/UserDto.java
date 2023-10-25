@@ -33,7 +33,6 @@ public class UserDto {
     public static class joinRes {
 
         private String nickname;
-        private int totalScore;
     }
 
     @Data
@@ -42,8 +41,7 @@ public class UserDto {
 
         private String nickname;
         private int totalScore;
-        private List<GameResultDto.Basic> gameResults;
-
+        private List<GameResultDto.basicRes> gameResults;
     }
 
     @Data
@@ -51,5 +49,19 @@ public class UserDto {
 
         private String nickname;
         private String password;
+    }
+
+    @Data
+    @Builder
+    public static class profileRes {
+
+        private String nickname;
+        private int totalScore;
+        private Long articleCount;
+        private Long commentCount;
+//        private String companyName;
+        // private int win;
+        // private int lose;
+        // private int winPercentage;
     }
 }

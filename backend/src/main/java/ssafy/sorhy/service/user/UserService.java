@@ -15,7 +15,10 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.jwt.JwtTokenUtil;
+import ssafy.sorhy.repository.article.ArticleRepository;
+import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.util.Response;
 
 import java.util.List;
 
@@ -25,11 +28,14 @@ import java.util.List;
 @Slf4j
 public class UserService {
 
-    private final UserRepository userRepository;
-    private final BCryptPasswordEncoder encoder;
-
     @Value("${jwt.secret}")
     private String secretKey;
+
+    private final UserRepository userRepository;
+    private final ArticleRepository articleRepository;
+    private final CommentRepository commentRepository;
+
+    private final BCryptPasswordEncoder encoder;
 
     // 계정 저장
     public UserDto.joinRes save(UserDto.joinReq request) {
@@ -50,12 +56,22 @@ public class UserService {
         User user = userRepository.findByNickname(request.getNickname());
         System.out.println("로그인시도 : 리퀘 비번" + request.getPassword() + " 유저 비번 : " + user.getPassword());
         if (encoder.matches(request.getPassword(), user.getPassword())) {
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 10);
+            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60); // 만료시간 60분
             return token;
         } else {
             throw new RuntimeException("비밀번호가 틀려요");
         }
     }
+
+    public UserDto.profileRes findProfileByNickname(String nickname) {
+
+        User user = userRepository.findByNickname(nickname);
+        Long articleCount = articleRepository.countArticleByNickname(nickname);
+        Long commentCount = commentRepository.countCommentByNickname(nickname);
+
+        return user.toProfileDto(articleCount, commentCount);
+    }
+
     
     // 전체 유저 조회
     public List<User> findAll() {

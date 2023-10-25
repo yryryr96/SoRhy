@@ -60,7 +60,6 @@ public class User {
 
         return UserDto.joinRes.builder()
                 .nickname(this.nickname)
-                .totalScore(this.totalScore)
                 .build();
     }
 
@@ -73,16 +72,27 @@ public class User {
                 .build();
     }
 
-    private List<GameResultDto.Basic> getGameResultBasicDtoList() {
+    private List<GameResultDto.basicRes> getGameResultBasicDtoList() {
 
         return this.gameResults.stream()
-                .map(gameResult -> GameResultDto.Basic.builder()
+                .map(gameResult -> GameResultDto.basicRes.builder()
                         .characterId(gameResult.getCharacterId())
                         .score(gameResult.getScore())
                         .team(gameResult.getUserTeam())
+                        .winner(gameResult.isWinner())
                         .gameTitle(gameResult.getGame().getGameTitle())
                         .createdAt(gameResult.getCreatedAt())
                         .build())
                 .collect(Collectors.toList());
+    }
+
+    public UserDto.profileRes toProfileDto(Long articleCount, Long commentCount) {
+
+        return UserDto.profileRes.builder()
+                .nickname(this.nickname)
+                .articleCount(articleCount)
+                .commentCount(commentCount)
+                .totalScore(this.totalScore)
+                .build();
     }
 }

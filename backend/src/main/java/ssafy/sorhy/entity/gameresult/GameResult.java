@@ -27,6 +27,7 @@ public class GameResult {
 
     private int score;
     private Long characterId;
+    private boolean winner;
 
     @Enumerated(EnumType.STRING)
     private UserTeam userTeam;
@@ -34,12 +35,10 @@ public class GameResult {
     @Builder.Default
     private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
     private User user;
 
-    @JsonIgnore
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "game_id", nullable = false)
     private Game game;
@@ -48,8 +47,10 @@ public class GameResult {
 
         return GameResultDto.saveRes.builder()
                 .gameId(this.getGame().getId())
-                .nickname(this.getUser().getNickname())
                 .score(this.score)
+                .characterId(this.characterId)
+                .winner(this.winner)
+                .team(this.userTeam)
                 .build();
     }
 }

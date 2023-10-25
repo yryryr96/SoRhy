@@ -2,11 +2,24 @@ package ssafy.sorhy.dto.article;
 
 import lombok.Builder;
 import lombok.Data;
+import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.user.User;
 
+import java.util.List;
+
 @Data
 public class ArticleDto {
+
+    @Data
+    @Builder
+    public static class basicRes {
+
+        private Long articleId;
+        private String nickname;
+        private String title;
+        private String createdAt;
+    }
 
     @Data
     public static class saveReq {
@@ -26,15 +39,6 @@ public class ArticleDto {
 
     @Data
     @Builder
-    public static class basicRes {
-
-        private Long articleId;
-        private String nickname;
-        private String title;
-    }
-
-    @Data
-    @Builder
     public static class detailRes {
 
         private Long articleId;
@@ -42,5 +46,6 @@ public class ArticleDto {
         private String title;
         private String content;
         private String createdAt;
+        private List<CommentDto.basicRes> comments;
     }
 }

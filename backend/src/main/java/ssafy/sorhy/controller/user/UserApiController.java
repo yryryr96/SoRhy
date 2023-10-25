@@ -2,7 +2,9 @@ package ssafy.sorhy.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
@@ -27,26 +29,28 @@ public class UserApiController {
         return new Response(201, "회원가입에 성공했습니다.", response);
     }
 
+    @GetMapping("/profile")
+    public Response<UserDto.profileRes> profile(Authentication authentication) {
 
-    @GetMapping("/login")
-    public String login() {
-        return "login";
+        String nickname = authentication.getName();
+        UserDto.profileRes response = userService.findProfileByNickname(nickname);
+
+        return new Response(200, "프로필 조회 성공", response);
     }
 
     @PostMapping("/login")
-    public ResponseEntity<String> login(@RequestBody UserDto.loginReq request) {
-        return ResponseEntity.ok(userService.login(request));
+    public Response<String> login(@RequestBody UserDto.loginReq request) {
+        return new Response(200, "로그인 성공", userService.login(request));
     }
 
     @GetMapping("/users")
-    public List<User> findAll() {
+    public List<User> findAll(Authentication authentication) {
         return userService.findAll();
     }
 
     @GetMapping("/{nickname}")
     public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
-
         UserDto.findRes response = userService.findByNickname(nickname);
-        return new Response(201,"닉네임으로 유저 전적 조회 성공", response);
+        return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
     }
 }

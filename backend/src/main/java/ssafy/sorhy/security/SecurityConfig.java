@@ -32,22 +32,25 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http
+       http
                 .csrf().disable()
                 .cors()
+
                 .and()
                 .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+
                 .and()
                 .formLogin().disable()
-//                .httpBasic().disable()
+                .httpBasic().disable()
                 .authorizeHttpRequests()
-//                    .requestMatchers(new AntPathRequestMatcher("/hello")).permitAll()
-//                    .requestMatchers(new AntPathRequestMatcher("/user/join")).permitAll()
-//                    .requestMatchers(new AntPathRequestMatcher("/user/login")).permitAll()
                     .antMatchers("/health/check").permitAll()
-                    .antMatchers("/user/join").permitAll()
-                    .antMatchers("/user/login").permitAll()
+                    .antMatchers("/user/profile").authenticated()
+                    .antMatchers("/user/**").permitAll()
+                    .antMatchers("/article/**").permitAll()
+                    .antMatchers("/articles").permitAll()
+                    .antMatchers("/game").permitAll()
                     .anyRequest().authenticated()
+
                 .and()
                 .addFilterBefore(new JwtFilter(secretKey), UsernamePasswordAuthenticationFilter.class);
 

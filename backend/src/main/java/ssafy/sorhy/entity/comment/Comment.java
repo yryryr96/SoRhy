@@ -24,6 +24,8 @@ public class Comment {
     private Long id;
 
     private String content;
+
+    @Builder.Default
     private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     @ManyToOne(fetch = FetchType.LAZY)

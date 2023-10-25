@@ -34,7 +34,7 @@ public class ArticleService {
         List<Article> articles = articleRepository.findAll();
 
         return articles.stream()
-                .map(article -> article.toBasicRes())
+                .map(Article::toBasicRes)
                 .collect(Collectors.toList());
     }
 

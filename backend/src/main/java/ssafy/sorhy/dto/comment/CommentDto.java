@@ -21,7 +21,6 @@ public class CommentDto {
     @Data
     public static class saveReq {
 
-        private String nickname;
         private String content;
     }
 }
