@@ -54,4 +54,6 @@ public class UserApiController {
         UserDto.findRes response = userService.findByNickname(nickname);
         return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
     }
+
+
 }

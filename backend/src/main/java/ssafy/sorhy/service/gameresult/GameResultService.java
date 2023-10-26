@@ -10,7 +10,7 @@ import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.entity.UserTeam;
+import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
@@ -43,13 +43,12 @@ public class GameResultService {
                 .score(request.getScore())
                 .characterId(request.getCharacterId())
                 .winner(request.isWinner())
-                .userTeam(UserTeam.valueOf(request.getTeam()))
+                .team(Team.valueOf(request.getTeam()))
                 .build();
 
 
         int score = gameResult.getScore();
-        findUser.updateTotalScore(score);
-        findUser.getCompany().updateCompanyScore(score);
+        findUser.updateScoreAndWinOrLose(score, gameResult.isWinner());
         gameResultRepository.save(gameResult);
         return gameResult.toSaveResDto(gameResult);
     }

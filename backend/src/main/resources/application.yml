@@ -1,10 +1,10 @@
 #spring
 spring:
   datasource:
-    url: jdbc:h2:tcp://localhost/~/sorhy
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://3.35.231.14:3306/sorhy?useSSL=false&serverTimezone=Asia/Seoul&characterEncoding=UTF-8
+    username: root
+    password: ssafy
+    driver-class-name: com.mysql.cj.jdbc.Driver
 
   jpa:
     hibernate:

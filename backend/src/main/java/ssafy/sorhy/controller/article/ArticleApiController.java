@@ -6,6 +6,8 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
+import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.util.Response;
 
@@ -17,11 +19,12 @@ import java.util.List;
 public class ArticleApiController {
 
     private final ArticleService articleService;
+    private final ArticleRepository articleRepository;
 
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
             @RequestPart String data,
-            @RequestPart MultipartFile file,
+            @RequestPart(required = false) MultipartFile file,
             Authentication authentication) throws IOException {
 
         ObjectMapper mapper = new ObjectMapper();
@@ -39,11 +42,36 @@ public class ArticleApiController {
         return new Response(200, "게시글 전체 조회 성공", response);
     }
 
+
     @GetMapping("/article/{articleId}")
     public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
 
         ArticleDto.detailRes response = articleService.findById(articleId);
         return new Response(200, "게시글을 조회했습니다.", response);
     }
+
+    @PutMapping("/article/{articleId}")
+    public Response<String> update(@PathVariable Long articleId,
+                                   @RequestBody ArticleDto.saveReq request,
+                                   Authentication authentication) {
+
+        String response = articleService.update(articleId, authentication.getName(), request);
+        return new Response(200, "게시글 수정 성공", response);
+    }
+
+    @DeleteMapping("/article/{articleId}")
+    public Response<String> delete(@PathVariable Long articleId,
+                                   Authentication authentication) {
+
+        Article article = articleRepository.findById(articleId).get();
+        if (article.getUser().getNickname().equals(authentication.getName())) {
+            articleRepository.delete(article);
+            return new Response(204, "게시글 삭제 완료", "ok");
+        } else {
+            throw new IllegalAccessError("글 작성자가 아닙니다.");
+        }
+
+    }
+
 
 }

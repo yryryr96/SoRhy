@@ -48,4 +48,16 @@ public class ArticleService {
         Article article = articleRepository.findById(articleId).get();
         return article.toDetailRes();
     }
+
+    public String update(Long articleId, String nickname, ArticleDto.saveReq request) {
+
+        Article article = articleRepository.findById(articleId).get();
+
+        if(article.getUser().getNickname().equals(nickname)) {
+            article.update(request);
+            return "ok";
+        } else {
+            throw new IllegalArgumentException("글 작성자가 아닙니다.");
+        }
+    }
 }

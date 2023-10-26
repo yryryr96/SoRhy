@@ -44,6 +44,10 @@ public class UserDto {
 
         private String nickname;
         private int totalScore;
+        private String companyName;
+        private int win;
+        private int lose;
+        private float winPercentage;
         private List<GameResultDto.basicRes> gameResults;
     }
 
@@ -62,9 +66,9 @@ public class UserDto {
         private int totalScore;
         private Long articleCount;
         private Long commentCount;
-//        private String companyName;
-        // private int win;
-        // private int lose;
-        // private int winPercentage;
+        private String companyName;
+        private int win;
+        private int lose;
+        private float winPercentage;
     }
 }

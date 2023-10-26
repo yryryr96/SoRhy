@@ -38,8 +38,13 @@ public class Article {
     @JoinColumn(name = "user_id")
     private User user;
 
-    @OneToMany(mappedBy = "article")
+    @OneToMany(mappedBy = "article", cascade = CascadeType.ALL)
     private List<Comment> comments = new ArrayList<>();
+
+    public void update(ArticleDto.saveReq dto) {
+        this.title = dto.getTitle();
+        this.content = dto.getContent();
+    }
 
     public ArticleDto.basicRes toBasicRes() {
 

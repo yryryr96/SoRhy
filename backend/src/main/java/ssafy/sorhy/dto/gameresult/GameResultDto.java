@@ -3,7 +3,7 @@ package ssafy.sorhy.dto.gameresult;
 import lombok.Builder;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
-import ssafy.sorhy.entity.UserTeam;
+import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
 
 @Data
@@ -17,7 +17,7 @@ public class GameResultDto {
         private GameTitle gameTitle;
         private int score;
         private Long characterId;
-        private UserTeam team;
+        private Team team;
         private boolean winner;
         private String createdAt;
     }
@@ -38,7 +38,7 @@ public class GameResultDto {
 
         private Long gameId;
         private int score;
-        private UserTeam team;
+        private Team team;
         private Long characterId;
         private boolean winner;
     }

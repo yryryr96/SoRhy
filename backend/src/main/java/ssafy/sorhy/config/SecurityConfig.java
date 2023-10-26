@@ -46,10 +46,10 @@ public class SecurityConfig {
                     .antMatchers("/health/check").permitAll()
                     .antMatchers("/user/profile").authenticated()
                     .antMatchers("/user/**").permitAll()
-                    .antMatchers("/article/**").permitAll()
-                    .antMatchers("/articles").permitAll()
+                    .antMatchers(HttpMethod.GET,"/article/**").permitAll()
+                    .antMatchers(HttpMethod.GET,"/articles").permitAll()
                     .antMatchers("/game").permitAll()
-                    .antMatchers("/rank").permitAll()
+                    .antMatchers(HttpMethod.GET,"/rank/**").permitAll()
                     .antMatchers("/upload").permitAll()
                     .anyRequest().authenticated()
 

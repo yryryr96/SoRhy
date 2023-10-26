@@ -4,11 +4,11 @@ import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.annotation.Rollback;
-import ssafy.sorhy.entity.*;
 import ssafy.sorhy.dto.gameresult.MatchRequestDto;
 import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.game.GameType;
+import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.user.UserRepository;
@@ -56,14 +56,14 @@ class GameResultServiceTest {
                         .gameId(game.getId())
                         .userId(user1.getId())
                         .score(10)
-                        .team(UserTeam.RED)
+                        .team(Team.RED)
                         .build();
 
         MatchRequestDto dto2 = MatchRequestDto.builder()
                 .gameId(game.getId())
                 .userId(user2.getId())
                 .score(20)
-                .team(UserTeam.BLUE)
+                .team(Team.BLUE)
                 .build();
 
         gameResultService.save(dto1);
