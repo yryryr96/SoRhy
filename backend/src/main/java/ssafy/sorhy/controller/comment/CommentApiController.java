@@ -21,6 +21,6 @@ public class CommentApiController {
     public Response<CommentDto.basicRes> save(@PathVariable Long articleId, @RequestBody CommentDto.saveReq request, Authentication authentication) {
 
         String nickname = authentication.getName();
-        return new Response(200, "댓글 생성 완료", commentService.save(articleId, nickname, request));
+        return new Response(201, "댓글 생성 완료", commentService.save(articleId, nickname, request));
     }
 }

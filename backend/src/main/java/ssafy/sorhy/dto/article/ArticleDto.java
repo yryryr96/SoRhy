@@ -27,12 +27,13 @@ public class ArticleDto {
         private String title;
         private String content;
 
-        public Article toEntity(User user) {
+        public Article toEntity(User user, String imgUrl) {
 
             return Article.builder()
                     .user(user)
                     .title(this.title)
                     .content(this.content)
+                    .imgUrl(imgUrl)
                     .build();
         }
     }
@@ -46,6 +47,7 @@ public class ArticleDto {
         private String title;
         private String content;
         private String createdAt;
+        private String imgUrl;
         private List<CommentDto.basicRes> comments;
     }
 }

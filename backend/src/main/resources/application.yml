@@ -1,3 +1,4 @@
+#spring
 spring:
   datasource:
     url: jdbc:h2:tcp://localhost/~/sorhy
@@ -21,5 +22,21 @@ logging.level:
   org.hibernate.SQL: debug
   org.hibernate.type: trace
 
+#cloud
+cloud:
+  aws:
+    s3:
+      bucket: ssafy-bucket
+    region:
+      static: ap-northeast-2
+    stack:
+      auto: false
+    credentials:
+      access-key: AKIAW6YCIM2HS7A3RE2N
+      secret-key: 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
+
+
+
+# jwt
 jwt:
   secret: akjldfadlksjflkflkasndf!@$!@$slakdfklasdnfasi;ofnsad;ifasndf;lsdfknfdslkf

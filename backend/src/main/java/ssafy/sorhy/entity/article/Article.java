@@ -29,6 +29,7 @@ public class Article {
 
     private String title;
     private String content;
+    private String imgUrl;
 
     @Builder.Default
     private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
@@ -58,6 +59,7 @@ public class Article {
                 .title(this.title)
                 .content(this.content)
                 .createdAt(this.createdAt)
+                .imgUrl(this.imgUrl)
                 .comments(getCommentBasicResList())
                 .build();
     }

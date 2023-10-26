@@ -3,12 +3,15 @@ package ssafy.sorhy.service.article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.s3.S3UploadService;
 
+import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,13 +20,15 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class ArticleService {
 
+    private final S3UploadService s3UploadService;
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
-    public ArticleDto.basicRes save(String nickname, ArticleDto.saveReq request) {
+    public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq data) throws IOException {
 
         User user = userRepository.findByNickname(nickname);
-        Article article = request.toEntity(user);
+        String imgUrl = s3UploadService.uploadFile(file);
+        Article article = data.toEntity(user,imgUrl);
         articleRepository.save(article);
 
         return article.toBasicRes();

@@ -1,4 +1,4 @@
-package ssafy.sorhy.security;
+package ssafy.sorhy.config;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
@@ -50,6 +50,7 @@ public class SecurityConfig {
                     .antMatchers("/articles").permitAll()
                     .antMatchers("/game").permitAll()
                     .antMatchers("/rank").permitAll()
+                    .antMatchers("/upload").permitAll()
                     .anyRequest().authenticated()
 
                 .and()
