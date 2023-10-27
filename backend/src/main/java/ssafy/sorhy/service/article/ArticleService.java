@@ -3,6 +3,7 @@ package ssafy.sorhy.service.article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
@@ -11,6 +12,7 @@ import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.s3.S3UploadService;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -26,8 +28,15 @@ public class ArticleService {
 
     public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq data) throws IOException {
 
+        String imgUrl;
         User user = userRepository.findByNickname(nickname);
-        String imgUrl = s3UploadService.uploadFile(file);
+
+        if (file != null) {
+            imgUrl = s3UploadService.uploadFile(file);
+        } else {
+            imgUrl = null;
+        }
+
         Article article = data.toEntity(user,imgUrl);
         articleRepository.save(article);
 

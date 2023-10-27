@@ -6,6 +6,8 @@ import lombok.RequiredArgsConstructor;
 import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 @RequiredArgsConstructor
 public class GameResultDto {
@@ -25,10 +27,15 @@ public class GameResultDto {
     @Data
     public static class saveReq {
 
+        @NotBlank
         private Long gameId;
+        @NotBlank
         private int score;
+        @NotBlank
         private String team;
+        @NotBlank(message = "캐릭터 아이디를 입력해주세요.")
         private Long characterId;
+        @NotBlank(message = "승패를 입력해주세요.")
         private boolean winner;
     }
 

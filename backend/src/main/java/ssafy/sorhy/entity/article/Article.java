@@ -4,12 +4,15 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.user.User;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotEmpty;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -28,7 +31,10 @@ public class Article {
     private Long id;
 
     private String title;
+
     private String content;
+
+    @Nullable
     private String imgUrl;
 
     @Builder.Default

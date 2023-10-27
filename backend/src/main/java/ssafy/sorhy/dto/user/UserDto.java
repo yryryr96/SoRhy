@@ -7,6 +7,8 @@ import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.gameresult.GameResult;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
 import java.util.List;
 
 @Data
@@ -15,15 +17,18 @@ public class UserDto {
     @Data
     public static class joinReq {
 
-        private String email;
-        private String password;
+        @NotBlank(message = "닉네임을 입력해주세요.")
         private String nickname;
+
+        @NotBlank(message = "비밀번호를 입력해주세요.")
+        private String password;
+
+        @NotBlank(message = "회사를 선택해주세요.")
         private Long companyId;
 
         public User toEntity(Company company) {
 
             return User.builder()
-                    .email(this.email)
                     .password(this.password)
                     .nickname(this.nickname)
                     .company(company)
@@ -54,7 +59,9 @@ public class UserDto {
     @Data
     public static class loginReq {
 
+        @NotBlank
         private String nickname;
+        @NotBlank
         private String password;
     }
 

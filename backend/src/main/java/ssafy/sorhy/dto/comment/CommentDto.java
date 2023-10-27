@@ -5,6 +5,8 @@ import lombok.Data;
 import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.user.User;
 
+import javax.validation.constraints.NotBlank;
+
 @Data
 public class CommentDto {
 
@@ -21,6 +23,7 @@ public class CommentDto {
     @Data
     public static class saveReq {
 
+        @NotBlank
         private String content;
     }
 }

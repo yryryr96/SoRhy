@@ -11,6 +11,7 @@ import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.util.Response;
 
+import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,15 +24,13 @@ public class ArticleApiController {
 
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
-            @RequestPart String data,
+            @RequestPart @Valid ArticleDto.saveReq data,
             @RequestPart(required = false) MultipartFile file,
             Authentication authentication) throws IOException {
 
-        ObjectMapper mapper = new ObjectMapper();
-        ArticleDto.saveReq req = mapper.readValue(data, ArticleDto.saveReq.class);
 
         String nickname = authentication.getName();
-        ArticleDto.basicRes response = articleService.save(nickname, file, req);
+        ArticleDto.basicRes response = articleService.save(nickname, file, data);
         return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
     }
 

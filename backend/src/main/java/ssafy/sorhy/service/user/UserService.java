@@ -3,24 +3,18 @@ package ssafy.sorhy.service.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.authentication.AuthenticationManager;
-import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
-import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.exception.AlreadyExistException;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
-import ssafy.sorhy.util.Response;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -43,10 +37,10 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     // 계정 저장
-    public UserDto.joinRes save(UserDto.joinReq request) {
+    public UserDto.joinRes save(UserDto.joinReq request) throws AlreadyExistException {
 
         if (userRepository.existsByNickname(request.getNickname())) {
-            throw new RuntimeException("닉네임이 이미 존재합니다.");
+            throw new AlreadyExistException();
         }
 
         Company company = companyRepository.findById(request.getCompanyId()).get();
@@ -62,7 +56,7 @@ public class UserService {
 
         User user = userRepository.findByNickname(request.getNickname());
         if (encoder.matches(request.getPassword(), user.getPassword())) {
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60); // 만료시간 60분
+            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24); // 만료시간 60분
             return token;
         } else {
             throw new RuntimeException("계정 정보가 일치하지 않습니다.");

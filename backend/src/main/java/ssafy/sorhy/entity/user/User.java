@@ -25,9 +25,9 @@ public class User {
     @Column(name = "user_id")
     private Long id;
 
-    private String email;
-    private String password;
+    @Column(unique = true)
     private String nickname;
+    private String password;
 
     @Builder.Default
     private int win = 0;

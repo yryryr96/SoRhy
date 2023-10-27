@@ -8,6 +8,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.exception.AlreadyExistException;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.Response;
 
@@ -23,7 +24,7 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public Response<UserDto.joinRes> save(@RequestBody UserDto.joinReq request) {
+    public Response<UserDto.joinRes> save(@RequestBody UserDto.joinReq request) throws AlreadyExistException {
 
         UserDto.joinRes response = userService.save(request);
 
