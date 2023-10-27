@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.user.UserService;
-import ssafy.sorhy.util.Response;
+import ssafy.sorhy.util.response.Response;
 
 @RestController
 @RequiredArgsConstructor

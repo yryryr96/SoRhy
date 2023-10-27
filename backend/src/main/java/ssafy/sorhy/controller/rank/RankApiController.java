@@ -1,12 +1,10 @@
 package ssafy.sorhy.controller.rank;
 
-import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.service.gameresult.GameResultService;
-import ssafy.sorhy.util.Response;
+import ssafy.sorhy.util.response.Response;
 
 import java.util.List;
 

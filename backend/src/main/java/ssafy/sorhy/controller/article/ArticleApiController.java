@@ -1,6 +1,5 @@
 package ssafy.sorhy.controller.article;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
@@ -9,7 +8,7 @@ import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.service.article.ArticleService;
-import ssafy.sorhy.util.Response;
+import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
 import java.io.IOException;

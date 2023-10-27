@@ -7,7 +7,7 @@ import ssafy.sorhy.dto.game.SaveGameDto;
 import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.service.game.GameService;
-import ssafy.sorhy.util.Response;
+import ssafy.sorhy.util.response.Response;
 
 import java.util.List;
 

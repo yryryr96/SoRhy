@@ -2,18 +2,15 @@ package ssafy.sorhy.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.slf4j.LoggerFactory;
-import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.AlreadyExistException;
 import ssafy.sorhy.service.user.UserService;
-import ssafy.sorhy.util.Response;
+import ssafy.sorhy.util.response.Response;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor

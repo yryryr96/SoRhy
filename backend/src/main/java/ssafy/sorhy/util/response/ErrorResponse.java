@@ -1,4 +1,4 @@
-package ssafy.sorhy.util;
+package ssafy.sorhy.util.response;
 
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
