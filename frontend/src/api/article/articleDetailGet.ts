@@ -1,0 +1,1 @@
+// article 세부 조회 Get

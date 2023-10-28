@@ -1,0 +1,1 @@
+//article 전체 조회 Get
