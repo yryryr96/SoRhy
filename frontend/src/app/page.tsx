@@ -1,10 +1,14 @@
-import Image from 'next/image'
+import { Metadata } from "next";
+import MainPage from "@/pageComponents/mainPage";
+
+export const metadata: Metadata = {
+  title: "SoRhy",
+};
+
 export default function Home() {
   return (
     <>
-      <div>
-          레츠고 ~ 밥묵자이~
-      </div>
+      <MainPage></MainPage>
     </>
   )
 }
