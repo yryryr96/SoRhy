@@ -8,6 +8,7 @@ import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.exception.NotValidUserException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.s3.S3UploadService;
@@ -66,7 +67,7 @@ public class ArticleService {
             article.update(request);
             return "ok";
         } else {
-            throw new IllegalArgumentException("글 작성자가 아닙니다.");
+            throw new NotValidUserException("글 작성자가 아닙니다.");
         }
     }
 }

@@ -43,6 +43,16 @@ public class ExceptionHandlerAdvisor {
         return new ResponseEntity(errorResponse, HttpStatus.CONFLICT);
     }
 
+    @ExceptionHandler(NotValidUserException.class)
+    public ResponseEntity<ErrorResponse> handleAuthorityUser(NotValidUserException ex, HttpServletRequest req) {
+
+        String message = ex.getMessage();
+        ErrorResponse errorResponse = new ErrorResponse(401, "권한이 없는 사용자입니다.", message);
+
+        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
+        return new ResponseEntity(errorResponse, HttpStatus.UNAUTHORIZED);
+    }
+
     @ExceptionHandler(NullPointerException.class)
     public ResponseEntity<ErrorResponse> handleNullpointException(NullPointerException ex, HttpServletRequest req) {
 

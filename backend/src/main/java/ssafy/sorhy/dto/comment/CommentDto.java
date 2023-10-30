@@ -14,7 +14,7 @@ public class CommentDto {
     @Builder
     public static class basicRes {
 
-        private Long articleId;
+        private Long commentId;
         private String nickname;
         private String content;
         private String createdAt;

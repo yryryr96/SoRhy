@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.exception.NotValidUserException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.util.response.Response;
@@ -66,7 +67,7 @@ public class ArticleApiController {
             articleRepository.delete(article);
             return new Response(204, "게시글 삭제 완료", "ok");
         } else {
-            throw new IllegalAccessError("글 작성자가 아닙니다.");
+            throw new NotValidUserException("글 작성자가 아닙니다.");
         }
 
     }

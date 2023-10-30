@@ -11,7 +11,7 @@ import java.time.format.DateTimeFormatter;
 public class ErrorResponse {
 
     private final String timestamp = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
-    private final int statusCode;
+    private final int code;
     private final String message;
     private final String detail;
 }

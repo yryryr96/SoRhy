@@ -39,10 +39,15 @@ public class Comment {
     public CommentDto.basicRes toBasicRes() {
 
         return CommentDto.basicRes.builder()
-                .articleId(this.article.getId())
+                .commentId(this.id)
                 .nickname(this.user.getNickname())
                 .content(this.content)
                 .createdAt(this.createdAt)
                 .build();
+    }
+
+    public void update(CommentDto.saveReq request) {
+
+        this.content = request.getContent();
     }
 }

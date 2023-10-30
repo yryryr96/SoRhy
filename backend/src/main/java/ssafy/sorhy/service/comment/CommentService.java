@@ -7,6 +7,7 @@ import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.exception.NotValidUserException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
@@ -32,5 +33,29 @@ public class CommentService {
 
         Comment saveComment = commentRepository.save(comment);
         return saveComment.toBasicRes();
+    }
+
+    public String delete(Long commentId, String nickname) {
+
+        Comment comment = commentRepository.findById(commentId).get();
+        if (nickname.equals(comment.getUser().getNickname())) {
+
+            commentRepository.delete(comment);
+            return "delete success";
+        } else {
+            throw new NotValidUserException("댓글 작성자가 아닙니다.");
+        }
+    }
+
+    public String update(Long commentId, String nickname, CommentDto.saveReq request) {
+
+        Comment comment = commentRepository.findById(commentId).get();
+
+        if (comment.getUser().getNickname().equals(nickname)) {
+            comment.update(request);
+            return "update success!";
+        } else {
+            throw new NotValidUserException("댓글 작성자가 아닙니다.");
+        }
     }
 }
