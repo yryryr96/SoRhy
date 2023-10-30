@@ -111,7 +111,9 @@ public class User {
                 .collect(Collectors.toList());
     }
 
-    public UserDto.profileRes toProfileDto(Long articleCount, Long commentCount) {
+    public UserDto.profileRes toProfileDto(Long articleCount,
+                                           Long commentCount,
+                                           List<GameResultDto.top3Character> top3CharacterList) {
 
         return UserDto.profileRes.builder()
                 .nickname(this.nickname)
@@ -122,6 +124,7 @@ public class User {
                 .win(this.win)
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
+                .top3CharacterList(top3CharacterList)
                 .build();
     }
 }
