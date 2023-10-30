@@ -96,13 +96,8 @@ export const useLoginHook = () => {
                 console.log(res.data.data)
                 localStorage.setItem("nickname", user.nickname)
                 localStorage.setItem("password", user.password)
-<<<<<<< Updated upstream
-                // localStorage.setItem("accessToken", res.data.response.accessToken)
-                // localStorage.setItem("refreshToken", res.data.response.refreshToken)
-=======
                 localStorage.setItem("accessToken", res.data.data)
                 
->>>>>>> Stashed changes
                 login();
                 
                 if (isRemember) {

@@ -1,7 +1,6 @@
 'use client'
 
 import StyledComponentsRegistry from "./lib/registry";
-import Navbar from "@/components/common/navbar";
 import "../styles/globals.css";
 import { ThemeProvider } from "styled-components";
 import theme from "@/styles/DefaultTheme";
