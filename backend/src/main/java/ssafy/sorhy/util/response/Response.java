@@ -11,6 +11,6 @@ public class Response<T> {
 
     private int code;
     private String message;
-    private T data;
+    private T result;
 
 }
