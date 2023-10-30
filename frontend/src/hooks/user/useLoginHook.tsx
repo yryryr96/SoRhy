@@ -66,8 +66,7 @@ export const useLoginHook = () => {
 
     const handleSubmit = async (e:any) => {
         e.preventDefault()
-        console.log(user.nickname,"야")
-        console.log(user.password,"야")
+
         if (user.nickname === "") {
             setInputState({
                 ...inputState,
@@ -91,13 +90,19 @@ export const useLoginHook = () => {
                 const res = await axios({
                   method: 'post',
                   url: `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
-                  data: { ...user },
+                  data : {...user}
                 });
-
+                console.log(res)
+                console.log(res.data.data)
                 localStorage.setItem("nickname", user.nickname)
                 localStorage.setItem("password", user.password)
-                localStorage.setItem("accessToken", res.data.response.accessToken)
-                localStorage.setItem("refreshToken", res.data.response.refreshToken)
+<<<<<<< Updated upstream
+                // localStorage.setItem("accessToken", res.data.response.accessToken)
+                // localStorage.setItem("refreshToken", res.data.response.refreshToken)
+=======
+                localStorage.setItem("accessToken", res.data.data)
+                
+>>>>>>> Stashed changes
                 login();
                 
                 if (isRemember) {
