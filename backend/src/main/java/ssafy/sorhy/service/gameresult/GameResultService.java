@@ -46,7 +46,6 @@ public class GameResultService {
                 .team(Team.valueOf(request.getTeam()))
                 .build();
 
-
         int score = gameResult.getScore();
         findUser.updateScoreAndWinOrLose(score, gameResult.isWinner());
         gameResultRepository.save(gameResult);

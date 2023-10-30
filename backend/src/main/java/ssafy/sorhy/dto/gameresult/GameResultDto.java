@@ -1,8 +1,6 @@
 package ssafy.sorhy.dto.gameresult;
 
-import lombok.Builder;
-import lombok.Data;
-import lombok.RequiredArgsConstructor;
+import lombok.*;
 import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
 
@@ -66,5 +64,18 @@ public class GameResultDto {
 
         private String companyName;
         private int companyScore;
+    }
+
+    @Data
+    @NoArgsConstructor
+    public static class top3Character {
+
+        private Long characterId;
+        private Long cnt;
+
+        public top3Character(Long characterId, Long cnt) {
+            this.characterId = characterId;
+            this.cnt = cnt;
+        }
     }
 }

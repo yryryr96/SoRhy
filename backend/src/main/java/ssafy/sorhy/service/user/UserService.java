@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
@@ -72,7 +73,6 @@ public class UserService {
         return user.toProfileDto(articleCount, commentCount);
     }
 
-    
     // 전체 유저 조회
     public List<User> findAll() {
 
@@ -82,7 +82,17 @@ public class UserService {
     // 유저 닉네임으로 유저 정보 조회
     public UserDto.findRes findByNickname(String nickname) {
 
+        List<GameResultDto.top3Character> resultList = em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
+                        "from GameResult gr " +
+                        "join gr.user u " +
+                        "where u.nickname = :nickname " +
+                        "group by gr.characterId " +
+                        "order by count(gr.characterId) desc", GameResultDto.top3Character.class)
+                .setParameter("nickname", nickname)
+                .setMaxResults(3)
+                .getResultList();
+
         User findUser = userRepository.findByNickname(nickname);
-        return findUser.toFindDto();
+        return findUser.toFindDto(resultList);
     }
 }

@@ -53,6 +53,7 @@ public class UserDto {
         private int win;
         private int lose;
         private float winPercentage;
+        private List<GameResultDto.top3Character> top3CharacterList;
         private List<GameResultDto.basicRes> gameResults;
     }
 

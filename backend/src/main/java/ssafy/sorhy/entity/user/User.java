@@ -65,6 +65,10 @@ public class User {
         } else {
             this.lose += 1;
         }
+
+        if (this.win != 0 || this.lose != 0) {
+            this.winPercentage = ((float) this.win / (this.win + this.lose)) * 100;
+        }
     }
 
     public User hashPassword(BCryptPasswordEncoder encoder) {
@@ -79,7 +83,7 @@ public class User {
                 .build();
     }
 
-    public UserDto.findRes toFindDto() {
+    public UserDto.findRes toFindDto(List<GameResultDto.top3Character> top3CharacterList) {
 
         return UserDto.findRes.builder()
                 .nickname(this.nickname)
@@ -88,6 +92,7 @@ public class User {
                 .win(this.win)
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
+                .top3CharacterList(top3CharacterList)
                 .gameResults(getGameResultBasicDtoList())
                 .build();
     }
@@ -107,10 +112,6 @@ public class User {
     }
 
     public UserDto.profileRes toProfileDto(Long articleCount, Long commentCount) {
-
-        if (this.win != 0 || this.lose != 0) {
-            this.winPercentage = ((float) this.win / (this.win + this.lose)) * 100;
-        }
 
         return UserDto.profileRes.builder()
                 .nickname(this.nickname)
