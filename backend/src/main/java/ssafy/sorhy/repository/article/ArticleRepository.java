@@ -18,4 +18,6 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
     List<Article> findByNicknameOrderByDesc(@Param("nickname") String nickname);
 
     List<Article> findByContentContaining(String word);
+
+    List<Article> findByTitleContainingOrContentContainingOrderByIdDesc(String title, String content);
 }

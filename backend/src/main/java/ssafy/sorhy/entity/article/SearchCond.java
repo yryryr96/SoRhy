@@ -1,5 +1,5 @@
 package ssafy.sorhy.entity.article;
 
 public enum SearchCond {
-    TITLE, CONTENT, NICKNAME
+    NONE, TITLE, CONTENT, NICKNAME
 }

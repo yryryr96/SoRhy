@@ -74,6 +74,11 @@ public class ArticleService {
 
         String word = request.getWord();
 
+        if (SearchCond.NONE == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            return toDtoList(articleRepository.findByTitleContainingOrContentContainingOrderByIdDesc(word, word));
+        }
+
         if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
 
             return toDtoList(articleRepository.findByTitleContainingOrderByIdDesc(word));
@@ -92,9 +97,9 @@ public class ArticleService {
         throw new IllegalStateException("검색 조건이 유효하지 않습니다.");
     }
 
-    private List<ArticleDto.basicRes> toDtoList(List<Article> entityList) {
+    private List<ArticleDto.basicRes> toDtoList(List<Article> articleList) {
 
-        return entityList.stream()
+        return articleList.stream()
                 .map(Article::toBasicRes)
                 .collect(Collectors.toList());
     }
