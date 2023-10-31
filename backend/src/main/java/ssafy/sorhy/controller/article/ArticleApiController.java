@@ -75,7 +75,6 @@ public class ArticleApiController {
     public Response<List<ArticleDto.basicRes>> searchArticle(@RequestBody ArticleDto.searchReq request) {
 
         List<ArticleDto.basicRes> response = articleService.searchArticle(request);
-
         return new Response(200, "검색 성공", response);
     }
 
