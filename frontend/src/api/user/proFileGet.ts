@@ -2,15 +2,15 @@
 
 import api from "../api";
 
-const profileGet = async (accessToken:any) => {
+const profileGet = async (accessToken: any) => {
     const response = await api({
-      method: 'get',
-      url: `/user/profile`,
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-      return response
-  } 
+        method: "get",
+        url: `/user/profile`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    return response;
+};
 
-  export default profileGet
+export default profileGet;

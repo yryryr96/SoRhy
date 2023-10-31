@@ -1,14 +1,14 @@
 import api from "../api";
 
-const loginGet = async (accessToken:any) => {
+const loginGet = async (accessToken: any) => {
     const response = await api({
-      method: 'get',
-      url: `/user/login`,
-      headers: {
-        Authorization: `Bearer ${accessToken}`
-      }
-    })
-      return response
-  } 
+        method: "get",
+        url: `/user/login`,
+        headers: {
+            Authorization: `Bearer ${accessToken}`,
+        },
+    });
+    return response;
+};
 
-  export default loginGet
+export default loginGet;

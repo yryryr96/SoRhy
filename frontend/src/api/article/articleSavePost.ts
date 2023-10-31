@@ -2,21 +2,20 @@
 
 import api from "../api";
 
-const articleSavePost = async (articleDatas : any) => {
-  try {
-    const accessToken = localStorage.getItem("accessToken");
-    const response = await api.post("/article", articleDatas,{
-        headers: {
-            Authorization: `Bearer ${accessToken}`
-        }
-    });
-   
+const articleSavePost = async (articleDatas: any) => {
+    try {
+        const accessToken = localStorage.getItem("accessToken");
+        const response = await api.post("/article", articleDatas, {
+            headers: {
+                Authorization: `Bearer ${accessToken}`,
+            },
+        });
 
-    return response.data.response;
-  } catch (error) {
-    console.error("Error: ", error);
-    throw error;
-  }
+        return response.data.response;
+    } catch (error) {
+        console.error("Error: ", error);
+        throw error;
+    }
 };
 
 export default articleSavePost;

@@ -3,16 +3,16 @@
 import api from "../api";
 
 const signupPost = async (user: any) => {
-  try {
-    const res = await api({
-      method: "post",
-      url: "/user/join",
-      data: { ...user },
-    });
-    return res;
-  } catch (err) {
-    throw err;
-  }
+    try {
+        const res = await api({
+            method: "post",
+            url: "/user/join",
+            data: { ...user },
+        });
+        return res;
+    } catch (err) {
+        throw err;
+    }
 };
 
 export default signupPost;

@@ -1,11 +1,7 @@
 "use client";
 
 const MainPage = () => {
-  return (
-    <>
-        MainPage
-    </>
-  );
+    return <>MainPage</>;
 };
 
 export default MainPage;
