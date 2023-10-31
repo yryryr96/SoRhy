@@ -56,7 +56,7 @@ public class SecurityConfig {
                     .antMatchers("/user/profile").authenticated()
                     .antMatchers("/user/**").permitAll()
                     .antMatchers(HttpMethod.GET,"/article/**").permitAll()
-                    .antMatchers(HttpMethod.GET,"/articles").permitAll()
+                    .antMatchers(HttpMethod.GET,"/articles/**").permitAll()
                     .antMatchers("/game").permitAll()
                     .antMatchers(HttpMethod.GET,"/rank/**").permitAll()
                     .anyRequest().authenticated()

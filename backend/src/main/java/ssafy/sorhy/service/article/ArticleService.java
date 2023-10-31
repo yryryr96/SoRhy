@@ -3,17 +3,16 @@ package ssafy.sorhy.service.article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.NotValidUserException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.s3.S3UploadService;
 
-import javax.validation.Valid;
 import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -69,5 +68,34 @@ public class ArticleService {
         } else {
             throw new NotValidUserException("글 작성자가 아닙니다.");
         }
+    }
+
+    public List<ArticleDto.basicRes> searchArticle(ArticleDto.searchReq request) {
+
+        String word = request.getWord();
+
+        if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            return toDtoList(articleRepository.findByTitleContainingOrderByIdDesc(word));
+        }
+
+        if (SearchCond.USER == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            return toDtoList(articleRepository.findByNicknameOrderByDesc(word));
+        }
+
+        if (SearchCond.CONTENT == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            return toDtoList(articleRepository.findByContentContaining(word));
+        }
+
+        throw new IllegalStateException("검색 조건이 유효하지 않습니다.");
+    }
+
+    private List<ArticleDto.basicRes> toDtoList(List<Article> entityList) {
+
+        return entityList.stream()
+                .map(Article::toBasicRes)
+                .collect(Collectors.toList());
     }
 }

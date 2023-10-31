@@ -69,8 +69,14 @@ public class ArticleApiController {
         } else {
             throw new NotValidUserException("글 작성자가 아닙니다.");
         }
-
     }
 
+    @GetMapping("/articles/search")
+    public Response<List<ArticleDto.basicRes>> searchArticle(@RequestBody ArticleDto.searchReq request) {
+
+        List<ArticleDto.basicRes> response = articleService.searchArticle(request);
+
+        return new Response(200, "검색 성공", response);
+    }
 
 }

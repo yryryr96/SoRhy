@@ -5,6 +5,7 @@ import lombok.Data;
 import org.hibernate.validator.constraints.Length;
 import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
 
 import javax.validation.constraints.NotBlank;
@@ -54,5 +55,12 @@ public class ArticleDto {
         private String createdAt;
         private String imgUrl;
         private List<CommentDto.basicRes> comments;
+    }
+
+    @Data
+    public static class searchReq {
+
+        private String searchCond;
+        private String word;
     }
 }
