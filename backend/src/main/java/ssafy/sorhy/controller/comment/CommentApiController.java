@@ -1,6 +1,8 @@
 package ssafy.sorhy.controller.comment;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.comment.CommentDto;
@@ -9,13 +11,21 @@ import ssafy.sorhy.service.comment.CommentService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
+@RequestMapping("/article")
 public class CommentApiController {
 
     private final CommentService commentService;
-    private final CommentRepository commentRepository;
+
+    @GetMapping("/{articleId}/comment")
+    public Response<CommentDto.pagingRes> paging(@PathVariable Long articleId, @PageableDefault(size=5) Pageable pageable) {
+
+        CommentDto.pagingRes response = commentService.paging(articleId, pageable);
+        return new Response(200, "댓글 조회 성공", response);
+    }
 
     @PostMapping("/{articleId}/comment")
     public Response<CommentDto.basicRes> save(@PathVariable Long articleId, @RequestBody @Valid CommentDto.saveReq request, Authentication authentication) {

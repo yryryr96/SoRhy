@@ -1,6 +1,9 @@
 package ssafy.sorhy.service.comment;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.comment.CommentDto;
@@ -11,6 +14,9 @@ import ssafy.sorhy.exception.NotValidUserException;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Transactional
 @RequiredArgsConstructor
@@ -57,5 +63,17 @@ public class CommentService {
         } else {
             throw new NotValidUserException("댓글 작성자가 아닙니다.");
         }
+    }
+
+    public CommentDto.pagingRes paging(Long articleId, Pageable pageable) {
+
+        Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
+        return CommentDto.pagingRes.builder()
+                .comments(result.stream()
+                        .map(Comment::toBasicRes)
+                        .collect(Collectors.toList()))
+                .totalElement(result.getTotalElements())
+                .totalPage(result.getTotalPages())
+                .build();
     }
 }

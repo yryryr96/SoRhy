@@ -71,7 +71,6 @@ public class Article {
                 .content(this.content)
                 .createdAt(this.createdAt)
                 .imgUrl(this.imgUrl)
-                .comments(getCommentBasicResList())
                 .build();
     }
 

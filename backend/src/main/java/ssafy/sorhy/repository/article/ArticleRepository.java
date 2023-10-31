@@ -1,5 +1,7 @@
 package ssafy.sorhy.repository.article;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
@@ -9,15 +11,18 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
+
+    Page<Article> findAllByOrderByIdDesc(Pageable pageable);
+
     @Query("select count(a) from Article a where a.user.nickname = :nickname")
     Long countArticleByNickname(@Param("nickname") String nickname);
 
-    List<Article> findByTitleContainingOrderByIdDesc(String word);
+    Page<Article> findByTitleContainingOrderByIdDesc(String word, Pageable pageable);
 
-    @Query("select a from Article a join fetch a.user where a.user.nickname = :nickname order by a.id desc")
-    List<Article> findByNicknameOrderByDesc(@Param("nickname") String nickname);
+    @Query("select a from Article a join a.user u where u.nickname = :nickname order by a.id desc")
+    Page<Article> findByNicknameOrderByIdDesc(@Param("nickname") String nickname, Pageable pageable);
 
-    List<Article> findByContentContaining(String word);
+    Page<Article> findByContentContaining(String word, Pageable pageable);
 
-    List<Article> findByTitleContainingOrContentContainingOrderByIdDesc(String title, String content);
+    Page<Article> findByTitleContainingOrContentContainingOrderByIdDesc(String title, String content, Pageable pageable);
 }

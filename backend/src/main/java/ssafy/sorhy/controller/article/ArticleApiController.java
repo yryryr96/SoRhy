@@ -1,6 +1,8 @@
 package ssafy.sorhy.controller.article;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -35,9 +37,9 @@ public class ArticleApiController {
     }
 
     @GetMapping("/articles")
-    public Response<List<ArticleDto.basicRes>> findAll() {
+    public Response<ArticleDto.pagingRes> findAll(@PageableDefault(size=2) Pageable pageable) {
 
-        List<ArticleDto.basicRes> response = articleService.findAll();
+        ArticleDto.pagingRes response = articleService.findAll(pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
     }
 
@@ -72,10 +74,10 @@ public class ArticleApiController {
     }
 
     @GetMapping("/articles/search")
-    public Response<List<ArticleDto.basicRes>> searchArticle(@RequestBody ArticleDto.searchReq request) {
+    public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
+                                                             @PageableDefault(size=2) Pageable pageable) {
 
-        List<ArticleDto.basicRes> response = articleService.searchArticle(request);
+        ArticleDto.pagingRes response = articleService.searchArticle(request, pageable);
         return new Response(200, "검색 성공", response);
     }
-
 }

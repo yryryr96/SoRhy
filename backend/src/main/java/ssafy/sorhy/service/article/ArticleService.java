@@ -1,6 +1,8 @@
 package ssafy.sorhy.service.article;
 
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
@@ -43,13 +45,11 @@ public class ArticleService {
         return article.toBasicRes();
     }
 
-    public List<ArticleDto.basicRes> findAll() {
+    public ArticleDto.pagingRes findAll(Pageable pageable) {
 
-        List<Article> articles = articleRepository.findAll();
+        Page<Article> result = articleRepository.findAllByOrderByIdDesc(pageable);
 
-        return articles.stream()
-                .map(Article::toBasicRes)
-                .collect(Collectors.toList());
+        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
     public ArticleDto.detailRes findById(Long articleId) {
@@ -70,28 +70,32 @@ public class ArticleService {
         }
     }
 
-    public List<ArticleDto.basicRes> searchArticle(ArticleDto.searchReq request) {
+    public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, Pageable pageable) {
 
         String word = request.getWord();
 
         if (SearchCond.NONE == (SearchCond.valueOf(request.getSearchCond()))) {
+            Page<Article> result = articleRepository.findByTitleContainingOrContentContainingOrderByIdDesc(word, word, pageable);
 
-            return toDtoList(articleRepository.findByTitleContainingOrContentContainingOrderByIdDesc(word, word));
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
 
-            return toDtoList(articleRepository.findByTitleContainingOrderByIdDesc(word));
+            Page<Article> result = articleRepository.findByTitleContainingOrderByIdDesc(word, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         if (SearchCond.NICKNAME == (SearchCond.valueOf(request.getSearchCond()))) {
 
-            return toDtoList(articleRepository.findByNicknameOrderByDesc(word));
+            Page<Article> result = articleRepository.findByNicknameOrderByIdDesc(word, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         if (SearchCond.CONTENT == (SearchCond.valueOf(request.getSearchCond()))) {
 
-            return toDtoList(articleRepository.findByContentContaining(word));
+            Page<Article> result = articleRepository.findByContentContaining(word, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         throw new IllegalStateException("검색 조건이 유효하지 않습니다.");
@@ -102,5 +106,14 @@ public class ArticleService {
         return articleList.stream()
                 .map(Article::toBasicRes)
                 .collect(Collectors.toList());
+    }
+
+    private ArticleDto.pagingRes toPagingRes(List<ArticleDto.basicRes> articlesDto, long totalElement, int totalPage) {
+
+        return ArticleDto.pagingRes.builder()
+                .totalPage(totalPage)
+                .totalElement(totalElement)
+                .articles(articlesDto)
+                .build();
     }
 }

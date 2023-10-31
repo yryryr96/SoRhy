@@ -6,6 +6,7 @@ import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.user.User;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 public class CommentDto {
@@ -25,5 +26,14 @@ public class CommentDto {
 
         @NotBlank
         private String content;
+    }
+
+    @Data
+    @Builder
+    public static class pagingRes {
+
+        private long totalElement;
+        private int totalPage;
+        private List<basicRes> comments;
     }
 }
