@@ -1,10 +1,13 @@
 package ssafy.sorhy.dto.gameresult;
 
 import lombok.*;
+import org.springframework.beans.factory.annotation.Autowired;
 import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
+import ssafy.sorhy.repository.gameresult.GameResultRepository;
 
 import javax.validation.constraints.NotBlank;
+import java.util.List;
 
 @Data
 @RequiredArgsConstructor
@@ -14,6 +17,7 @@ public class GameResultDto {
     @Builder
     public static class basicRes {
 
+        private Long gameId;
         private GameTitle gameTitle;
         private int score;
         private Long characterId;
@@ -77,5 +81,16 @@ public class GameResultDto {
             this.characterId = characterId;
             this.cnt = cnt;
         }
+    }
+
+    @Data
+    @Builder
+    public static class otherUserDto {
+
+        private String nickname;
+        private Long characterId;
+        private int score;
+        private String companyName;
+        private Team team;
     }
 }

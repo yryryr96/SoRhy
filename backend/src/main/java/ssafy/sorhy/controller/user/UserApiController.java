@@ -4,12 +4,15 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.AlreadyExistException;
+import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.response.Response;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -19,6 +22,7 @@ import java.util.List;
 public class UserApiController {
 
     private final UserService userService;
+    private final GameResultService gameResultService;
 
     @PostMapping("/join")
     public Response<UserDto.joinRes> save(@RequestBody UserDto.joinReq request) throws AlreadyExistException {
@@ -49,9 +53,8 @@ public class UserApiController {
 
     @GetMapping("/{nickname}")
     public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
+
         UserDto.findRes response = userService.findByNickname(nickname);
         return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
     }
-
-
 }

@@ -71,4 +71,17 @@ public class GameResultService {
                 .map(company -> company.toCompanyRankDto())
                 .collect(Collectors.toList());
     }
+
+    public List<GameResultDto.otherUserDto> getOtherUserRecord(Long gameId) {
+
+        return gameResultRepository.findByGameId(gameId).stream()
+                .map(gameResult -> GameResultDto.otherUserDto.builder()
+                        .nickname(gameResult.getUser().getNickname())
+                        .companyName(gameResult.getUser().getCompany().getCompanyName())
+                        .characterId(gameResult.getCharacterId())
+                        .score(gameResult.getScore())
+                        .team(gameResult.getTeam())
+                        .build())
+                .collect(Collectors.toList());
+    }
 }

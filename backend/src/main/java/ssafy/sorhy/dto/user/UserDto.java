@@ -80,4 +80,5 @@ public class UserDto {
         private float winPercentage;
         private List<GameResultDto.top3Character> top3CharacterList;
     }
+
 }

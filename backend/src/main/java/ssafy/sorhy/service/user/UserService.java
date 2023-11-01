@@ -9,6 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
+import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.AlreadyExistException;
 import ssafy.sorhy.jwt.JwtTokenUtil;
@@ -86,8 +87,8 @@ public class UserService {
     public UserDto.findRes findByNickname(String nickname) {
 
         List<GameResultDto.top3Character> resultList = getTop3CharacterList(nickname);
-
         User findUser = userRepository.findByNickname(nickname);
+
         return findUser.toFindDto(resultList);
     }
 

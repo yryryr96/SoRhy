@@ -4,13 +4,17 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.game.Game;
+import ssafy.sorhy.repository.gameresult.GameResultRepository;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.List;
+import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor
@@ -50,5 +54,20 @@ public class GameResult {
                 .winner(this.winner)
                 .team(this.team)
                 .build();
+    }
+
+    public static List<GameResultDto.basicRes> getGameResultBasicDtoList(List<GameResult> gameResults) {
+
+        return gameResults.stream()
+                .map(gameResult -> GameResultDto.basicRes.builder()
+                        .gameId(gameResult.getId())
+                        .characterId(gameResult.getCharacterId())
+                        .score(gameResult.getScore())
+                        .team(gameResult.getTeam())
+                        .winner(gameResult.isWinner())
+                        .gameTitle(gameResult.getGame().getGameTitle())
+                        .createdAt(gameResult.getCreatedAt())
+                        .build())
+                .collect(Collectors.toList());
     }
 }

@@ -93,23 +93,23 @@ public class User {
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
                 .top3CharacterList(top3CharacterList)
-                .gameResults(getGameResultBasicDtoList())
+                .gameResults(GameResult.getGameResultBasicDtoList(this.gameResults))
                 .build();
     }
 
-    private List<GameResultDto.basicRes> getGameResultBasicDtoList() {
-
-        return this.gameResults.stream()
-                .map(gameResult -> GameResultDto.basicRes.builder()
-                        .characterId(gameResult.getCharacterId())
-                        .score(gameResult.getScore())
-                        .team(gameResult.getTeam())
-                        .winner(gameResult.isWinner())
-                        .gameTitle(gameResult.getGame().getGameTitle())
-                        .createdAt(gameResult.getCreatedAt())
-                        .build())
-                .collect(Collectors.toList());
-    }
+//    private List<GameResultDto.basicRes> getGameResultBasicDtoList() {
+//
+//        return this.gameResults.stream()
+//                .map(gameResult -> GameResultDto.basicRes.builder()
+//                        .characterId(gameResult.getCharacterId())
+//                        .score(gameResult.getScore())
+//                        .team(gameResult.getTeam())
+//                        .winner(gameResult.isWinner())
+//                        .gameTitle(gameResult.getGame().getGameTitle())
+//                        .createdAt(gameResult.getCreatedAt())
+//                        .build())
+//                .collect(Collectors.toList());
+//    }
 
     public UserDto.profileRes toProfileDto(Long articleCount,
                                            Long commentCount,

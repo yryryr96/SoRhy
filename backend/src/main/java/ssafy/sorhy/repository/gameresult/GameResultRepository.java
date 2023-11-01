@@ -15,4 +15,7 @@ public interface GameResultRepository extends JpaRepository<GameResult, Long> {
 
     @Query("select gr from GameResult gr join fetch gr.game g where g.gameTitle = :gameTitle order by gr.score desc")
     List<GameResult> findRankByGameTitle(@Param("gameTitle") GameTitle gameTitle);
+
+    List<GameResult> findByGameId(Long gameId);
+
 }
