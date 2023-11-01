@@ -5,9 +5,7 @@ import lombok.Data;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.entity.gameresult.GameResult;
 
-import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -54,7 +52,7 @@ public class UserDto {
         private int lose;
         private float winPercentage;
         private List<GameResultDto.top3Character> top3CharacterList;
-        private List<GameResultDto.basicRes> gameResults;
+        private List<GameResultDto.otherUserDto> gameResults;
     }
 
     @Data
@@ -80,5 +78,4 @@ public class UserDto {
         private float winPercentage;
         private List<GameResultDto.top3Character> top3CharacterList;
     }
-
 }

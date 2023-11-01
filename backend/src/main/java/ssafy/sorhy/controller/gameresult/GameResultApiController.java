@@ -28,10 +28,10 @@ public class GameResultApiController {
         return new Response(201, "게임 결과를 저장했습니다.", response);
     }
 
-    @GetMapping("/{gameId}")
-    public Response<List<GameResultDto.otherUserDto>> getOtherUserRecords(@PathVariable Long gameId) {
-
-        List<GameResultDto.otherUserDto> response = gameResultService.getOtherUserRecord(gameId);
-        return new Response(200, "게임 유저들 모두 조회", response);
-    }
+//    @GetMapping("/{nickname}")
+//    public Response<List<GameResultDto.otherUserDto>> getOtherUserRecords(@PathVariable String nickname) {
+//        System.out.println("CONTROLLER");
+//        List<GameResultDto.otherUserDto> response = gameResultService.getOtherUserRecord(nickname);
+//        return new Response(200, "게임 유저들 모두 조회", response);
+//    }
 }

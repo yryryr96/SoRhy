@@ -18,6 +18,7 @@ import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.gameresult.GameResultService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -36,7 +37,7 @@ public class UserService {
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
     private final CompanyRepository companyRepository;
-    private final GameResultRepository gameResultRepository;
+    private final GameResultService gameResultService;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -88,12 +89,13 @@ public class UserService {
 
         List<GameResultDto.top3Character> resultList = getTop3CharacterList(nickname);
         User findUser = userRepository.findByNickname(nickname);
+        List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname);
 
-        return findUser.toFindDto(resultList);
+        return findUser.toFindDto(resultList, gameResults);
     }
 
     private List<GameResultDto.top3Character> getTop3CharacterList(String nickname) {
-        List<GameResultDto.top3Character> resultList = em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
+        return em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
                         "from GameResult gr " +
                         "join gr.user u " +
                         "where u.nickname = :nickname " +
@@ -102,6 +104,5 @@ public class UserService {
                 .setParameter("nickname", nickname)
                 .setMaxResults(3)
                 .getResultList();
-        return resultList;
     }
 }

@@ -5,6 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.gameresult.OtherUserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
@@ -18,6 +19,7 @@ import ssafy.sorhy.repository.user.UserRepository;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -72,16 +74,27 @@ public class GameResultService {
                 .collect(Collectors.toList());
     }
 
-    public List<GameResultDto.otherUserDto> getOtherUserRecord(Long gameId) {
+    public List<GameResultDto.otherUserDto> getOtherUserRecord(String nickname) {
 
-        return gameResultRepository.findByGameId(gameId).stream()
-                .map(gameResult -> GameResultDto.otherUserDto.builder()
-                        .nickname(gameResult.getUser().getNickname())
-                        .companyName(gameResult.getUser().getCompany().getCompanyName())
-                        .characterId(gameResult.getCharacterId())
-                        .score(gameResult.getScore())
-                        .team(gameResult.getTeam())
-                        .build())
-                .collect(Collectors.toList());
+        List<GameResultDto.otherUserDto> result = new ArrayList<>();
+        User user = userRepository.findByNickname(nickname);
+
+        List<GameResult> gameResults = user.getGameResults();
+        for (GameResult gameResult : gameResults) {
+
+            Game game = gameResult.getGame();
+            List<OtherUserDto> enteredUsers = gameResultRepository.findOtherUserDtoByGameId(game.getId());
+            result.add(GameResultDto.otherUserDto.builder()
+                    .gameId(game.getId())
+                    .gameTitle(game.getGameTitle())
+                    .gameType(game.getGameType())
+                    .characterId(gameResult.getCharacterId())
+                    .winner(gameResult.isWinner())
+                    .createdAt(gameResult.getCreatedAt())
+                    .enteredUsers(enteredUsers)
+                    .build());
+        }
+
+        return result;
     }
 }

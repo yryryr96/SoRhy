@@ -1,10 +1,9 @@
 package ssafy.sorhy.dto.gameresult;
 
 import lombok.*;
-import org.springframework.beans.factory.annotation.Autowired;
+import ssafy.sorhy.entity.game.GameType;
 import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
-import ssafy.sorhy.repository.gameresult.GameResultRepository;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -19,9 +18,6 @@ public class GameResultDto {
 
         private Long gameId;
         private GameTitle gameTitle;
-        private int score;
-        private Long characterId;
-        private Team team;
         private boolean winner;
         private String createdAt;
     }
@@ -87,10 +83,12 @@ public class GameResultDto {
     @Builder
     public static class otherUserDto {
 
-        private String nickname;
+        private Long gameId;
+        private GameTitle gameTitle;
+        private GameType gameType;
         private Long characterId;
-        private int score;
-        private String companyName;
-        private Team team;
+        private boolean winner;
+        private String createdAt;
+        private List<OtherUserDto> enteredUsers;
     }
 }

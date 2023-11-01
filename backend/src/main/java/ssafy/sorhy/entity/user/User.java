@@ -83,7 +83,8 @@ public class User {
                 .build();
     }
 
-    public UserDto.findRes toFindDto(List<GameResultDto.top3Character> top3CharacterList) {
+    public UserDto.findRes toFindDto(List<GameResultDto.top3Character> top3CharacterList,
+                                     List<GameResultDto.otherUserDto> gameResults) {
 
         return UserDto.findRes.builder()
                 .nickname(this.nickname)
@@ -93,23 +94,9 @@ public class User {
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
                 .top3CharacterList(top3CharacterList)
-                .gameResults(GameResult.getGameResultBasicDtoList(this.gameResults))
+                .gameResults(gameResults)
                 .build();
     }
-
-//    private List<GameResultDto.basicRes> getGameResultBasicDtoList() {
-//
-//        return this.gameResults.stream()
-//                .map(gameResult -> GameResultDto.basicRes.builder()
-//                        .characterId(gameResult.getCharacterId())
-//                        .score(gameResult.getScore())
-//                        .team(gameResult.getTeam())
-//                        .winner(gameResult.isWinner())
-//                        .gameTitle(gameResult.getGame().getGameTitle())
-//                        .createdAt(gameResult.getCreatedAt())
-//                        .build())
-//                .collect(Collectors.toList());
-//    }
 
     public UserDto.profileRes toProfileDto(Long articleCount,
                                            Long commentCount,
