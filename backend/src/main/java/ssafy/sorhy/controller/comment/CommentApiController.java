@@ -21,21 +21,25 @@ public class CommentApiController {
     private final CommentService commentService;
 
     @GetMapping("/{articleId}/comment")
-    public Response<CommentDto.pagingRes> paging(@PathVariable Long articleId, @PageableDefault(size=5) Pageable pageable) {
+    public Response<CommentDto.pagingRes> paging(@PathVariable Long articleId,
+                                                 @PageableDefault(size=5) Pageable pageable) {
 
         CommentDto.pagingRes response = commentService.paging(articleId, pageable);
         return new Response(200, "댓글 조회 성공", response);
     }
 
     @PostMapping("/{articleId}/comment")
-    public Response<CommentDto.basicRes> save(@PathVariable Long articleId, @RequestBody @Valid CommentDto.saveReq request, Authentication authentication) {
+    public Response<CommentDto.basicRes> save(@PathVariable Long articleId,
+                                              @RequestBody @Valid CommentDto.saveReq request,
+                                              Authentication authentication) {
 
         String nickname = authentication.getName();
         return new Response(201, "댓글 생성 완료", commentService.save(articleId, nickname, request));
     }
 
     @DeleteMapping("/{articleId}/comment/{commentId}")
-    public Response<String> delete(@PathVariable Long articleId, @PathVariable Long commentId, Authentication authentication) {
+    public Response<String> delete(@PathVariable Long articleId, @PathVariable Long commentId,
+                                   Authentication authentication) {
 
         String nickname = authentication.getName();
         commentService.delete(commentId, nickname);

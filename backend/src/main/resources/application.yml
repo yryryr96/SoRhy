@@ -15,8 +15,7 @@ spring:
   jpa:
     hibernate:
       #h2 설정
-      hbm2ddl:
-        auto:update
+      ddl-auto: create
 
       #mysql 설정
 #      ddl-auto: create
@@ -32,10 +31,6 @@ spring:
     multipart:
       maxFileSize: 5MB
       maxRequestSize: 20MB
-  # swagger
-  mvc:
-    pathmatch:
-      matching-strategy: ant_path_matcher
 
 logging.level:
   org.hibernate.SQL: debug
