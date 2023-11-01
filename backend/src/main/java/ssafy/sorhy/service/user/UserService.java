@@ -42,14 +42,14 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     // 계정 저장
-    public UserDto.joinRes save(@Valid UserDto.joinReq request) throws AlreadyExistException {
+    public UserDto.joinRes save(UserDto.joinReq request) throws AlreadyExistException, IllegalArgumentException {
 
         if (userRepository.existsByNickname(request.getNickname())) {
             throw new AlreadyExistException();
         }
 
         if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new IllegalStateException("비밀번호를 확인해주세요.");
+            throw new IllegalArgumentException("비밀번호 확인하세요");
         }
 
         Company company = companyRepository.findById(request.getCompanyId()).get();

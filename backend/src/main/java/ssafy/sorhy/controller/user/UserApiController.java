@@ -5,12 +5,10 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.AlreadyExistException;
-import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.response.Response;
 
@@ -26,7 +24,7 @@ public class UserApiController {
     private final UserService userService;
 
     @PostMapping("/join")
-    public Response<UserDto.joinRes> save(@Valid @RequestBody UserDto.joinReq request) throws AlreadyExistException {
+    public Response<UserDto.joinRes> save(@Valid @RequestBody UserDto.joinReq request) throws AlreadyExistException, IllegalArgumentException {
 
         UserDto.joinRes response = userService.save(request);
         return new Response(201, "회원가입에 성공했습니다.", response);

@@ -23,6 +23,16 @@ public class ExceptionHandlerAdvisor {
 
     private final NotificationManager notificationManager;
 
+    @ExceptionHandler(IllegalArgumentException.class)
+    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex, HttpServletRequest req) {
+
+        String message = ex.getMessage();
+        ErrorResponse errorResponse = new ErrorResponse(400, message, "적절하지 못한 값을 입력했습니다.");
+
+        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
+        return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest req) {
 
