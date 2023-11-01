@@ -11,10 +11,8 @@ import javax.validation.Valid;
 @RestController
 public class HelloController {
 
-    @PostMapping("/health/check")
-    public String hello(@Valid @RequestBody UserDto.joinReq request) {
-
-        System.out.println(request.getPassword());
-        return "ok";
+    @GetMapping("/health-check")
+    public String hello() {
+        return "노창현 수고했어";
     }
 }
