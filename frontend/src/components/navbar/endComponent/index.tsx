@@ -15,7 +15,7 @@ const EndComponent = () => {
     useEffect(() => {
         setMounted(true);
         if (isLogin && userInformation) {
-            setProfileImg(userInformation.gender === 'MAN' ? '/manIcon.png' : '/womanIcon.png');
+            setProfileImg('/profile_lovely.svg');
         }
     }, [isLogin]);
 
@@ -28,7 +28,7 @@ const EndComponent = () => {
                     ) : (
                         <StyledNavLink href="/login">로그인</StyledNavLink>
                     )}
-                    {!isLogin && <StyledNavLink href="/agreement">회원가입</StyledNavLink>}
+                    {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
 
                     {isLogin && userInformation && (
                         <StyledPropfileLink href="/mypage">

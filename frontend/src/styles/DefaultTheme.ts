@@ -8,7 +8,7 @@ const theme: DefaultTheme = {
         lightblue: '#00FFFF',
         orange: '#FFAA29',
 
-        white: '#FAFAFA',
+        white: '#FFFFFF',
         black: '#363636',
         lightgray: '#E4E7EC', // disable에 쓰이는 color
         gray: 'rgba(0, 0, 0, 0.50)', // 진한 회색 글씨

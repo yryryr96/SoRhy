@@ -14,7 +14,7 @@ const NavbarComponent = () => {
             <StyledNavbar pathname={pathname}>
                 <StyledStartComp pathname={pathname}>
                     <Link href="/">
-                        <Image src="/Logo.png" priority={true} width={21} height={21} alt="Logo"></Image>
+                        <Image src="/Logo.png" priority={true} width={200} height={50} alt="Logo"></Image>
                     </Link>
                 </StyledStartComp>
 

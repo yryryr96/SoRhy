@@ -4,29 +4,14 @@ import Link from 'next/link';
 const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
         let bgColor;
-        const yellow = props.theme.colors.yellow;
         const white = props.theme.colors.white;
-        const lightblue = props.theme.colors.lightblue;
 
-        const surveylistcolor = props.selectbtn === '1' ? '#C6B6FF' : '#FFFAAE';
-
-        const height = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '72px' : '56px';
+        const height = props.pathname === '/' || props.pathname === '/others' ? '110px' : '110px';
 
         const minwidth = props.pathname === '/' ? '1000px' : '550px';
         switch (props.pathname) {
-            case '/surveylist':
-                bgColor = surveylistcolor;
-                break;
-            case '/instantWinConfirm':
-            case '/surveydetail':
-            case '/makesurvey':
-            case '/surveyresult':
-            case '/payment':
-                bgColor = white;
-                break;
-
             default:
-                bgColor = lightblue;
+                bgColor = white;
         }
 
         if (props.pathname.includes('surveyAnswer')) {
@@ -49,35 +34,31 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
 
 const StyledStartComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '15%' : '20%';
+        const size = props.pathname === '/makesurvey' ? '19%' : '19%';
         return css`
             width: ${size};
+            margin-top: 0.4%;
         `;
     }};
 `;
 
 const StyledMidComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '85%' : '60%';
-        const jc =
-            props.pathname === '/makesurvey' || props.pathname === '/surveyresult'
-                ? 'space-between'
-                : props.pathname === '/payment'
-                ? 'space-between'
-                : 'center';
-        const ai = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? 'center' : '';
+        const size = props.pathname === '/' || props.pathname === '/surveyresult' ? '85%' : '85%';
+        const jc = props.pathname === '/' ? 'left' : 'left';
+
         return css`
             width: ${size};
             display: flex;
             justify-content: ${jc};
-            align-items: ${ai};
+            align-items: center;
             gap: 30px;
         `;
     }};
 `;
 const StyledEndComp = styled.div.attrs<any>((props) => ({}))`
     ${(props) => {
-        const size = props.pathname === '/makesurvey' || props.pathname === '/surveyresult' ? '10%' : '20%';
+        const size = props.pathname === '/makesurvey' ? '20%' : '20%';
         return css`
             width: ${size};
             display: flex;
