@@ -71,7 +71,7 @@ public class GameResultService {
 
         List<Company> companyRankList = companyRepository.findCompanyRank();
         return companyRankList.stream()
-                .map(company -> company.toCompanyRankDto())
+                .map(Company::toCompanyRankDto)
                 .collect(Collectors.toList());
     }
 
@@ -95,7 +95,6 @@ public class GameResultService {
                     .enteredUsers(enteredUsers)
                     .build());
         }
-
         return result;
     }
 }

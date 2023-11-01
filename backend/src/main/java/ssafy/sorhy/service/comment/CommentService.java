@@ -28,6 +28,7 @@ public class CommentService {
     private final UserRepository userRepository;
 
     public CommentDto.basicRes save(Long articleId, String nickname, CommentDto.saveReq request) {
+
         User user = userRepository.findByNickname(nickname);
         Article article = articleRepository.findById(articleId).get();
 
@@ -49,6 +50,7 @@ public class CommentService {
             commentRepository.delete(comment);
             return "delete success";
         } else {
+
             throw new NotValidUserException("댓글 작성자가 아닙니다.");
         }
     }
@@ -57,10 +59,12 @@ public class CommentService {
 
         Comment comment = commentRepository.findById(commentId).get();
 
-        if (comment.getUser().getNickname().equals(nickname)) {
+        if (nickname.equals(comment.getUser().getNickname())) {
+
             comment.update(request);
             return "update success!";
         } else {
+
             throw new NotValidUserException("댓글 작성자가 아닙니다.");
         }
     }

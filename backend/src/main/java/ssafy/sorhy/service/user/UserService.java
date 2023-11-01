@@ -10,18 +10,17 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
-import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.AlreadyExistException;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
-import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 
 import javax.persistence.EntityManager;
+import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -43,10 +42,14 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     // 계정 저장
-    public UserDto.joinRes save(UserDto.joinReq request) throws AlreadyExistException {
+    public UserDto.joinRes save(@Valid UserDto.joinReq request) throws AlreadyExistException {
 
         if (userRepository.existsByNickname(request.getNickname())) {
             throw new AlreadyExistException();
+        }
+
+        if (!request.getPassword().equals(request.getConfirmPassword())) {
+            throw new IllegalStateException("비밀번호를 확인해주세요.");
         }
 
         Company company = companyRepository.findById(request.getCompanyId()).get();
@@ -62,7 +65,7 @@ public class UserService {
 
         User user = userRepository.findByNickname(request.getNickname());
         if (encoder.matches(request.getPassword(), user.getPassword())) {
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24); // 만료시간 60분
+            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24); // 만료시간 하루
             return token;
         } else {
             throw new RuntimeException("계정 정보가 일치하지 않습니다.");
@@ -96,6 +99,7 @@ public class UserService {
     }
 
     private List<GameResultDto.top3Character> getTop3CharacterList(String nickname) {
+
         return em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
                         "from GameResult gr " +
                         "join gr.user u " +

@@ -26,8 +26,8 @@ public class ExceptionHandlerAdvisor {
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest req) {
 
-        BindingResult result = ex.getBindingResult();
-        ErrorResponse errorResponse = new ErrorResponse(400, result.getAllErrors().get(0).getDefaultMessage(), "유효성 검사에 실패했습니다.");
+        String message = ex.getMessage();
+        ErrorResponse errorResponse = new ErrorResponse(400, message, "유효성 검사에 실패했습니다.");
 
         notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
         return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
@@ -54,7 +54,7 @@ public class ExceptionHandlerAdvisor {
     }
 
     @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<ErrorResponse> handleNullpointException(NullPointerException ex, HttpServletRequest req) {
+    public ResponseEntity<ErrorResponse> handleNullPointException(NullPointerException ex, HttpServletRequest req) {
 
         String message = ex.getMessage();
         ErrorResponse errorResponse = new ErrorResponse(400, "값이 null 입니다.", message);
@@ -94,6 +94,7 @@ public class ExceptionHandlerAdvisor {
     }
 
     private String getParams(HttpServletRequest req) {
+
         StringBuilder params = new StringBuilder();
         Enumeration<String> keys = req.getParameterNames();
         while (keys.hasMoreElements()) {
