@@ -1,15 +1,15 @@
-"use client";
+'use client';
 
-import React, { useState, useEffect } from "react";
-import Input from "@/components/input";
-import Button from "@/components/button";
-import { useLoginHook } from "@/hooks/user/useLoginHook";
+import React, { useState, useEffect } from 'react';
+import Input from '@/components/input';
+import Button from '@/components/button';
+import { useLoginHook } from '@/hooks/user/useLoginHook';
 
 const Login = () => {
     const { handleChange, handleSubmit, handleOnChange, inputState, user, isRemember } = useLoginHook();
 
     useEffect(() => {
-        const checkbox = document.getElementById("LoginState") as HTMLInputElement;
+        const checkbox = document.getElementById('LoginState') as HTMLInputElement;
         if (checkbox) {
             checkbox.checked = isRemember;
         }

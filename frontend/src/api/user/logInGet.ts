@@ -1,8 +1,8 @@
-import api from "../api";
+import api from '../api';
 
 const loginGet = async (accessToken: any) => {
     const response = await api({
-        method: "get",
+        method: 'get',
         url: `/user/login`,
         headers: {
             Authorization: `Bearer ${accessToken}`,

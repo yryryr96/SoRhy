@@ -20,6 +20,7 @@ export const useSignupHook = (): SignupHookType => {
         password: "",
         companyId: 0,
     });
+
     const [password_sec, setPassword_sec] = useState("");
     const [inputState, setInputState] = useState({
         nickname: "",
