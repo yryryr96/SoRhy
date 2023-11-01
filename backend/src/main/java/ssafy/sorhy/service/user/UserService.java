@@ -3,6 +3,7 @@ package ssafy.sorhy.service.user;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
@@ -85,11 +86,11 @@ public class UserService {
     }
     
     // 유저 닉네임으로 유저 정보 조회
-    public UserDto.findRes findByNickname(String nickname) {
+    public UserDto.findRes findByNickname(String nickname, Pageable pageable) {
 
         List<GameResultDto.top3Character> resultList = getTop3CharacterList(nickname);
         User findUser = userRepository.findByNickname(nickname);
-        List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname);
+        List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname, pageable);
 
         return findUser.toFindDto(resultList, gameResults);
     }

@@ -2,6 +2,8 @@ package ssafy.sorhy.controller.user;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
@@ -52,9 +54,10 @@ public class UserApiController {
     }
 
     @GetMapping("/{nickname}")
-    public Response<UserDto.findRes> findByNickname(@PathVariable String nickname) {
+    public Response<UserDto.findRes> findByNickname(@PathVariable String nickname,
+                                                    @PageableDefault(size=2) Pageable pageable) {
 
-        UserDto.findRes response = userService.findByNickname(nickname);
+        UserDto.findRes response = userService.findByNickname(nickname, pageable);
         return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
     }
 }

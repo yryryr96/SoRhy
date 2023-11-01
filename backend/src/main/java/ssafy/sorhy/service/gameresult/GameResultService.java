@@ -2,6 +2,7 @@ package ssafy.sorhy.service.gameresult;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
@@ -74,12 +75,12 @@ public class GameResultService {
                 .collect(Collectors.toList());
     }
 
-    public List<GameResultDto.otherUserDto> getOtherUserRecord(String nickname) {
+    public List<GameResultDto.otherUserDto> getOtherUserRecord(String nickname, Pageable pageable) {
 
         List<GameResultDto.otherUserDto> result = new ArrayList<>();
         User user = userRepository.findByNickname(nickname);
 
-        List<GameResult> gameResults = user.getGameResults();
+        List<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
         for (GameResult gameResult : gameResults) {
 
             Game game = gameResult.getGame();
