@@ -12,7 +12,7 @@ const SideBar = (props: any) => {
     console.log(selectbtn);
     return (
         <StyledSideBar>
-            <StyledSideItem font_size="20px" font_weight="bold" color="on">
+            <StyledSideItem font_size="21px" font_weight="bold" color="on">
                 게시판
                 <Image src="/rightarrow.svg" priority={true} width={20} height={15} alt="오른쪽 화살표" />
             </StyledSideItem>
@@ -22,7 +22,7 @@ const SideBar = (props: any) => {
             <StyledSideItem onClick={() => handleItemClick('2')} active={path === '2'}>
                 회사 게시판
             </StyledSideItem>
-            <StyledSideItem font_size="20px" font_weight="bold" color="on">
+            <StyledSideItem font_size="21px" font_weight="bold" color="on">
                 나머지
                 <Image src="/rightarrow.svg" priority={true} width={20} height={15} alt="오른쪽 화살표" />
             </StyledSideItem>

@@ -1,7 +1,8 @@
 'use client';
 import React, { useState } from 'react';
-import { StyledSearchBar, TopContainer, BottomContainer } from './Searchbar.Styled';
+import { StyledSearchBar, TopContainer, BottomContainer,ClickBox } from './Searchbar.Styled';
 import DropBox from '@/components/dropbox';
+import Image from 'next/image';
 
 const SearchBar = () => {
     const options = [
@@ -13,36 +14,28 @@ const SearchBar = () => {
     const [selectedOption, setSelectedOption] = useState<String>('');
     return (
         <StyledSearchBar>
-            <TopContainer>검색 옵션</TopContainer>
+            <TopContainer>
+                검색 옵션
+                <Image src="/pencil_icon2.svg" width={35} height={35} alt="Pencil_Icon"/>
+            </TopContainer>
             <BottomContainer>
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>Selected Option: {selectedOption}</p>}
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>반갑습니다: {selectedOption}</p>}
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>Selected Option: {selectedOption}</p>}
-                <DropBox
-                    options={options}
-                    onSelect={(selectedValue: String) => {
-                        setSelectedOption(selectedValue);
-                    }}
-                />
-                {selectedOption && <p>반갑습니다: {selectedOption}</p>}
+
+            <ClickBox>
+            <Image src="/recenticon.svg" width={40} height={40} alt="Recent"/>
+                Recent
+            </ClickBox>
+            <ClickBox color="red">
+                <Image src="/hoticon.svg" width={40} height={40} alt="Hot"/>
+                Hot
+            </ClickBox>
+            <DropBox
+                options={options}
+                onSelect={(selectedValue: String) => {
+                    setSelectedOption(selectedValue);
+                }}
+            />
+            {selectedOption}
+
             </BottomContainer>
         </StyledSearchBar>
     );

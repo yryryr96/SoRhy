@@ -44,8 +44,8 @@ const Tips = (props: any) => {
             </StyledContentContainer>
             <StyledContentContainer>
                 <StyledLeftContainer>
-                    <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
-                    162
+                    <Image src="/redicon.svg" alt="blue-button" width={40} height={30} />
+                    161
                 </StyledLeftContainer>
                 <StyledCenterContainer>
                     <StyledCenterHead>우리회사 개쩜</StyledCenterHead>
