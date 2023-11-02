@@ -19,7 +19,6 @@ import java.util.stream.Collectors;
 @AllArgsConstructor
 @Builder
 @Getter
-@Table(name="Users")
 public class User {
 
     @Id @GeneratedValue(strategy = GenerationType.IDENTITY)

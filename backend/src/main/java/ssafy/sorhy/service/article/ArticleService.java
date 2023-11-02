@@ -10,10 +10,12 @@ import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.exception.NotValidUserException;
+import ssafy.sorhy.exception.CustomException;
+import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.s3.S3UploadService;
+import ssafy.sorhy.util.response.Response;
 
 import java.io.IOException;
 import java.util.List;
@@ -54,19 +56,34 @@ public class ArticleService {
 
     public ArticleDto.detailRes findById(Long articleId) {
 
-        Article article = articleRepository.findById(articleId).get();
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
         return article.toDetailRes();
     }
 
     public String update(Long articleId, String nickname, ArticleDto.saveReq request) {
 
-        Article article = articleRepository.findById(articleId).get();
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         if(article.getUser().getNickname().equals(nickname)) {
             article.update(request);
             return "ok";
         } else {
-            throw new NotValidUserException("글 작성자가 아닙니다.");
+            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
+        }
+    }
+
+    public String delete(Long articleId, String nickname) {
+
+        Article article = articleRepository.findById(articleId)
+                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+
+        if (article.getUser().getNickname().equals(nickname)) {
+            articleRepository.delete(article);
+            return "delete success!!";
+        } else {
+            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
         }
     }
 
@@ -98,7 +115,7 @@ public class ArticleService {
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
-        throw new IllegalStateException("검색 조건이 유효하지 않습니다.");
+        throw new CustomException(ErrorCode.DATA_NOT_FOUND);
     }
 
     private List<ArticleDto.basicRes> toDtoList(List<Article> articleList) {

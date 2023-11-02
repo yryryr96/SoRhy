@@ -2,9 +2,6 @@ package ssafy.sorhy.dto.comment;
 
 import lombok.Builder;
 import lombok.Data;
-import ssafy.sorhy.entity.comment.Comment;
-import ssafy.sorhy.entity.user.User;
-
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 

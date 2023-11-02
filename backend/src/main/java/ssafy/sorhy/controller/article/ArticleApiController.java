@@ -8,28 +8,26 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.exception.NotValidUserException;
+import ssafy.sorhy.exception.CustomException;
+import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
 import java.io.IOException;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
 public class ArticleApiController {
 
     private final ArticleService articleService;
-    private final ArticleRepository articleRepository;
 
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
             @RequestPart @Valid ArticleDto.saveReq data,
             @RequestPart(required = false) MultipartFile file,
             Authentication authentication) throws IOException {
-
 
         String nickname = authentication.getName();
         ArticleDto.basicRes response = articleService.save(nickname, file, data);
@@ -42,7 +40,6 @@ public class ArticleApiController {
         ArticleDto.pagingRes response = articleService.findAll(pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
     }
-
 
     @GetMapping("/article/{articleId}")
     public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
@@ -64,13 +61,9 @@ public class ArticleApiController {
     public Response<String> delete(@PathVariable Long articleId,
                                    Authentication authentication) {
 
-        Article article = articleRepository.findById(articleId).get();
-        if (article.getUser().getNickname().equals(authentication.getName())) {
-            articleRepository.delete(article);
-            return new Response(204, "게시글 삭제 완료", "ok");
-        } else {
-            throw new NotValidUserException("글 작성자가 아닙니다.");
-        }
+        String nickname = authentication.getName();
+        String response = articleService.delete(articleId, nickname);
+        return new Response<>(204, "삭제 안료", response);
     }
 
     @GetMapping("/articles/search")
@@ -80,4 +73,6 @@ public class ArticleApiController {
         ArticleDto.pagingRes response = articleService.searchArticle(request, pageable);
         return new Response(200, "검색 성공", response);
     }
+
+
 }

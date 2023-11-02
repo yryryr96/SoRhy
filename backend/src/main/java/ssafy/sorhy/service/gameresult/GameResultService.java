@@ -13,6 +13,8 @@ import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.gameresult.Team;
+import ssafy.sorhy.exception.CustomException;
+import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
@@ -38,16 +40,10 @@ public class GameResultService {
     public GameResultDto.saveRes save(@RequestBody @Valid GameResultDto.saveReq request, String nickname) {
 
         User findUser = userRepository.findByNickname(nickname);
-        Game findGame = gameRepository.findById(request.getGameId()).get();
+        Game findGame = gameRepository.findById(request.getGameId())
+                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        GameResult gameResult = GameResult.builder()
-                .game(findGame)
-                .user(findUser)
-                .score(request.getScore())
-                .characterId(request.getCharacterId())
-                .winner(request.isWinner())
-                .team(Team.valueOf(request.getTeam()))
-                .build();
+        GameResult gameResult = request.toEntity(findUser, findGame);
 
         int score = gameResult.getScore();
         findUser.updateScoreAndWinOrLose(score, gameResult.isWinner());

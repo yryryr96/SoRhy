@@ -73,6 +73,19 @@ public class UserDto {
 
     @Data
     @Builder
+    public static class loginRes {
+
+        @NotBlank
+        private String token;
+        @NotBlank
+        private Long companyId;
+        @NotBlank
+        private String nickname;
+
+    }
+
+    @Data
+    @Builder
     public static class profileRes {
 
         private String nickname;

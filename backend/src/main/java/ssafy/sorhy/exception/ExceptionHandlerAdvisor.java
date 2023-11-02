@@ -1,12 +1,10 @@
 package ssafy.sorhy.exception;
 
-import io.jsonwebtoken.ExpiredJwtException;
 import lombok.RequiredArgsConstructor;
 import org.hibernate.TypeMismatchException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -15,7 +13,6 @@ import ssafy.sorhy.util.response.ErrorResponse;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Enumeration;
-import java.util.NoSuchElementException;
 
 @RestControllerAdvice
 @RequiredArgsConstructor
@@ -23,72 +20,20 @@ public class ExceptionHandlerAdvisor {
 
     private final NotificationManager notificationManager;
 
-    @ExceptionHandler(IllegalArgumentException.class)
-    public ResponseEntity<ErrorResponse> handleIllegalArgumentException(IllegalArgumentException ex, HttpServletRequest req) {
-
-        String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(400, message, "적절하지 못한 값을 입력했습니다.");
-
-        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
-        return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
-    }
-
     @ExceptionHandler(MethodArgumentNotValidException.class)
     public ResponseEntity<ErrorResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest req) {
 
         String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(400, message, "유효성 검사에 실패했습니다.");
-
+        ErrorResponse errorResponse = new ErrorResponse(400, message);
         notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
         return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(AlreadyExistException.class)
-    public ResponseEntity<ErrorResponse> handleDuplicateNickName(AlreadyExistException ex, HttpServletRequest req) {
-
-        String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(409, "이미 등록된 닉네임입니다.", message);
-
-        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
-        return new ResponseEntity(errorResponse, HttpStatus.CONFLICT);
-    }
-
-    @ExceptionHandler(NotValidUserException.class)
-    public ResponseEntity<ErrorResponse> handleAuthorityUser(NotValidUserException ex, HttpServletRequest req) {
-
-        String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(401, "권한이 없는 사용자입니다.", message);
-
-        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
-        return new ResponseEntity(errorResponse, HttpStatus.UNAUTHORIZED);
-    }
-
-    @ExceptionHandler(NullPointerException.class)
-    public ResponseEntity<ErrorResponse> handleNullPointException(NullPointerException ex, HttpServletRequest req) {
-
-        String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(400, "값이 null 입니다.", message);
-
-        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
-        return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
-    }
-
-    @ExceptionHandler(NoSuchElementException.class)
-    public ResponseEntity<ErrorResponse> handleNoSuchElementException(NoSuchElementException ex, HttpServletRequest req) {
-
-        String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(500, "값이 존재하지 않습니다.", message);
-
-        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
-        return new ResponseEntity(errorResponse, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
     @ExceptionHandler(TypeMismatchException.class)
     public ResponseEntity<ErrorResponse> handleTypeMismatchException(TypeMismatchException ex, HttpServletRequest req) {
 
         String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(400, "데이터 타입을 확인해주세요.", message);
-
+        ErrorResponse errorResponse = new ErrorResponse(400, message);
         notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
         return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
     }
@@ -96,11 +41,17 @@ public class ExceptionHandlerAdvisor {
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<ErrorResponse> handleNotReadableException(HttpMessageNotReadableException ex, HttpServletRequest req) {
 
-        String message = ex.getMessage();
-        ErrorResponse errorResponse = new ErrorResponse(400, "데이터 형식을 확인해주세요.", message);
-
+        ErrorResponse errorResponse = new ErrorResponse(400, "데이터 형식을 확인해주세요.");
         notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
         return new ResponseEntity(errorResponse, HttpStatus.BAD_REQUEST);
+    }
+
+    @ExceptionHandler(CustomException.class)
+    public ResponseEntity<ErrorResponse> handleCustomException(CustomException ex, HttpServletRequest req) {
+
+        ErrorResponse errorResponse = new ErrorResponse(ex.getErrorCode().getStatus(), ex.getMessage());
+        notificationManager.sendNotification(ex, req.getRequestURI(), getParams(req));
+        return new ResponseEntity(errorResponse, HttpStatus.valueOf(ex.getErrorCode().getStatus()));
     }
 
     private String getParams(HttpServletRequest req) {

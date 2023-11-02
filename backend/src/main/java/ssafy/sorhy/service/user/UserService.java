@@ -11,7 +11,8 @@ import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.exception.AlreadyExistException;
+import ssafy.sorhy.exception.CustomException;
+import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
@@ -20,7 +21,6 @@ import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 
 import javax.persistence.EntityManager;
-import javax.validation.Valid;
 import java.util.List;
 
 @Service
@@ -42,17 +42,18 @@ public class UserService {
     private final BCryptPasswordEncoder encoder;
 
     // 계정 저장
-    public UserDto.joinRes save(UserDto.joinReq request) throws AlreadyExistException, IllegalArgumentException {
+    public UserDto.joinRes save(UserDto.joinReq request) {
 
         if (userRepository.existsByNickname(request.getNickname())) {
-            throw new AlreadyExistException();
+            throw new CustomException(ErrorCode.DUPLICATED_NICKNAME);
         }
 
         if (!request.getPassword().equals(request.getConfirmPassword())) {
-            throw new IllegalArgumentException("비밀번호 확인하세요");
+            throw new CustomException(ErrorCode.INVALID_PASSWORD);
         }
 
-        Company company = companyRepository.findById(request.getCompanyId()).get();
+        Company company = companyRepository.findById(request.getCompanyId())
+                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         User user = request.toEntity(company);
         User saveUser = userRepository.save(user.hashPassword(encoder));
@@ -61,14 +62,26 @@ public class UserService {
     }
 
     // 로그인
-    public String login(UserDto.loginReq request) {
+    public UserDto.loginRes login(UserDto.loginReq request) {
 
-        User user = userRepository.findByNickname(request.getNickname());
+        String nickname = request.getNickname();
+
+        if (!userRepository.existsByNickname(nickname)) {
+
+            throw new CustomException(ErrorCode.DATA_NOT_FOUND);
+        }
+
+        User user = userRepository.findByNickname(nickname);
         if (encoder.matches(request.getPassword(), user.getPassword())) {
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24); // 만료시간 하루
-            return token;
+            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24);// 만료시간 하루
+
+            return UserDto.loginRes.builder()
+                    .token(token)
+                    .companyId(user.getCompany().getId())
+                    .nickname(nickname)
+                    .build();
         } else {
-            throw new RuntimeException("계정 정보가 일치하지 않습니다.");
+            throw new CustomException(ErrorCode.INVALID_PASSWORD);
         }
     }
 

@@ -1,9 +1,12 @@
 package ssafy.sorhy.dto.gameresult;
 
 import lombok.*;
+import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameType;
+import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.game.GameTitle;
+import ssafy.sorhy.entity.user.User;
 
 import javax.validation.constraints.NotBlank;
 import java.util.List;
@@ -35,6 +38,18 @@ public class GameResultDto {
         private Long characterId;
         @NotBlank(message = "승패를 입력해주세요.")
         private boolean winner;
+
+        public GameResult toEntity(User user, Game game) {
+
+            return GameResult.builder()
+                    .game(game)
+                    .user(user)
+                    .score(this.score)
+                    .characterId(this.characterId)
+                    .winner(this.winner)
+                    .team(Team.valueOf(this.team))
+                    .build();
+        }
     }
 
     @Data
