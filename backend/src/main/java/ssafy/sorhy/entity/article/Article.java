@@ -31,8 +31,8 @@ public class Article {
     private Long id;
 
     private String title;
-
     private String content;
+    private int companyArticle;
 
     @Nullable
     private String imgUrl;

@@ -47,10 +47,20 @@ public class ArticleService {
         return article.toBasicRes();
     }
 
-    public ArticleDto.pagingRes findAll(Pageable pageable) {
+    public ArticleDto.pagingRes findAllFreeArticle(Pageable pageable) {
 
-        Page<Article> result = articleRepository.findAllByOrderByIdDesc(pageable);
+        Page<Article> result = articleRepository.findAllFreeArticleByOrderByIdDesc(pageable);
 
+        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+    }
+
+    public ArticleDto.pagingRes findAllCompanyArticle(Long companyId, String nickname, Pageable pageable) {
+
+        User user = userRepository.findByNickname(nickname);
+
+        validateUser(companyId, user);
+
+        Page<Article> result = articleRepository.findAllCompanyArticleByOrderByIdDesc(companyId, pageable);
         return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
@@ -58,6 +68,7 @@ public class ArticleService {
 
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+
         return article.toDetailRes();
     }
 
@@ -92,26 +103,57 @@ public class ArticleService {
         String word = request.getWord();
 
         if (SearchCond.NONE == (SearchCond.valueOf(request.getSearchCond()))) {
-            Page<Article> result = articleRepository.findByTitleContainingOrContentContainingOrderByIdDesc(word, word, pageable);
+            Page<Article> result = articleRepository.searchFreeArticleByTitleAndContent(word, word, pageable);
 
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
 
-            Page<Article> result = articleRepository.findByTitleContainingOrderByIdDesc(word, pageable);
+            Page<Article> result = articleRepository.searchFreeArticleByTitle(word, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         if (SearchCond.NICKNAME == (SearchCond.valueOf(request.getSearchCond()))) {
 
-            Page<Article> result = articleRepository.findByNicknameOrderByIdDesc(word, pageable);
+            Page<Article> result = articleRepository.searchFreeArticleByNickname(word, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
         if (SearchCond.CONTENT == (SearchCond.valueOf(request.getSearchCond()))) {
 
-            Page<Article> result = articleRepository.findByContentContaining(word, pageable);
+            Page<Article> result = articleRepository.searchFreeArticleByContent(word, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        }
+
+        throw new CustomException(ErrorCode.DATA_NOT_FOUND);
+    }
+
+    public ArticleDto.pagingRes searchCompanyArticle(Long companyId, ArticleDto.searchReq request, Pageable pageable) {
+
+        String word = request.getWord();
+
+        if (SearchCond.NONE == (SearchCond.valueOf(request.getSearchCond()))) {
+            Page<Article> result = articleRepository.searchCompanyArticleByTitleAndContent(word, word, companyId, pageable);
+
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        }
+
+        if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            Page<Article> result = articleRepository.searchCompanyArticleByTitle(word, companyId, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        }
+
+        if (SearchCond.NICKNAME == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            Page<Article> result = articleRepository.searchCompanyArticleByNickname(word, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        }
+
+        if (SearchCond.CONTENT == (SearchCond.valueOf(request.getSearchCond()))) {
+
+            Page<Article> result = articleRepository.searchCompanyArticleByContent(word, companyId, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
@@ -132,5 +174,12 @@ public class ArticleService {
                 .totalElement(totalElement)
                 .articles(articlesDto)
                 .build();
+    }
+
+    private void validateUser(Long companyId, User user) {
+        if (companyId != user.getCompany().getId()) {
+
+            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
+        }
     }
 }

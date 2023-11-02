@@ -11,18 +11,63 @@ import java.util.List;
 
 public interface ArticleRepository extends JpaRepository<Article, Long> {
 
+    @Query("select a from Article a where a.companyArticle = 0 order by a.id desc")
+    Page<Article> findAllFreeArticleByOrderByIdDesc(Pageable pageable);
 
-    Page<Article> findAllByOrderByIdDesc(Pageable pageable);
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 1 and u.company.id = :companyId " +
+            "order by a.id desc")
+    Page<Article> findAllCompanyArticleByOrderByIdDesc(Long companyId, Pageable pageable);
 
     @Query("select count(a) from Article a where a.user.nickname = :nickname")
     Long countArticleByNickname(@Param("nickname") String nickname);
 
-    Page<Article> findByTitleContainingOrderByIdDesc(String word, Pageable pageable);
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 0 and a.title like %:word% " +
+            "order by a.id desc")
+    Page<Article> searchFreeArticleByTitle(String word, Pageable pageable);
 
-    @Query("select a from Article a join a.user u where u.nickname = :nickname order by a.id desc")
-    Page<Article> findByNicknameOrderByIdDesc(@Param("nickname") String nickname, Pageable pageable);
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 0 and u.nickname = :nickname " +
+            "order by a.id desc")
+    Page<Article> searchFreeArticleByNickname(@Param("nickname") String nickname, Pageable pageable);
 
-    Page<Article> findByContentContaining(String word, Pageable pageable);
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 0 and a.content like %:word% " +
+            "order by a.id desc")
+    Page<Article> searchFreeArticleByContent(String word, Pageable pageable);
 
-    Page<Article> findByTitleContainingOrContentContainingOrderByIdDesc(String title, String content, Pageable pageable);
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 0 and a.title like %:title% or a.content like %:content% " +
+            "order by a.id desc")
+    Page<Article> searchFreeArticleByTitleAndContent(String title, String content, Pageable pageable);
+
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 1 and u.company.id = :companyId and a.title like %:word% " +
+            "order by a.id desc")
+    Page<Article> searchCompanyArticleByTitle(String word, Long companyId, Pageable pageable);
+
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 1 and u.nickname = :nickname " +
+            "order by a.id desc")
+    Page<Article> searchCompanyArticleByNickname(@Param("nickname") String nickname, Pageable pageable);
+
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 1 and u.company.id = :companyId and a.content like %:word% " +
+            "order by a.id desc")
+    Page<Article> searchCompanyArticleByContent(String word, Long companyId, Pageable pageable);
+
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.companyArticle = 1 and u.company.id = :companyId and a.title like %:title% or a.content like %:content% " +
+            "order by a.id desc")
+    Page<Article> searchCompanyArticleByTitleAndContent(String title, String content, Long companyId,Pageable pageable);
 }

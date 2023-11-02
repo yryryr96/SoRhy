@@ -10,6 +10,7 @@ import ssafy.sorhy.entity.user.User;
 
 import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.List;
 
 @Data
@@ -34,12 +35,16 @@ public class ArticleDto {
         @NotBlank(message = "내용을 입력하세요.")
         private String content;
 
+        @NotNull
+        private int companyArticle;
+
         public Article toEntity(User user, String imgUrl) {
 
             return Article.builder()
                     .user(user)
                     .title(this.title)
                     .content(this.content)
+                    .companyArticle(this.companyArticle)
                     .imgUrl(imgUrl)
                     .build();
         }

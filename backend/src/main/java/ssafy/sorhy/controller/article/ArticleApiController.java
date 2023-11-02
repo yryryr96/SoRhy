@@ -7,10 +7,6 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
-import ssafy.sorhy.entity.article.Article;
-import ssafy.sorhy.exception.CustomException;
-import ssafy.sorhy.exception.ErrorCode;
-import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.service.article.ArticleService;
 import ssafy.sorhy.util.response.Response;
 
@@ -34,11 +30,22 @@ public class ArticleApiController {
         return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
     }
 
+    // 자유 게시판 글 전체 조회
     @GetMapping("/articles")
-    public Response<ArticleDto.pagingRes> findAll(@PageableDefault(size=2) Pageable pageable) {
+    public Response<ArticleDto.pagingRes> findAllFreeArticle(@PageableDefault(size=6) Pageable pageable) {
 
-        ArticleDto.pagingRes response = articleService.findAll(pageable);
-        return new Response(200, "게시글 전체 조회 성공", response);
+        ArticleDto.pagingRes response = articleService.findAllFreeArticle(pageable);
+        return new Response(200, "자유 게시글 전체 조회 성공", response);
+    }
+
+    @GetMapping("/articles/{companyId}")
+    public Response<ArticleDto.pagingRes> findAllCompanyArticle(@PathVariable Long companyId,
+                                           @PageableDefault(size=6) Pageable pageable,
+                                           Authentication authentication) {
+
+        String nickname = authentication.getName();
+        ArticleDto.pagingRes response = articleService.findAllCompanyArticle(companyId, nickname, pageable);
+        return new Response(200, "회사 게시글 전체 조회 성공", response);
     }
 
     @GetMapping("/article/{articleId}")
@@ -68,11 +75,18 @@ public class ArticleApiController {
 
     @GetMapping("/articles/search")
     public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
-                                                             @PageableDefault(size=2) Pageable pageable) {
+                                                             @PageableDefault(size=6) Pageable pageable) {
 
         ArticleDto.pagingRes response = articleService.searchArticle(request, pageable);
         return new Response(200, "검색 성공", response);
     }
 
+    @GetMapping("/articles/search/{companyId}")
+    public Response<ArticleDto.pagingRes> searchCompanyArticle(@PathVariable Long companyId,
+                                                               @RequestBody @Valid ArticleDto.searchReq request,
+                                                               @PageableDefault(size=6) Pageable pageable) {
 
+        ArticleDto.pagingRes response = articleService.searchCompanyArticle(companyId, request, pageable);
+        return new Response(200, "회사 게시판 검색 성공", response);
+    }
 }
