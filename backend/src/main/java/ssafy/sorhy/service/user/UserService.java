@@ -111,7 +111,7 @@ public class UserService {
         return findUser.toFindDto(resultList, gameResults);
     }
 
-    private List<GameResultDto.top3Character> getTop3CharacterList(String nickname) {
+    public List<GameResultDto.top3Character> getTop3CharacterList(String nickname) {
 
         return em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
                         "from GameResult gr " +

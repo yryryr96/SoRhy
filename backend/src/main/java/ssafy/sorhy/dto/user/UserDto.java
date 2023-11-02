@@ -98,4 +98,15 @@ public class UserDto {
         private float winPercentage;
         private List<GameResultDto.top3Character> top3CharacterList;
     }
+
+    @Data
+    @Builder
+    public static class userRankOfCompanyRes {
+
+        private String nickname;
+        private int totalScore;
+        private int win;
+        private int lose;
+        private float winPercentage;
+    }
 }

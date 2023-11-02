@@ -18,7 +18,6 @@ import java.util.List;
 public class GameResultApiController {
 
     private final GameResultService gameResultService;
-    private final UserService userService;
 
     @PostMapping
     public Response<GameResultDto.saveRes> save(@RequestBody GameResultDto.saveReq request, Authentication authentication) {
@@ -27,11 +26,4 @@ public class GameResultApiController {
         GameResultDto.saveRes response = gameResultService.save(request, nickname);
         return new Response(201, "게임 결과를 저장했습니다.", response);
     }
-
-//    @GetMapping("/{nickname}")
-//    public Response<List<GameResultDto.otherUserDto>> getOtherUserRecords(@PathVariable String nickname) {
-//        System.out.println("CONTROLLER");
-//        List<GameResultDto.otherUserDto> response = gameResultService.getOtherUserRecord(nickname);
-//        return new Response(200, "게임 유저들 모두 조회", response);
-//    }
 }

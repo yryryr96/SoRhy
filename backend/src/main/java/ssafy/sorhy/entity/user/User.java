@@ -114,4 +114,15 @@ public class User {
                 .top3CharacterList(top3CharacterList)
                 .build();
     }
+
+    public UserDto.userRankOfCompanyRes toUserRankOfCompanyRes() {
+
+        return UserDto.userRankOfCompanyRes.builder()
+                .nickname(this.nickname)
+                .totalScore(this.totalScore)
+                .win(this.win)
+                .lose(this.lose)
+                .winPercentage(this.winPercentage)
+                .build();
+    }
 }

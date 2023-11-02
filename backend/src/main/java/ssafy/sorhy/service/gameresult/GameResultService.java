@@ -2,11 +2,13 @@ package ssafy.sorhy.service.gameresult;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.gameresult.OtherUserDto;
+import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
@@ -19,6 +21,7 @@ import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.user.UserService;
 
 import javax.transaction.Transactional;
 import javax.validation.Valid;
@@ -51,9 +54,9 @@ public class GameResultService {
         return gameResult.toSaveResDto(gameResult);
     }
 
-    public List<GameResultDto.personalRankRes> eachGameRank(String gameTitle) {
+    public List<GameResultDto.personalRankRes> eachGameRank(String gameTitle, Pageable pageable) {
 
-        return gameResultRepository.findRankByGameTitle(GameTitle.valueOf(gameTitle))
+        return gameResultRepository.findRankByGameTitle(GameTitle.valueOf(gameTitle), pageable)
                 .stream()
                 .map(gameResult -> GameResultDto.personalRankRes.builder()
                         .nickname(gameResult.getUser().getNickname())
@@ -68,6 +71,14 @@ public class GameResultService {
         List<Company> companyRankList = companyRepository.findCompanyRank();
         return companyRankList.stream()
                 .map(Company::toCompanyRankDto)
+                .collect(Collectors.toList());
+    }
+
+    public List<UserDto.userRankOfCompanyRes> companyUserRank(Pageable pageable, Long companyId) {
+
+        Page<User> userInCompany = userRepository.findUserRankInCompany(companyId, pageable);
+        return userInCompany.stream()
+                .map(User::toUserRankOfCompanyRes)
                 .collect(Collectors.toList());
     }
 

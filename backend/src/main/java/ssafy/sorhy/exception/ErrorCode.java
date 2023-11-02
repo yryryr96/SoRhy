@@ -2,7 +2,6 @@ package ssafy.sorhy.exception;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
-import org.springframework.http.HttpStatus;
 
 @Getter
 @AllArgsConstructor
@@ -14,6 +13,6 @@ public enum ErrorCode {
     UNAUTHORIZED_USER(401, "권한이 없는 유저입니다."),
     DATA_NOT_FOUND(404, "데이터를 찾을 수 없습니다.");
 
-    private int status;
-    private String message;
+    private final int status;
+    private final String message;
 }

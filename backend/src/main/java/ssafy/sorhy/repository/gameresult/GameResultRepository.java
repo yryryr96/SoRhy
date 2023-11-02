@@ -1,5 +1,6 @@
 package ssafy.sorhy.repository.gameresult;
 
+import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -16,9 +17,9 @@ public interface GameResultRepository extends JpaRepository<GameResult, Long> {
     @Query("select g from GameResult g join fetch g.user u where u.id = :userId order by g.id desc")
     List<GameResult> findByUserIdOrderByDesc(@Param("userId") Long userId, Pageable pageable);
 
-    @Query("select gr from GameResult gr join fetch gr.game g where g.gameTitle = :gameTitle order by gr.score desc")
-    List<GameResult> findRankByGameTitle(@Param("gameTitle") GameTitle gameTitle);
-//
+    @Query("select gr from GameResult gr join gr.game g where g.gameTitle = :gameTitle order by gr.score desc")
+    Page<GameResult> findRankByGameTitle(@Param("gameTitle") GameTitle gameTitle, Pageable pageable);
+
     @Query("select new ssafy.sorhy.dto.gameresult.OtherUserDto(u.nickname, gr.characterId, gr.score, u.company.companyName, gr.team) " +
             "from GameResult gr join gr.user u join gr.game g where g.id = :gameId")
     List<OtherUserDto> findOtherUserDtoByGameId(@Param("gameId") Long gameId);
