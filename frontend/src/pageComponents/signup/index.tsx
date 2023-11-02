@@ -1,10 +1,10 @@
-"use client";
+'use client';
 
-import Input from "@/components/input";
-import Button from "@/components/button";
-import Image from "next/image";
-import { useRouter } from "next/navigation";
-import { useSignupHook } from "@/hooks/user/useSignupHook";
+import Input from '@/components/input';
+import Button from '@/components/button';
+import Image from 'next/image';
+import { useRouter } from 'next/navigation';
+import { useSignupHook } from '@/hooks/user/useSignupHook';
 
 const Signup = () => {
     const { user, inputState, handleChange, handleSubmit } = useSignupHook();
@@ -24,9 +24,9 @@ const Signup = () => {
                     <label>비밀번호 확인:</label>
                     <Input
                         type="password"
-                        name="password_sec"
+                        name="confirmPassword"
                         onChange={handleChange}
-                        inputstate={inputState.password_sec}
+                        inputstate={inputState.confirmPassword}
                     />
                 </div>
                 <div>

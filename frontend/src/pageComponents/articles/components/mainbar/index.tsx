@@ -4,11 +4,12 @@ import { StyledMainBar } from './Mainbar.Styled';
 import Contents from './contents';
 import SearchBar from './searchbar';
 
-const MainBar = () => {
+const MainBar = (props: any) => {
+    const path = props.selectbtn;
     return (
         <StyledMainBar>
             <SearchBar />
-            <Contents />
+            <Contents selectbtn={path} />
         </StyledMainBar>
     );
 };

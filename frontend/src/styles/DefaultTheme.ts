@@ -1,4 +1,4 @@
-import { DefaultTheme } from 'styled-components';
+import { DefaultTheme, createGlobalStyle } from 'styled-components';
 
 const theme: DefaultTheme = {
     colors: {
@@ -31,4 +31,10 @@ const theme: DefaultTheme = {
         xxxlarge: '60px',
     },
 };
+
+export const GlobalStyle = createGlobalStyle`
+    * {
+        font-family : ${theme.fonts.HangeulFontRegular};
+    }`;
+
 export default theme;

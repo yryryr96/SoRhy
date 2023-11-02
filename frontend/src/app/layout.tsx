@@ -4,6 +4,7 @@ import StyledComponentsRegistry from './lib/registry';
 import '../styles/globals.css';
 import { ThemeProvider } from 'styled-components';
 import theme from '@/styles/DefaultTheme';
+import { GlobalStyle } from '@/styles/DefaultTheme';
 import { usePathname } from 'next/navigation';
 import Navbar from '@/components/navbar';
 export default function RootLayout({ children }: { children: React.ReactNode }) {
@@ -12,6 +13,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
     return (
         <html>
             <ThemeProvider theme={theme}>
+                <GlobalStyle />
                 <body>
                     <StyledComponentsRegistry>
                         <Navbar />
