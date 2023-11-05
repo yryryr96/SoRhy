@@ -9,9 +9,9 @@ const StyledInput = styeld.input.attrs<any>((props: any) => ({
     ${(props: any) => {
         const inputState = props.inputstate || 'true';
         const disabled = props.disabled || false;
-
+        const font_size = props.font_size || false;
         return css`
-            padding-left: 10px;
+
             width: ${props.width}vw;
             height: ${props.height}vh;
             border-radius: ${props.border_radi}px;
@@ -19,7 +19,7 @@ const StyledInput = styeld.input.attrs<any>((props: any) => ({
             border: 3px solid ${() => (inputState === 'true' ? 'white' : 'red')};
             outline: none;
             font-family: ${(props) => props.theme.fonts.HangeulFontMedium || 'Arial'};
-            font-size: ${(props) => `${props.theme.fontSizes.medium}`};
+            font-size: ${() =>  (font_size !=='false' ?  props.font_size :props.theme.fontSizes.medium)}  ;
         `;
     }}
 `;

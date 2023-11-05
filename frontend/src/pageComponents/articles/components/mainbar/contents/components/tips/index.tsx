@@ -26,7 +26,7 @@ const Tips = (props: any) => {
                     <StyledCenterTail>사내 | 시간 | 사진 | 닉네임</StyledCenterTail>
                 </StyledCenterContainer>
                 <StyledRightContainer>
-                    <Image src="/friends.jpg" width={110} height={110} alt="쌍둥바오" />
+                    <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
                 </StyledRightContainer>
             </StyledContentContainer>
             <StyledContentContainer>
@@ -39,7 +39,7 @@ const Tips = (props: any) => {
                     <StyledCenterTail>사내 | 시간 | 사진 | 닉네임</StyledCenterTail>
                 </StyledCenterContainer>
                 <StyledRightContainer>
-                    <Image src="/friends.jpg" width={110} height={110} alt="쌍둥바오" />
+                    <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
                 </StyledRightContainer>
             </StyledContentContainer>
             <StyledContentContainer>
@@ -52,7 +52,7 @@ const Tips = (props: any) => {
                     <StyledCenterTail>사내 | 시간 | 사진 | 닉네임</StyledCenterTail>
                 </StyledCenterContainer>
                 <StyledRightContainer>
-                    <Image src="/friends.jpg" width={110} height={110} alt="쌍둥바오" />
+                    <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
                 </StyledRightContainer>
             </StyledContentContainer>
             <StyledContentContainer>
@@ -65,7 +65,7 @@ const Tips = (props: any) => {
                     <StyledCenterTail>사내 | 시간 | 사진 | 닉네임</StyledCenterTail>
                 </StyledCenterContainer>
                 <StyledRightContainer>
-                    <Image src="/friends.jpg" width={110} height={110} alt="쌍둥바오" />
+                    <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
                 </StyledRightContainer>
             </StyledContentContainer>
         </StyledContentsBox>

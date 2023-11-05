@@ -4,13 +4,10 @@ import api from "../api";
 
 const articleDetailGet = async (articleId: any) => {
     try {
-        const accessToken = localStorage.getItem("accessToken");
-        const response = await api.get("/article/" + articleId, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
+        const res = await api.get("/article/" + articleId, {
+
         });
-        return response.data;
+        return res.data;
     } catch (error) {
         console.error("Error: ", error);
         throw error;

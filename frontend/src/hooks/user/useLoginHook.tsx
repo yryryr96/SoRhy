@@ -90,13 +90,14 @@ export const useLoginHook = () => {
                 const res = await axios({
                   method: 'post',
                   url: `${process.env.NEXT_PUBLIC_API_URL}/user/login`,
-                  data : {...user}
+                  data : {...user},
+                  responseType: 'json',
                 });
                 console.log(res)
-                console.log(res.data.data)
+                console.log(res.data)
                 localStorage.setItem("nickname", user.nickname)
                 localStorage.setItem("password", user.password)
-                localStorage.setItem("accessToken", res.data.data)
+                localStorage.setItem("accessToken", res.data.result.token)
                 
                 login();
                 

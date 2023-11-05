@@ -3,10 +3,11 @@ import styled, { css } from 'styled-components';
 const StyledContentsBox = styled.div`
     display: flex;
     flex-direction: column;
-    width: 50vw;
+    width: 38vw;
     height: 74vh;
     padding: 2% 2%;
     border: 1px solid lightgray;
+    background-color: white;
     border-radius: 20px;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
@@ -31,6 +32,7 @@ const StyledContentContainer = styled.div`
     width: 100%;
     height: 26%;
     border: 1px solid lightgray;
+
     border-radius: 10px;
     box-shadow: 1px 1px 2px 1px lightgray;
 `;
@@ -68,7 +70,7 @@ const StyledCenterHead = styled.div`
     align-items: center;
     width: 100%;
     height: 50%;
-    font-size: 24px;
+    font-size: 20px;
     font-weight: bold;
 `;
 
@@ -77,7 +79,7 @@ const StyledCenterTail = styled.div`
     align-items: center;
     width: 100%;
     height: 50%;
-    font-size: 18px;
+    font-size: 16px;
 `;
 
 export {

@@ -16,7 +16,7 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
     const black = props.theme.colors.black;
     const white = props.theme.colors.white;
     const yellow = props.theme.colors.yellow;
-
+    const blue = '#318fff'
     const useStyle: any = {
       basic: `
                 border-radius: 48px;
@@ -57,12 +57,18 @@ const StyledButton = styled.button.attrs<ButtonStyles>((props) => ({}))`
                 background-color: ${white};
                 color : ${black};
             `,
-      bgGray: `
+      blue : `
                 border-radius: 48px;
                 font-size:${small};
-                background-color: ${gray};
+                background-color: ${blue};
                 color : ${white};
             `,
+      bggray : `
+                border-radius: 48px;
+                font-size:${small};
+                background-color: ${lightgray};
+                color : ${black};
+      `,
 
       sortingYellow: `
                 justify-content: space-evenly;

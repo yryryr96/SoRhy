@@ -1,6 +1,7 @@
 'use client';
 
 import { StyledSideBar, StyledSideItem } from './Sidebar.Styled';
+import HR from '@/components/hr';
 import Image from 'next/image';
 import { useArticleStore } from '@/stores/useArticleStore';
 const SideBar = (props: any) => {
@@ -16,6 +17,7 @@ const SideBar = (props: any) => {
                 게시판
                 <Image src="/rightarrow.svg" priority={true} width={20} height={15} alt="오른쪽 화살표" />
             </StyledSideItem>
+            <HR />
             <StyledSideItem onClick={() => handleItemClick('1')} active={path === '1'}>
                 자유 게시판
             </StyledSideItem>
@@ -26,6 +28,7 @@ const SideBar = (props: any) => {
                 나머지
                 <Image src="/rightarrow.svg" priority={true} width={20} height={15} alt="오른쪽 화살표" />
             </StyledSideItem>
+            <HR />
             <StyledSideItem onClick={() => handleItemClick('3')} active={path === '3'}>
                 Tips
             </StyledSideItem>

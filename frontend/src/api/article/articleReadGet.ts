@@ -6,13 +6,10 @@ const articleReadGet = async () => {
     const accessToken = localStorage.getItem("accessToken");
     try {
         const res = await api.get(`/articles`, {
-            headers: {
-                Authorization: `Bearer ${accessToken}`,
-            },
         });
-        return res.data.response;
+        return res.data;
     } catch (err) {
-        //console.log(err)
+        console.log(err)
     }
 };
 

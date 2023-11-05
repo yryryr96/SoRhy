@@ -1,13 +1,25 @@
 import styled, { css } from 'styled-components';
 
-const StyledArticles = styled.div`
+const Container = styled.div`
     display: flex;
-    flex-direction: row;
+    position: relative;
 
     width: 100vw;
     height: 100vh;
-
-    padding: 6vh 3vw;
 `;
 
-export { StyledArticles };
+const StyledArticles = styled.div`
+    display: flex;
+    flex-direction: row;
+    position: relative;
+    width: 100vw;
+    height: 110vh; //추후 수정 필요 임의값
+    background-image: url('/background7.jpg');
+    background-size: cover;
+
+    padding: 6vh 15vw;
+    gap: 2vw;
+    z-index: 1;
+`;
+
+export { StyledArticles, Container };

@@ -5,9 +5,11 @@ const StyledMain = styled.div`
     flex-direction: column;
     align-items: center;
     justify-content: center;
-  
+    background-image: url('/background12.jpg');
+    background-size: cover;
     width: 100vw;
-    height: 70vh;
+    height: 100vh;
+    gap: 10vh;
 `;
 
 const StyledMainSearchBox = styled.div.attrs<any>((props: any) => ({}))`
@@ -16,11 +18,12 @@ const StyledMainSearchBox = styled.div.attrs<any>((props: any) => ({}))`
             display: flex;
             justify-content: center;
             align-items: center;
-
+            margin-bottom: 10vh;
             width: 40vw;
             height: 10vh;
             border: 2px solid #0b4f8f;
             border-radius: 40px;
+            background-color: white;
             gap: 2vw;
         `;
     }}
