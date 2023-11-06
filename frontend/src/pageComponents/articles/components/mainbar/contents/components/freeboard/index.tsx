@@ -16,15 +16,16 @@ import Image from 'next/image';
 import ArticleDetail from '../../../../../../article';
 
 const FreeBoard = (props: any) => {
+    const { category } = props;
     const path = props.selectbtn;
     const [freeBoard, setFreeBoard] = useState<any[]>([]);
     const router = useRouter();
 
     useEffect(() => {
-        articleReadGet()
+        articleReadGet(category)
             .then((res) => {
-                console.log(res, '후우');
                 setFreeBoard(res.result.articles);
+                console.log(res.result.articles, '호');
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
@@ -33,7 +34,7 @@ const FreeBoard = (props: any) => {
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-    console.log(freeBoard[0], '야');
+
     return (
         <StyledContentsBox>
             {freeBoard.length > 0 ? (
