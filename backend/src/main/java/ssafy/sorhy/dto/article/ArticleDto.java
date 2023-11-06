@@ -3,8 +3,11 @@ package ssafy.sorhy.dto.article;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
+import org.springframework.lang.Nullable;
+import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.entity.article.Category;
 import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
 
@@ -36,7 +39,7 @@ public class ArticleDto {
         private String content;
 
         @NotNull
-        private int companyArticle;
+        private String category;
 
         public Article toEntity(User user, String imgUrl) {
 
@@ -44,7 +47,7 @@ public class ArticleDto {
                     .user(user)
                     .title(this.title)
                     .content(this.content)
-                    .companyArticle(this.companyArticle)
+                    .category(Category.valueOf(this.category))
                     .imgUrl(imgUrl)
                     .build();
         }

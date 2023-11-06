@@ -32,13 +32,15 @@ public class Article {
 
     private String title;
     private String content;
-    private int companyArticle;
+
+    @Enumerated(EnumType.STRING)
+    private Category category;
 
     @Nullable
     private String imgUrl;
 
     @Builder.Default
-    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
+    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")

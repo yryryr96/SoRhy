@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
 import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.entity.article.Category;
 import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.CustomException;
@@ -30,7 +31,7 @@ public class ArticleService {
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
 
-    public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq data) throws IOException {
+    public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq request) throws IOException {
 
         String imgUrl;
         User user = userRepository.findByNickname(nickname);
@@ -41,16 +42,26 @@ public class ArticleService {
             imgUrl = null;
         }
 
-        Article article = data.toEntity(user,imgUrl);
+        Article article = request.toEntity(user,imgUrl);
         articleRepository.save(article);
 
         return article.toBasicRes();
     }
 
-    public ArticleDto.pagingRes findAllFreeArticle(Pageable pageable) {
+    public ArticleDto.pagingRes findAllArticle(String nickname, String category, Pageable pageable) {
 
-        Page<Article> result = articleRepository.findAllFreeArticleByOrderByIdDesc(pageable);
+        Category cat = Category.valueOf(category);
+        System.out.println(cat);
 
+        if (category.equals("COMPANY")) {
+
+            User user = userRepository.findByNickname(nickname);
+            Long companyId = user.getCompany().getId();
+            Page<Article> result = articleRepository.findAllCompanyArticleByOrderByIdDesc(companyId, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        }
+
+        Page<Article> result = articleRepository.findAllArticleByOrderByIdDesc(cat, pageable);
         return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
@@ -101,26 +112,26 @@ public class ArticleService {
     public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, Pageable pageable) {
 
         String word = request.getWord();
-
-        if (SearchCond.NONE == (SearchCond.valueOf(request.getSearchCond()))) {
+        SearchCond searchCond = SearchCond.valueOf(request.getSearchCond());
+        if (SearchCond.NONE == searchCond) {
             Page<Article> result = articleRepository.searchFreeArticleByTitleAndContent(word, word, pageable);
 
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
-        if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
+        if (SearchCond.TITLE == searchCond) {
 
             Page<Article> result = articleRepository.searchFreeArticleByTitle(word, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
-        if (SearchCond.NICKNAME == (SearchCond.valueOf(request.getSearchCond()))) {
+        if (SearchCond.NICKNAME == searchCond) {
 
             Page<Article> result = articleRepository.searchFreeArticleByNickname(word, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
-        if (SearchCond.CONTENT == (SearchCond.valueOf(request.getSearchCond()))) {
+        if (SearchCond.CONTENT == searchCond) {
 
             Page<Article> result = articleRepository.searchFreeArticleByContent(word, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());

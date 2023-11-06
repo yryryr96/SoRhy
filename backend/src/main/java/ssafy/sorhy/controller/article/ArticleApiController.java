@@ -21,32 +21,41 @@ public class ArticleApiController {
 
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
-            @Valid ArticleDto.saveReq data,
-            MultipartFile file,
+            @RequestPart @Valid ArticleDto.saveReq request,
+            @RequestPart MultipartFile file,
             Authentication authentication) throws IOException {
 
         String nickname = authentication.getName();
-        ArticleDto.basicRes response = articleService.save(nickname, file, data);
+        ArticleDto.basicRes response = articleService.save(nickname, file, request);
         return new Response(201, "게시글을 정상적으로 작성했습니다.", response);
     }
 
     // 자유 게시판 글 전체 조회
     @GetMapping("/articles")
-    public Response<ArticleDto.pagingRes> findAllFreeArticle(@PageableDefault(size=6) Pageable pageable) {
+    public Response<ArticleDto.pagingRes> findAllArticle(@RequestParam String category,
+                                                         @PageableDefault(size=6) Pageable pageable,
+                                                         Authentication authentication) {
 
-        ArticleDto.pagingRes response = articleService.findAllFreeArticle(pageable);
-        return new Response(200, "자유 게시글 전체 조회 성공", response);
+        String nickname = null;
+
+        if (category.equals("COMPANY")) {
+            nickname = authentication.getName();
+        }
+        System.out.println(nickname);
+        ArticleDto.pagingRes response = articleService.findAllArticle(nickname, category, pageable);
+        return new Response(200, "게시글 전체 조회 성공", response);
     }
 
-    @GetMapping("/articles/{companyId}")
-    public Response<ArticleDto.pagingRes> findAllCompanyArticle(@PathVariable Long companyId,
-                                           @PageableDefault(size=6) Pageable pageable,
-                                           Authentication authentication) {
-
-        String nickname = authentication.getName();
-        ArticleDto.pagingRes response = articleService.findAllCompanyArticle(companyId, nickname, pageable);
-        return new Response(200, "회사 게시글 전체 조회 성공", response);
-    }
+//    @GetMapping("/articles")
+//    public Response<ArticleDto.pagingRes> findAllCompanyArticle(@RequestParam Long companyId,
+//                                           @RequestParam String category,
+//                                           @PageableDefault(size=6) Pageable pageable,
+//                                           Authentication authentication) {
+//
+//        String nickname = authentication.getName();
+//        ArticleDto.pagingRes response = articleService.findAllCompanyArticle(companyId, nickname, pageable);
+//        return new Response(200, "회사 게시글 전체 조회 성공", response);
+//    }
 
     @GetMapping("/article/{articleId}")
     public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
