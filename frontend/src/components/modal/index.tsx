@@ -26,13 +26,12 @@ const Modal = (props: ModalType) => {
     const [image, setImage] = useState(null);
 
     const handleSubmit = async () => {
-        const ArticleData = {
-            title,
-            content,
-            companyArticle: 1,
-            image,
-        };
-        console.log(ArticleData);
+        const ArticleData = new FormData();
+        ArticleData.append('title', title);
+        ArticleData.append('content', content);
+        ArticleData.append('category', 'FREE');
+        ArticleData.append('file', image);
+
         try {
             await articleSavePost(ArticleData);
         } catch (error) {
