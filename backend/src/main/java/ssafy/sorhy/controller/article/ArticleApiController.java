@@ -21,8 +21,8 @@ public class ArticleApiController {
 
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
-            @RequestPart @Valid ArticleDto.saveReq data,
-            @RequestPart(required = false) MultipartFile file,
+            @Valid ArticleDto.saveReq data,
+            MultipartFile file,
             Authentication authentication) throws IOException {
 
         String nickname = authentication.getName();
