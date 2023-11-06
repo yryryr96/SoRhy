@@ -9,9 +9,9 @@ const Contents = (props: any) => {
 
     return (
         <>
-            {path === '1' && <FreeBoard />}
-            {path === '2' && <CompanyBoard />}
-            {path === '3' && <Tips />}
+            {path === '1' && <FreeBoard category="FREE" />}
+            {path === '2' && <CompanyBoard category="COMPANY" />}
+            {path === '3' && <Tips category="TIP" />}
             {/* {path === '4' && <BugReport />} */}
         </>
     );
