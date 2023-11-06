@@ -32,6 +32,7 @@ public class Article {
 
     private String title;
     private String content;
+    private int viewCount;
 
     @Enumerated(EnumType.STRING)
     private Category category;
@@ -54,12 +55,18 @@ public class Article {
         this.content = dto.getContent();
     }
 
+    public void addViewCount() {
+
+        this.viewCount += 1;
+    }
+
     public ArticleDto.basicRes toBasicRes() {
 
         return ArticleDto.basicRes.builder()
                 .articleId(this.id)
                 .nickname(this.user.getNickname())
                 .title(this.title)
+                .viewCount(this.viewCount)
                 .createdAt(this.createdAt)
                 .build();
     }
@@ -71,6 +78,7 @@ public class Article {
                 .nickname(this.user.getNickname())
                 .title(this.title)
                 .content(this.content)
+                .viewCount(this.viewCount)
                 .createdAt(this.createdAt)
                 .imgUrl(this.imgUrl)
                 .build();

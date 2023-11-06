@@ -26,6 +26,7 @@ public class ArticleDto {
         private Long articleId;
         private String nickname;
         private String title;
+        private int viewCount;
         private String createdAt;
     }
 
@@ -61,6 +62,7 @@ public class ArticleDto {
         private String nickname;
         private String title;
         private String content;
+        private int viewCount;
         private String createdAt;
         private String imgUrl;
     }

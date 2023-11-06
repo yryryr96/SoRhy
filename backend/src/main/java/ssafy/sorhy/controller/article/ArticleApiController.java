@@ -33,15 +33,26 @@ public class ArticleApiController {
     // 자유 게시판 글 전체 조회
     @GetMapping("/articles")
     public Response<ArticleDto.pagingRes> findAllArticle(@RequestParam String category,
-                                                         @PageableDefault(size=6) Pageable pageable,
+                                                         @PageableDefault(size=4) Pageable pageable,
                                                          Authentication authentication) {
 
         String nickname = null;
         if (category.equals("COMPANY")) {
             nickname = authentication.getName();
         }
-        System.out.println(nickname);
         ArticleDto.pagingRes response = articleService.findAllArticle(nickname, category, pageable);
+        return new Response(200, "게시글 전체 조회 성공", response);
+    }
+
+    @GetMapping("/articles/hot")
+    public Response<ArticleDto.pagingRes> findHotArticles(@RequestParam String category,
+                                                         @PageableDefault(size=4) Pageable pageable,
+                                                         Authentication authentication) {
+        String nickname = null;
+        if (category.equals("COMPANY")) {
+            nickname = authentication.getName();
+        }
+        ArticleDto.pagingRes response = articleService.findHotArticles(nickname, category, pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
     }
 

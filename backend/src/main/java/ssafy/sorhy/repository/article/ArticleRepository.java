@@ -21,6 +21,15 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "order by a.id desc")
     Page<Article> findAllCompanyArticleByOrderByIdDesc(@Param("companyId") Long companyId, Pageable pageable);
 
+    @Query("select a from Article a where a.category = :category order by a.viewCount desc")
+    Page<Article> findHotArticleByOrderByViewCountDesc(@Param("category") Category category, Pageable pageable);
+
+    @Query("select a from Article a " +
+            "join a.user u " +
+            "where a.category = 'COMPANY' and u.company.id = :companyId " +
+            "order by a.viewCount desc")
+    Page<Article> findHotCompanyArticleByOrderByViewCountDesc(@Param("companyId") Long companyId, Pageable pageable);
+
     @Query("select count(a) from Article a where a.user.nickname = :nickname")
     Long countArticleByNickname(@Param("nickname") String nickname);
 

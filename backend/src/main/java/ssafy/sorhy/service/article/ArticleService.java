@@ -65,11 +65,26 @@ public class ArticleService {
         return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
+    public ArticleDto.pagingRes findHotArticles(String nickname, String category, Pageable pageable) {
+
+        Category articleCategory = Category.valueOf(category);
+        if (category.equals("COMPANY")) {
+
+            User user = findUser(nickname);
+            Long companyId = user.getCompany().getId();
+            Page<Article> result = articleRepository.findHotCompanyArticleByOrderByViewCountDesc(companyId, pageable);
+            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        }
+
+        Page<Article> result = articleRepository.findHotArticleByOrderByViewCountDesc(articleCategory, pageable);
+        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+    }
+
     public ArticleDto.detailRes findById(Long articleId) {
 
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
-
+        article.addViewCount();
         return article.toDetailRes();
     }
 

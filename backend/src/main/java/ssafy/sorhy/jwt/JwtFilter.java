@@ -7,6 +7,7 @@ import io.jsonwebtoken.SignatureException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.boot.autoconfigure.security.oauth2.resource.OAuth2ResourceServerProperties;
 import org.springframework.http.HttpHeaders;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -64,6 +65,7 @@ public class JwtFilter extends OncePerRequestFilter {
             throw new JwtException("만료된 토큰입니다.");
         } catch(Exception e) {
             SecurityContextHolder.clearContext();
+            throw new JwtException("토큰 유무를 확인해주세요.");
         }
     }
 }
