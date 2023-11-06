@@ -1,7 +1,17 @@
 import { useState } from 'react';
-import { useRouter} from 'next/navigation';
+import { useRouter } from 'next/navigation';
 import Button from '../button';
-import { StyledModalWrapper, StyledModal, StyledBigText, ModalHeader, ModalCenter,TextArea, Label,Form,RowForm } from './Modal.styled';
+import {
+    StyledModalWrapper,
+    StyledModal,
+    StyledBigText,
+    ModalHeader,
+    ModalCenter,
+    TextArea,
+    Label,
+    Form,
+    RowForm,
+} from './Modal.styled';
 import { ModalType } from './Modal.type';
 import Input from '../input';
 import Image from 'next/image';
@@ -19,17 +29,16 @@ const Modal = (props: ModalType) => {
         const ArticleData = {
             title,
             content,
-            // selectedBoard,
-            companyArticle :1,
-            // image
-        }
+            companyArticle: 1,
+            image,
+        };
+        console.log(ArticleData);
         try {
-            await articleSavePost(ArticleData)   
+            await articleSavePost(ArticleData);
         } catch (error) {
-            console.error("게시글 저장 오류", error)
+            console.error('게시글 저장 오류', error);
         }
-
-      };
+    };
 
     return props.isOpen ? (
         <StyledModalWrapper>
@@ -48,27 +57,20 @@ const Modal = (props: ModalType) => {
                     {props.smalltext !== '' ? <div className="subtitle"> {props.smalltext} </div> : null}
                 </StyledBigText>
                 <ModalCenter>
-                <Form onSubmit={handleSubmit}>
+                    <Form onSubmit={handleSubmit}>
                         <RowForm>
                             <Image src="/bluetitle.svg" width={19} height={19} alt="제목 사진" />
                             <Label>글 제목</Label>
                         </RowForm>
 
-                        <TextArea
-                            value={title}
-                            rows={1}
-                            onChange={(e) => setTitle(e.target.value)}
-                        />
+                        <TextArea value={title} rows={1} onChange={(e) => setTitle(e.target.value)} />
 
                         <RowForm>
                             <Image src="/blueboard.svg" width={19} height={19} alt="게시판 사진" />
                             <Label>게시판 선택</Label>
                         </RowForm>
 
-                        <SelectBox
-                        value={selectedBoard}
-                        onChange={(e) => setSelectedBoard(e.target.value)}
-                        >
+                        <SelectBox value={selectedBoard} onChange={(e) => setSelectedBoard(e.target.value)}>
                             <option value="0">자유 게시판</option>
                             <option value="1">회사 게시판</option>
                             <option value="2">Tips</option>
@@ -78,23 +80,13 @@ const Modal = (props: ModalType) => {
                             <Image src="/bluecontents.svg" width={19} height={19} alt="내용 사진" />
                             <Label>글 내용</Label>
                         </RowForm>
-                        <TextArea
-                            rows ={9}
-                            value={content}
-                            onChange={(e) => setContent(e.target.value)}
-                        />
+                        <TextArea rows={9} value={content} onChange={(e) => setContent(e.target.value)} />
                         <RowForm>
                             <Image src="/bluepicture.svg" width={19} height={19} alt="사진 첨부" />
                             <Label>사진 첨부</Label>
                         </RowForm>
-                        <Input
-                            font_size="15px"
-                            type="file"
-                            onChange={(e : any) => setImage(e.target.files[0])}
-                        />
-                    </Form>                  
-
-
+                        <Input font_size="15px" type="file" onChange={(e: any) => setImage(e.target.files[0])} />
+                    </Form>
                 </ModalCenter>
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>
                     <div style={{ width: '43%', height: '38px' }}>
@@ -105,7 +97,7 @@ const Modal = (props: ModalType) => {
                             style={{ borderRadius: '5px' }}
                             onClick={async () => {
                                 if (props.onConfirmClick) {
-                                    await handleSubmit()
+                                    await handleSubmit();
                                     props.onConfirmClick();
                                 } else if (props.onDelete) {
                                     props.onDelete();
@@ -121,7 +113,6 @@ const Modal = (props: ModalType) => {
                             onClick={props.onClose}
                         />
                     </div>
-
                 </div>
             </StyledModal>
         </StyledModalWrapper>
