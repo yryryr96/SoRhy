@@ -17,6 +17,7 @@ import Input from '../input';
 import Image from 'next/image';
 import { SelectBox } from '@/pageComponents/articles/components/mainbar/searchbar/Searchbar.Styled';
 import articleSavePost from '@/api/article/articleSavePost';
+import Article from '@/pageComponents/article';
 const Modal = (props: ModalType) => {
     const router = useRouter();
 
