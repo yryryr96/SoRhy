@@ -22,6 +22,8 @@ import java.io.IOException;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import static ssafy.sorhy.entity.article.SearchCond.*;
+
 @Transactional
 @Service
 @RequiredArgsConstructor
@@ -34,7 +36,7 @@ public class ArticleService {
     public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq request) throws IOException {
 
         String imgUrl;
-        User user = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
 
         if (file != null) {
             imgUrl = s3UploadService.uploadFile(file);
@@ -42,7 +44,7 @@ public class ArticleService {
             imgUrl = null;
         }
 
-        Article article = request.toEntity(user,imgUrl);
+        Article article = request.toEntity(user, imgUrl);
         articleRepository.save(article);
 
         return article.toBasicRes();
@@ -50,45 +52,34 @@ public class ArticleService {
 
     public ArticleDto.pagingRes findAllArticle(String nickname, String category, Pageable pageable) {
 
-        Category cat = Category.valueOf(category);
-        System.out.println(cat);
-
+        Category articleCategory = Category.valueOf(category);
         if (category.equals("COMPANY")) {
 
-            User user = userRepository.findByNickname(nickname);
+            User user = findUser(nickname);
             Long companyId = user.getCompany().getId();
             Page<Article> result = articleRepository.findAllCompanyArticleByOrderByIdDesc(companyId, pageable);
             return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
         }
 
-        Page<Article> result = articleRepository.findAllArticleByOrderByIdDesc(cat, pageable);
-        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-    }
-
-    public ArticleDto.pagingRes findAllCompanyArticle(Long companyId, String nickname, Pageable pageable) {
-
-        User user = userRepository.findByNickname(nickname);
-
-        validateUser(companyId, user);
-
-        Page<Article> result = articleRepository.findAllCompanyArticleByOrderByIdDesc(companyId, pageable);
+        Page<Article> result = articleRepository.findAllArticleByOrderByIdDesc(articleCategory, pageable);
         return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
     public ArticleDto.detailRes findById(Long articleId) {
 
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
         return article.toDetailRes();
     }
 
     public String update(Long articleId, String nickname, ArticleDto.saveReq request) {
 
+        User user = findUser(nickname);
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        if(article.getUser().getNickname().equals(nickname)) {
+        if (article.getUser().equals(user)) {
             article.update(request);
             return "ok";
         } else {
@@ -98,10 +89,11 @@ public class ArticleService {
 
     public String delete(Long articleId, String nickname) {
 
+        User user = findUser(nickname);
         Article article = articleRepository.findById(articleId)
-                .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
+                .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        if (article.getUser().getNickname().equals(nickname)) {
+        if (article.getUser().equals(user)) {
             articleRepository.delete(article);
             return "delete success!!";
         } else {
@@ -109,66 +101,71 @@ public class ArticleService {
         }
     }
 
-    public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, Pageable pageable) {
+    public ArticleDto.pagingRes searchArticle(ArticleDto.searchReq request, String category, Pageable pageable) {
 
         String word = request.getWord();
-        SearchCond searchCond = SearchCond.valueOf(request.getSearchCond());
-        if (SearchCond.NONE == searchCond) {
-            Page<Article> result = articleRepository.searchFreeArticleByTitleAndContent(word, word, pageable);
+        Category articleCategory;
+        SearchCond searchCond;
+        Page<Article> result = null;
 
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        try {
+            articleCategory = Category.valueOf(category);
+            searchCond = valueOf(request.getSearchCond());
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
 
-        if (SearchCond.TITLE == searchCond) {
-
-            Page<Article> result = articleRepository.searchFreeArticleByTitle(word, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        switch (searchCond) {
+            case NONE:
+                result = articleRepository.searchArticleByTitleAndContent(word, articleCategory, pageable);
+                break;
+            case TITLE:
+                result = articleRepository.searchArticleByTitle(word, articleCategory, pageable);
+                break;
+            case NICKNAME:
+                result = articleRepository.searchArticleByNickname(word, articleCategory, pageable);
+                break;
+            case CONTENT:
+                result = articleRepository.searchArticleByContent(word, articleCategory, pageable);
+                break;
+            default:
+                throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
 
-        if (SearchCond.NICKNAME == searchCond) {
-
-            Page<Article> result = articleRepository.searchFreeArticleByNickname(word, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        if (SearchCond.CONTENT == searchCond) {
-
-            Page<Article> result = articleRepository.searchFreeArticleByContent(word, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        throw new CustomException(ErrorCode.DATA_NOT_FOUND);
+        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
-    public ArticleDto.pagingRes searchCompanyArticle(Long companyId, ArticleDto.searchReq request, Pageable pageable) {
+    public ArticleDto.pagingRes searchCompanyArticle(String nickname, ArticleDto.searchReq request, Pageable pageable) {
 
         String word = request.getWord();
+        SearchCond searchCond;
+        Page<Article> result = null;
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
+        Long companyId = user.getCompany().getId();
 
-        if (SearchCond.NONE == (SearchCond.valueOf(request.getSearchCond()))) {
-            Page<Article> result = articleRepository.searchCompanyArticleByTitleAndContent(word, word, companyId, pageable);
-
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        try {
+            searchCond = valueOf(request.getSearchCond());
+        } catch (Exception e) {
+            throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
 
-        if (SearchCond.TITLE == (SearchCond.valueOf(request.getSearchCond()))) {
-
-            Page<Article> result = articleRepository.searchCompanyArticleByTitle(word, companyId, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
+        switch(searchCond) {
+            case NONE:
+                result = articleRepository.searchCompanyArticleByTitleAndContent(word, word, companyId, pageable);
+                break;
+            case TITLE:
+                result = articleRepository.searchCompanyArticleByTitle(word, companyId, pageable);
+                break;
+            case NICKNAME:
+                result = articleRepository.searchCompanyArticleByNickname(word, pageable);
+                break;
+            case CONTENT:
+                result = articleRepository.searchCompanyArticleByContent(word, companyId, pageable);
+                break;
+            default:
+                throw new CustomException(ErrorCode.NOT_VALID_REQUEST);
         }
-
-        if (SearchCond.NICKNAME == (SearchCond.valueOf(request.getSearchCond()))) {
-
-            Page<Article> result = articleRepository.searchCompanyArticleByNickname(word, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        if (SearchCond.CONTENT == (SearchCond.valueOf(request.getSearchCond()))) {
-
-            Page<Article> result = articleRepository.searchCompanyArticleByContent(word, companyId, pageable);
-            return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
-        }
-
-        throw new CustomException(ErrorCode.DATA_NOT_FOUND);
+        return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
     private List<ArticleDto.basicRes> toDtoList(List<Article> articleList) {
@@ -187,10 +184,9 @@ public class ArticleService {
                 .build();
     }
 
-    private void validateUser(Long companyId, User user) {
-        if (companyId != user.getCompany().getId()) {
+    private User findUser(String nickname) {
 
-            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
-        }
+        return userRepository.findByNickname(nickname)
+                .orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
     }
 }

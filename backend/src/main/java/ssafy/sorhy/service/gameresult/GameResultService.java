@@ -42,14 +42,14 @@ public class GameResultService {
 
     public GameResultDto.saveRes save(@RequestBody @Valid GameResultDto.saveReq request, String nickname) {
 
-        User findUser = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
         Game findGame = gameRepository.findById(request.getGameId())
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        GameResult gameResult = request.toEntity(findUser, findGame);
+        GameResult gameResult = request.toEntity(user, findGame);
 
         int score = gameResult.getScore();
-        findUser.updateScoreAndWinOrLose(score, gameResult.isWinner());
+        user.updateScoreAndWinOrLose(score, gameResult.isWinner());
         gameResultRepository.save(gameResult);
         return gameResult.toSaveResDto(gameResult);
     }
@@ -85,23 +85,19 @@ public class GameResultService {
     public List<GameResultDto.otherUserDto> getOtherUserRecord(String nickname, Pageable pageable) {
 
         List<GameResultDto.otherUserDto> result = new ArrayList<>();
-        User user = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
 
         List<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
         for (GameResult gameResult : gameResults) {
 
             Game game = gameResult.getGame();
             List<OtherUserDto> enteredUsers = gameResultRepository.findOtherUserDtoByGameId(game.getId());
-            result.add(GameResultDto.otherUserDto.builder()
-                    .gameId(game.getId())
-                    .gameTitle(game.getGameTitle())
-                    .gameType(game.getGameType())
-                    .characterId(gameResult.getCharacterId())
-                    .winner(gameResult.isWinner())
-                    .createdAt(gameResult.getCreatedAt())
-                    .enteredUsers(enteredUsers)
-                    .build());
+            result.add(new GameResultDto.otherUserDto(game, gameResult, enteredUsers));
         }
         return result;
+    }
+
+    private User findUser(String nickname) {
+        return userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
     }
 }

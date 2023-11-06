@@ -95,7 +95,6 @@ public class GameResultDto {
     }
 
     @Data
-    @Builder
     public static class otherUserDto {
 
         private Long gameId;
@@ -105,5 +104,15 @@ public class GameResultDto {
         private boolean winner;
         private String createdAt;
         private List<OtherUserDto> enteredUsers;
+
+        public otherUserDto(Game game, GameResult gameResult, List<OtherUserDto> enteredUsers) {
+            this.gameId = game.getId();
+            this.gameTitle = game.getGameTitle();
+            this.gameType = game.getGameType();
+            this.characterId = gameResult.getCharacterId();
+            this.winner = gameResult.isWinner();
+            this.createdAt = gameResult.getCreatedAt();
+            this.enteredUsers = enteredUsers;
+        }
     }
 }

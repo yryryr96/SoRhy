@@ -8,10 +8,11 @@ import org.springframework.data.repository.query.Param;
 import ssafy.sorhy.entity.user.User;
 
 import java.util.List;
+import java.util.Optional;
 
 public interface UserRepository extends JpaRepository<User, Long> {
 
-    User findByNickname(String nickname);
+    Optional<User> findByNickname(String nickname);
 
     boolean existsByNickname(String nickname);
 

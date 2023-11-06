@@ -26,27 +26,27 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select a from Article a " +
             "join a.user u " +
-            "where a.category = 'FREE' and a.title like %:word% " +
+            "where a.category = :category and a.title like %:word% " +
             "order by a.id desc")
-    Page<Article> searchFreeArticleByTitle(@Param("word") String word, Pageable pageable);
+    Page<Article> searchArticleByTitle(@Param("word") String word, @Param("category") Category category, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
-            "where a.category = 'FREE' and u.nickname = :nickname " +
+            "where a.category = :category and u.nickname = :nickname " +
             "order by a.id desc")
-    Page<Article> searchFreeArticleByNickname(@Param("nickname") String nickname, Pageable pageable);
+    Page<Article> searchArticleByNickname(@Param("nickname") String nickname, @Param("category") Category category, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
-            "where a.category = 'FREE' and a.content like %:word% " +
+            "where a.category = :category and a.content like %:word% " +
             "order by a.id desc")
-    Page<Article> searchFreeArticleByContent(@Param("word") String word, Pageable pageable);
+    Page<Article> searchArticleByContent(@Param("word") String word, @Param("category") Category category, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
-            "where a.category = 'FREE' and a.title like %:title% or a.content like %:content% " +
+            "where a.category = :category and a.title like %:word% or a.content like %:word% " +
             "order by a.id desc")
-    Page<Article> searchFreeArticleByTitleAndContent(@Param("title") String title,@Param("content") String content, Pageable pageable);
+    Page<Article> searchArticleByTitleAndContent(@Param("word") String word, @Param("category") Category category, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
@@ -64,11 +64,11 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "join a.user u " +
             "where a.category = 'COMPANY' and u.company.id = :companyId and a.content like %:word% " +
             "order by a.id desc")
-    Page<Article> searchCompanyArticleByContent(@Param("word") String word,@Param("companyId") Long companyId, Pageable pageable);
+    Page<Article> searchCompanyArticleByContent(@Param("word") String word, @Param("companyId") Long companyId, Pageable pageable);
 
     @Query("select a from Article a " +
             "join a.user u " +
             "where a.category = 'COMPANY' and u.company.id = :companyId and a.title like %:title% or a.content like %:content% " +
             "order by a.id desc")
-    Page<Article> searchCompanyArticleByTitleAndContent(@Param("title") String title, @Param("content") String content, @Param("companyId") Long companyId,Pageable pageable);
+    Page<Article> searchCompanyArticleByTitleAndContent(@Param("title") String title, @Param("content") String content, @Param("companyId") Long companyId, Pageable pageable);
 }

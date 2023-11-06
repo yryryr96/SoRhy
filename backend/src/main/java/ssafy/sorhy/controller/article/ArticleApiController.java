@@ -37,7 +37,6 @@ public class ArticleApiController {
                                                          Authentication authentication) {
 
         String nickname = null;
-
         if (category.equals("COMPANY")) {
             nickname = authentication.getName();
         }
@@ -45,17 +44,6 @@ public class ArticleApiController {
         ArticleDto.pagingRes response = articleService.findAllArticle(nickname, category, pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
     }
-
-//    @GetMapping("/articles")
-//    public Response<ArticleDto.pagingRes> findAllCompanyArticle(@RequestParam Long companyId,
-//                                           @RequestParam String category,
-//                                           @PageableDefault(size=6) Pageable pageable,
-//                                           Authentication authentication) {
-//
-//        String nickname = authentication.getName();
-//        ArticleDto.pagingRes response = articleService.findAllCompanyArticle(companyId, nickname, pageable);
-//        return new Response(200, "회사 게시글 전체 조회 성공", response);
-//    }
 
     @GetMapping("/article/{articleId}")
     public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
@@ -84,18 +72,19 @@ public class ArticleApiController {
 
     @GetMapping("/articles/search")
     public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
-                                                             @PageableDefault(size=6) Pageable pageable) {
+                                                        @RequestParam String category,
+                                                        @PageableDefault(size=6) Pageable pageable,
+                                                        Authentication authentication) {
 
-        ArticleDto.pagingRes response = articleService.searchArticle(request, pageable);
+        ArticleDto.pagingRes response;
+        if (category.equals("COMPANY")) {
+
+            String nickname = authentication.getName();
+            response = articleService.searchCompanyArticle(nickname, request, pageable);
+        } else {
+
+            response = articleService.searchArticle(request, category, pageable);
+        }
         return new Response(200, "검색 성공", response);
-    }
-
-    @GetMapping("/articles/search/{companyId}")
-    public Response<ArticleDto.pagingRes> searchCompanyArticle(@PathVariable Long companyId,
-                                                               @RequestBody @Valid ArticleDto.searchReq request,
-                                                               @PageableDefault(size=6) Pageable pageable) {
-
-        ArticleDto.pagingRes response = articleService.searchCompanyArticle(companyId, request, pageable);
-        return new Response(200, "회사 게시판 검색 성공", response);
     }
 }

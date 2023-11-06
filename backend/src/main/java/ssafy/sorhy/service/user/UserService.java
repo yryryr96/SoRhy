@@ -71,7 +71,7 @@ public class UserService {
             throw new CustomException(ErrorCode.DATA_NOT_FOUND);
         }
 
-        User user = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
         if (encoder.matches(request.getPassword(), user.getPassword())) {
             String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24);// 만료시간 하루
 
@@ -85,9 +85,13 @@ public class UserService {
         }
     }
 
+    private User findUser(String nickname) {
+        return userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
+    }
+
     public UserDto.profileRes findProfileByNickname(String nickname) {
 
-        User user = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
         List<GameResultDto.top3Character> top3CharacterList = getTop3CharacterList(nickname);
@@ -105,10 +109,10 @@ public class UserService {
     public UserDto.findRes findByNickname(String nickname, Pageable pageable) {
 
         List<GameResultDto.top3Character> resultList = getTop3CharacterList(nickname);
-        User findUser = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
         List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname, pageable);
 
-        return findUser.toFindDto(resultList, gameResults);
+        return user.toFindDto(resultList, gameResults);
     }
 
     private List<GameResultDto.top3Character> getTop3CharacterList(String nickname) {

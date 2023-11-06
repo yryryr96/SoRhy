@@ -28,7 +28,7 @@ public class CommentService {
 
     public CommentDto.basicRes save(Long articleId, String nickname, CommentDto.saveReq request) {
 
-        User user = userRepository.findByNickname(nickname);
+        User user = findUser(nickname);
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
@@ -44,10 +44,11 @@ public class CommentService {
 
     public String delete(Long commentId, String nickname) {
 
+        User user = findUser(nickname);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        if (nickname.equals(comment.getUser().getNickname())) {
+        if (comment.getUser().equals(user)) {
 
             commentRepository.delete(comment);
             return "delete success";
@@ -59,10 +60,11 @@ public class CommentService {
 
     public String update(Long commentId, String nickname, CommentDto.saveReq request) {
 
+        User user = findUser(nickname);
         Comment comment = commentRepository.findById(commentId)
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        if (nickname.equals(comment.getUser().getNickname())) {
+        if (comment.getUser().equals(user)) {
 
             comment.update(request);
             return "update success!";
@@ -72,7 +74,7 @@ public class CommentService {
         }
     }
 
-    public CommentDto.pagingRes paging(Long articleId, Pageable pageable) {
+    public CommentDto.pagingRes findComments(Long articleId, Pageable pageable) {
 
         Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
         return CommentDto.pagingRes.builder()
@@ -82,5 +84,9 @@ public class CommentService {
                 .totalElement(result.getTotalElements())
                 .totalPage(result.getTotalPages())
                 .build();
+    }
+
+    private User findUser(String nickname) {
+        return userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
     }
 }
