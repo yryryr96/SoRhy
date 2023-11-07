@@ -57,7 +57,7 @@ public class ArticleApiController {
         return new Response(200, "게시글 전체 조회 성공", response);
     }
 
-    @GetMapping("/articles/current")
+    @GetMapping("/articles/issue")
     public Response<List<ArticleDto.basicRes>> findCurrentIssue(@PageableDefault(size=6) Pageable pageable) {
 
         List<ArticleDto.basicRes> response = articleService.findCurrentIssue(pageable);
