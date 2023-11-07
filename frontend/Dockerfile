@@ -12,8 +12,6 @@ RUN echo "MY_ENV_VAR = $ENV" && \
 
 RUN npm run build
 
-RUN npm prune --production
-
 FROM node:18-alpine
 WORKDIR /app
 
