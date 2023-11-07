@@ -94,7 +94,7 @@ public class UserService {
         User user = findUser(nickname);
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
-        List<GameResultDto.top3Character> top3CharacterList = getTop3CharacterList(nickname);
+        List<GameResultDto.top3Character> top3CharacterList = findTop3Characters(nickname);
 
         return user.toProfileDto(articleCount, commentCount, top3CharacterList);
     }
@@ -108,14 +108,14 @@ public class UserService {
     // 유저 닉네임으로 유저 정보 조회
     public UserDto.findRes findByNickname(String nickname, Pageable pageable) {
 
-        List<GameResultDto.top3Character> resultList = getTop3CharacterList(nickname);
+        List<GameResultDto.top3Character> resultList = findTop3Characters(nickname);
         User user = findUser(nickname);
         List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname, pageable);
 
         return user.toFindDto(resultList, gameResults);
     }
 
-    public List<GameResultDto.top3Character> getTop3CharacterList(String nickname) {
+    public List<GameResultDto.top3Character> findTop3Characters(String nickname) {
 
         return em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
                         "from GameResult gr " +

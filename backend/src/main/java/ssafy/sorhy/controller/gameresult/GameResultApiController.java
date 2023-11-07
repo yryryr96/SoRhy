@@ -9,6 +9,7 @@ import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.response.Response;
 
+import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -20,7 +21,7 @@ public class GameResultApiController {
     private final GameResultService gameResultService;
 
     @PostMapping
-    public Response<GameResultDto.saveRes> save(@RequestBody GameResultDto.saveReq request, Authentication authentication) {
+    public Response<GameResultDto.saveRes> save(@Valid @RequestBody GameResultDto.saveReq request, Authentication authentication) {
 
         String nickname = authentication.getName();
         GameResultDto.saveRes response = gameResultService.save(request, nickname);

@@ -57,6 +57,7 @@ public class User {
     private Company company;
 
     public void updateScoreAndWinOrLose(int score, boolean winner) {
+
         this.totalScore += score;
         this.company.updateCompanyScore(score);
 
@@ -83,7 +84,7 @@ public class User {
                 .build();
     }
 
-    public UserDto.findRes toFindDto(List<GameResultDto.top3Character> top3CharacterList,
+    public UserDto.findRes toFindDto(List<GameResultDto.top3Character> top3Characters,
                                      List<GameResultDto.otherUserDto> gameResults) {
 
         return UserDto.findRes.builder()
@@ -93,7 +94,7 @@ public class User {
                 .win(this.win)
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
-                .top3CharacterList(top3CharacterList)
+                .top3Characters(top3Characters)
                 .gameResults(gameResults)
                 .build();
     }

@@ -84,10 +84,16 @@ public class ArticleService {
         return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
-    public List<ArticleDto.basicRes> findCurrentIssue(Pageable pageable) {
+    public List<ArticleDto.issueRes> findCurrentIssue(Pageable pageable) {
 
         Page<Article> currentIssueArticle = articleRepository.findCurrentIssue(pageable);
-        return toDtoList(currentIssueArticle.getContent());
+        return currentIssueArticle.stream()
+                .map(article -> ArticleDto.issueRes.builder()
+                        .articleId(article.getId())
+                        .title(article.getTitle())
+                        .category(article.getCategory())
+                        .build())
+                .collect(Collectors.toList());
     }
 
     public ArticleDto.detailRes findById(Long articleId, Pageable pageable) {
@@ -175,7 +181,7 @@ public class ArticleService {
         String word = request.getWord();
         SearchCond searchCond;
         Page<Article> result = null;
-        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
+        User user = findUser(nickname);
         Long companyId = user.getCompany().getId();
 
         try {
@@ -186,7 +192,7 @@ public class ArticleService {
 
         switch(searchCond) {
             case NONE:
-                result = articleRepository.searchCompanyArticleByTitleAndContent(word, word, companyId, pageable);
+                result = articleRepository.searchCompanyArticleByTitleAndContent(word, companyId, pageable);
                 break;
             case TITLE:
                 result = articleRepository.searchCompanyArticleByTitle(word, companyId, pageable);

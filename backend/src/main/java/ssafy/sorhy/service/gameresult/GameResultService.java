@@ -48,8 +48,7 @@ public class GameResultService {
 
         GameResult gameResult = request.toEntity(user, findGame);
 
-        int score = gameResult.getScore();
-        user.updateScoreAndWinOrLose(score, gameResult.isWinner());
+        user.updateScoreAndWinOrLose(gameResult.getScore(), gameResult.isWinner());
         gameResultRepository.save(gameResult);
         return gameResult.toSaveResDto(gameResult);
     }

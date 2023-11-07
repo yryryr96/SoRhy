@@ -80,7 +80,7 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
 
     @Query("select a from Article a " +
             "join a.user u " +
-            "where a.category = 'COMPANY' and u.company.id = :companyId and a.title like %:title% or a.content like %:content% " +
+            "where a.category = 'COMPANY' and u.company.id = :companyId and a.title like %:word% or a.content like %:word% " +
             "order by a.id desc")
-    Page<Article> searchCompanyArticleByTitleAndContent(String title, String content, Long companyId, Pageable pageable);
+    Page<Article> searchCompanyArticleByTitleAndContent(String title, Long companyId, Pageable pageable);
 }

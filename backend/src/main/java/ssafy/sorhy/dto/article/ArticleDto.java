@@ -31,6 +31,15 @@ public class ArticleDto {
     }
 
     @Data
+    @Builder
+    public static class issueRes {
+
+        private Long articleId;
+        private String title;
+        private Category category;
+    }
+
+    @Data
     public static class saveReq {
 
         @NotBlank(message = "제목을 입력하세요.")
