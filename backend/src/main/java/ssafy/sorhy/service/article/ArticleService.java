@@ -80,6 +80,12 @@ public class ArticleService {
         return toPagingRes(toDtoList(result.getContent()), result.getTotalElements(), result.getTotalPages());
     }
 
+    public List<ArticleDto.basicRes> findCurrentIssue(Pageable pageable) {
+
+        Page<Article> currentIssueArticle = articleRepository.findCurrentIssue(pageable);
+        return toDtoList(currentIssueArticle.getContent());
+    }
+
     public ArticleDto.detailRes findById(Long articleId) {
 
         Article article = articleRepository.findById(articleId)

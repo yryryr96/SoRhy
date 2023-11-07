@@ -12,6 +12,7 @@ import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
 import java.io.IOException;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -54,6 +55,13 @@ public class ArticleApiController {
         }
         ArticleDto.pagingRes response = articleService.findHotArticles(nickname, category, pageable);
         return new Response(200, "게시글 전체 조회 성공", response);
+    }
+
+    @GetMapping("/articles/current")
+    public Response<List<ArticleDto.basicRes>> findCurrentIssue(@PageableDefault(size=6) Pageable pageable) {
+
+        List<ArticleDto.basicRes> response = articleService.findCurrentIssue(pageable);
+        return new Response(200, "실시간 핫이슈 조회 성공", response);
     }
 
     @GetMapping("/article/{articleId}")
