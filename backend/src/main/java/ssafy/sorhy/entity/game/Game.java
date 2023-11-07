@@ -4,7 +4,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.dto.game.SaveGameDto;
+import ssafy.sorhy.dto.game.GameDto;
 import ssafy.sorhy.entity.gameresult.GameResult;
 
 import javax.persistence.*;
@@ -32,8 +32,8 @@ public class Game {
     @Builder.Default
     private List<GameResult> gameResults = new ArrayList<>();
 
-    public SaveGameDto.Response toSaveGameDto() {
-        return SaveGameDto.Response.builder()
+    public GameDto.Response toSaveGameDto() {
+        return GameDto.Response.builder()
                 .id(this.id)
                 .gameTitle(this.gameTitle)
                 .gameType(this.gameType)

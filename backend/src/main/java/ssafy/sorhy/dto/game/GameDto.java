@@ -7,10 +7,9 @@ import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.game.GameType;
 
 import javax.validation.constraints.NotBlank;
-import javax.validation.constraints.NotNull;
 
 @Data
-public class SaveGameDto {
+public class GameDto {
 
     @Data
     public static class Request {
@@ -20,7 +19,7 @@ public class SaveGameDto {
         @NotBlank
         private String gameTitle;
 
-        public Game toGameEntity() {
+        public Game toEntity() {
             GameType gameType = GameType.valueOf(this.gameType);
             GameTitle gameTitle = GameTitle.valueOf(this.gameTitle);
             return Game.builder()

@@ -70,7 +70,7 @@ public class GameResultDto {
         private String nickname;
         private int score;
         private String createdAt;
-//        private String company; // 회사
+        private String company;
     }
 
     @Data

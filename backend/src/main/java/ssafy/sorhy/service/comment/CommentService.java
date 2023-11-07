@@ -32,14 +32,9 @@ public class CommentService {
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
 
-        Comment comment = Comment.builder()
-                .user(user)
-                .article(article)
-                .content(request.getContent())
-                .build();
-
-        Comment saveComment = commentRepository.save(comment);
-        return saveComment.toBasicRes();
+        Comment comment = request.toEntity(user, article);
+        commentRepository.save(comment);
+        return comment.toBasicRes();
     }
 
     public String delete(Long commentId, String nickname) {

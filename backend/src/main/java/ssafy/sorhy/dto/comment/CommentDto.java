@@ -2,6 +2,10 @@ package ssafy.sorhy.dto.comment;
 
 import lombok.Builder;
 import lombok.Data;
+import ssafy.sorhy.entity.article.Article;
+import ssafy.sorhy.entity.comment.Comment;
+import ssafy.sorhy.entity.user.User;
+
 import javax.validation.constraints.NotBlank;
 import java.util.List;
 
@@ -23,6 +27,15 @@ public class CommentDto {
 
         @NotBlank
         private String content;
+
+        public Comment toEntity(User user, Article article) {
+
+            return Comment.builder()
+                    .user(user)
+                    .article(article)
+                    .content(this.content)
+                    .build();
+        }
     }
 
     @Data

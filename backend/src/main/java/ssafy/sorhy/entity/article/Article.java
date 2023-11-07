@@ -85,10 +85,4 @@ public class Article {
                 .comments(comments)
                 .build();
     }
-
-    private List<CommentDto.basicRes> getCommentBasicResList() {
-        return this.comments.stream()
-                .map(comment -> comment.toBasicRes())
-                .collect(Collectors.toList());
-    }
 }

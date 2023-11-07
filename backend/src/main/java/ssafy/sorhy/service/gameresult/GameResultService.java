@@ -56,10 +56,12 @@ public class GameResultService {
 
     public List<GameResultDto.personalRankRes> eachGameRank(String gameTitle, Pageable pageable) {
 
-        return gameResultRepository.findRankByGameTitle(GameTitle.valueOf(gameTitle), pageable)
+        GameTitle title = GameTitle.valueOf(gameTitle);
+        return gameResultRepository.findRankByGameTitle(title, pageable)
                 .stream()
                 .map(gameResult -> GameResultDto.personalRankRes.builder()
                         .nickname(gameResult.getUser().getNickname())
+                        .company(gameResult.getUser().getCompany().getCompanyName())
                         .score(gameResult.getScore())
                         .createdAt(gameResult.getCreatedAt())
                         .build())
