@@ -78,6 +78,7 @@ public class Article {
                 .nickname(this.user.getNickname())
                 .title(this.title)
                 .content(this.content)
+                .category(this.category)
                 .viewCount(this.viewCount)
                 .createdAt(this.createdAt)
                 .imgUrl(this.imgUrl)
