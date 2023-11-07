@@ -93,7 +93,7 @@ export const useSignupHook = (): SignupHookType => {
             alert('회사 번호를 입력해주세요');
             return;
         } else {
-            console.log(`${process.env.NEXT_PUBLIC_API_URL}`)
+            console.log();
             axios({
                 method: 'post',
                 url: `${process.env.NEXT_PUBLIC_API_URL}/user/join`,

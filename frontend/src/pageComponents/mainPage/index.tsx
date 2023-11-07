@@ -5,7 +5,9 @@ import Input from '@/components/input';
 import { StyledMain, StyledMainSearchBox } from './MainPage.Styled';
 
 const MainPage = () => {
-    console.log(process.env.NEXT_PUBLIC_API_URL);
+    console.log(process.env.NEXT_PUBLIC_API_URL, '1번');
+    console.log(`${process.env.NEXT_PUBLIC_API_URL}`, '2번');
+
     return (
         <StyledMain>
             <Image src="/Logo.png" priority={true} width={430} height={110} alt="Logo" />
