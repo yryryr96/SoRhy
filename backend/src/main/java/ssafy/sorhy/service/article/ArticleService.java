@@ -7,13 +7,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.article.ArticleDto;
+import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.article.Category;
 import ssafy.sorhy.entity.article.SearchCond;
+import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.article.ArticleRepository;
+import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.s3.S3UploadService;
 import ssafy.sorhy.util.response.Response;
@@ -32,6 +35,7 @@ public class ArticleService {
     private final S3UploadService s3UploadService;
     private final ArticleRepository articleRepository;
     private final UserRepository userRepository;
+    private final CommentRepository commentRepository;
 
     public ArticleDto.basicRes save(String nickname, MultipartFile file, ArticleDto.saveReq request) throws IOException {
 
@@ -86,12 +90,22 @@ public class ArticleService {
         return toDtoList(currentIssueArticle.getContent());
     }
 
-    public ArticleDto.detailRes findById(Long articleId) {
+    public ArticleDto.detailRes findById(Long articleId, Pageable pageable) {
 
         Article article = articleRepository.findById(articleId)
                 .orElseThrow(() -> new CustomException(ErrorCode.DATA_NOT_FOUND));
+
+        Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(article.getId(), pageable);
+        CommentDto.pagingRes comments = CommentDto.pagingRes.builder()
+                .comments(result.stream()
+                        .map(Comment::toBasicRes)
+                        .collect(Collectors.toList()))
+                .totalElement(result.getTotalElements())
+                .totalPage(result.getTotalPages())
+                .build();
+
         article.addViewCount();
-        return article.toDetailRes();
+        return article.toDetailRes(comments);
     }
 
     public String update(Long articleId, String nickname, ArticleDto.saveReq request) {

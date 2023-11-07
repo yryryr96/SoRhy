@@ -66,6 +66,7 @@ public class ArticleDto {
         private int viewCount;
         private String createdAt;
         private String imgUrl;
+        private CommentDto.pagingRes comments;
     }
 
     @Data

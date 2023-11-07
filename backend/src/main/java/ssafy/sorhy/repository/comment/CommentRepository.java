@@ -10,7 +10,7 @@ import ssafy.sorhy.entity.comment.Comment;
 public interface CommentRepository extends JpaRepository<Comment, Long> {
 
     @Query("select count(c) from Comment c where c.user.nickname = :nickname")
-    Long countCommentByNickname(@Param("nickname") String nickname);
+    Long countCommentByNickname(String nickname);
 
     Page<Comment> findByArticleIdOrderByIdDesc(Long articleId, Pageable pageable);
 }

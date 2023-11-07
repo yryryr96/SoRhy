@@ -65,9 +65,10 @@ public class ArticleApiController {
     }
 
     @GetMapping("/article/{articleId}")
-    public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId) {
+    public Response<ArticleDto.detailRes> findById(@PathVariable Long articleId,
+                                                   @PageableDefault(size=4) Pageable pageable) {
 
-        ArticleDto.detailRes response = articleService.findById(articleId);
+        ArticleDto.detailRes response = articleService.findById(articleId, pageable);
         return new Response(200, "게시글을 조회했습니다.", response);
     }
 

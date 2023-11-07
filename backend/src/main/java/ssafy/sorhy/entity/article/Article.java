@@ -71,7 +71,7 @@ public class Article {
                 .build();
     }
 
-    public ArticleDto.detailRes toDetailRes() {
+    public ArticleDto.detailRes toDetailRes(CommentDto.pagingRes comments) {
 
         return ArticleDto.detailRes.builder()
                 .articleId(this.id)
@@ -82,6 +82,7 @@ public class Article {
                 .viewCount(this.viewCount)
                 .createdAt(this.createdAt)
                 .imgUrl(this.imgUrl)
+                .comments(comments)
                 .build();
     }
 
