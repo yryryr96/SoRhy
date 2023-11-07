@@ -8,7 +8,7 @@ COPY . .
 ARG ENV
 
 RUN echo "MY_ENV_VAR = $ENV" && \
-    echo -e "NEXT_PUBLIC_API_URL=${ENV}" > .env && \
+    echo -e "NEXT_PUBLIC_API_URL=${ENV}" > .env
 
 RUN npm run build
 
