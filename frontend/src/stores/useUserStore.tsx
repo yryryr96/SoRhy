@@ -1,24 +1,33 @@
-import { create } from 'zustand';
+import create from 'zustand';
+import { persist } from 'zustand/middleware';
 
-const useUserStore = create((set) => ({
-    isLogin: false,
-    userInformation: {
+const useUserStore = create(
+  persist(
+    (set) => ({
+      isLogin: false,
+      userInformation: {
         nickname: 0,
         isAccessToken: false,
-    },
-    login: () =>
+      },
+      login: () =>
         set(() => ({
-            isLogin: true,
-            userInformation: {
-                nickname: 0,
-                isAccessToken: true,
-            },
+          isLogin: true,
+          userInformation: {
+            nickname: 0,
+            isAccessToken: true,
+          },
         })),
-    logout: () => set(() => ({ isLogin: false })),
-    setUserInformation: (data: any) =>
-        set((state: any) => ({
-            userInformation: data,
+      logout: () => set(() => ({ isLogin: false })),
+      setUserInformation: (data) =>
+        set((state) => ({
+          userInformation: data,
         })),
-}));
+    }),
+    {
+      name: 'userStore', 
+      getStorage: () => localStorage, 
+    }
+  )
+);
 
 export default useUserStore;

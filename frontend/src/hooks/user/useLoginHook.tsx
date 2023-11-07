@@ -104,7 +104,8 @@ export const useLoginHook = () => {
                 if (isRemember) {
                   setCookie("rememberUserId", user.nickname, { path: '/' });
                 }
-     
+
+      
                 await router.push('/')
               } catch (err) {
                 console.log(err);
