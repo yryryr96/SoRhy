@@ -59,12 +59,4 @@ public class UserApiController {
         UserDto.findRes response = userService.findByNickname(nickname, pageable);
         return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
     }
-
-    @GetMapping("/{nickname}/most")
-    public List<GameResultDto.top3Character> findMost(@PathVariable String nickname) {
-
-        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
-        return userCharacterService.findTop3Character(user.getId());
-
-    }
 }

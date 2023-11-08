@@ -62,6 +62,7 @@ public class GameResultService {
                         .company(gameResult.getUser().getCompany().getCompanyName())
                         .score(gameResult.getScore())
                         .createdAt(gameResult.getCreatedAt())
+                        .top3Characters(userCharacterService.findTop3Character(gameResult.getUser().getId()))
                         .build())
                 .collect(Collectors.toList());
     }

@@ -71,6 +71,7 @@ public class GameResultDto {
         private int score;
         private String createdAt;
         private String company;
+        private List<GameResultDto.top3Character> top3Characters;
     }
 
     @Data
