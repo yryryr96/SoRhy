@@ -55,16 +55,4 @@ public class GameResult {
                 .team(this.team)
                 .build();
     }
-
-    public static List<GameResultDto.basicRes> getGameResultBasicDtoList(List<GameResult> gameResults) {
-
-        return gameResults.stream()
-                .map(gameResult -> GameResultDto.basicRes.builder()
-                        .gameId(gameResult.getId())
-                        .winner(gameResult.isWinner())
-                        .gameTitle(gameResult.getGame().getGameTitle())
-                        .createdAt(gameResult.getCreatedAt())
-                        .build())
-                .collect(Collectors.toList());
-    }
 }

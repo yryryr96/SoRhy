@@ -21,7 +21,7 @@ public class GameResultApiController {
     private final GameResultService gameResultService;
 
     @PostMapping
-    public Response<GameResultDto.saveRes> save(@Valid @RequestBody GameResultDto.saveReq request, Authentication authentication) {
+    public Response<GameResultDto.saveRes> save(@RequestBody GameResultDto.saveReq request, Authentication authentication) {
 
         String nickname = authentication.getName();
         GameResultDto.saveRes response = gameResultService.save(request, nickname);

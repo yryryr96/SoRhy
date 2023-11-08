@@ -6,11 +6,19 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
+import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.entity.user.User;
+import ssafy.sorhy.entity.usercharacter.UserCharacter;
+import ssafy.sorhy.exception.CustomException;
+import ssafy.sorhy.exception.ErrorCode;
+import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.user.UserService;
+import ssafy.sorhy.service.usercharacter.UserCharacterService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
+import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
@@ -19,6 +27,8 @@ import javax.validation.Valid;
 public class UserApiController {
 
     private final UserService userService;
+    private final UserRepository userRepository;
+    private final UserCharacterService userCharacterService;
 
     @PostMapping("/join")
     public Response<UserDto.joinRes> save(@Valid @RequestBody UserDto.joinReq request) {
@@ -48,5 +58,13 @@ public class UserApiController {
 
         UserDto.findRes response = userService.findByNickname(nickname, pageable);
         return new Response(200,"닉네임으로 유저 전적 조회 성공", response);
+    }
+
+    @GetMapping("/{nickname}/most")
+    public List<GameResultDto.top3Character> findMost(@PathVariable String nickname) {
+
+        User user = userRepository.findByNickname(nickname).orElseThrow(() -> new CustomException(ErrorCode.NICKNAME_NOT_FOUND));
+        return userCharacterService.findTop3Character(user.getId());
+
     }
 }

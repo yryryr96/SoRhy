@@ -82,5 +82,5 @@ public interface ArticleRepository extends JpaRepository<Article, Long> {
             "join a.user u " +
             "where a.category = 'COMPANY' and u.company.id = :companyId and a.title like %:word% or a.content like %:word% " +
             "order by a.id desc")
-    Page<Article> searchCompanyArticleByTitleAndContent(String title, Long companyId, Pageable pageable);
+    Page<Article> searchCompanyArticleByTitleAndContent(String word, Long companyId, Pageable pageable);
 }

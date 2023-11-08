@@ -20,7 +20,7 @@ public class RankApiController {
 
     @GetMapping("/{gameTitle}")
     public Response<List<GameResultDto.personalRankRes>> eachGameRank(@PathVariable String gameTitle,
-                                                                      @PageableDefault(size=20) Pageable pageable) {
+                                                                      @PageableDefault(size=10) Pageable pageable) {
 
         List<GameResultDto.personalRankRes> response = gameResultService.eachGameRank(gameTitle, pageable);
         return new Response(200, "게임 별 랭크 조회 성공", response);
@@ -35,7 +35,7 @@ public class RankApiController {
 
     @GetMapping("/company/{companyId}")
     public Response<List<UserDto.userRankOfCompanyRes>> companyUserRank(@PathVariable Long companyId,
-                                                                        @PageableDefault(size=20) Pageable pageable) {
+                                                                        @PageableDefault(size=10) Pageable pageable) {
 
         List<UserDto.userRankOfCompanyRes> response = gameResultService.companyUserRank(pageable, companyId);
         return new Response(200, "사내 랭킹 조회 성공", response);
