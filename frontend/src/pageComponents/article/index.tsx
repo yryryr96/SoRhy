@@ -31,7 +31,7 @@ const Article = (props: any) => {
         articleDetailGet(articleId)
             .then((res) => {
                 setArticleDetail(res.result);
-                setLoading(false); 
+                setLoading(false);
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
@@ -72,30 +72,26 @@ const Article = (props: any) => {
                                     style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
                                 />
                                 <Button use="blue" label="작성" style={{ width: '10%' }} />
-
                             </StyledCommentTop>
                             <StyledComment>
                                 <p>작성자</p>
                                 <p>댓글</p>
                                 <p>작성 일시</p>
-                                </StyledComment>
+                            </StyledComment>
                         </StyledCommentHeader>
                         <StyledCommentBody>
-                        {loading ? (
+                            {loading ? (
                                 <div>Loading...</div>
+                            ) : articleDetail.comments['comments'] ? (
+                                articleDetail.comments['comments'].map((comment: string, index: number) => (
+                                    <StyledComment key={index}>
+                                        <p>{comment.nickname}</p>
+                                        <p>{comment.content}</p>
+                                        <p>{comment.createdAt}</p>
+                                    </StyledComment>
+                                ))
                             ) : (
-                            
-                                articleDetail.comments['comments']  ? (
-                                    articleDetail.comments['comments'].map((comment: string, index: number) => (
-                                        <StyledComment key={index}>
-                                            <p>{comment.nickname}</p>
-                                            <p>{comment.content}</p>
-                                            <p>{comment.createdAt}</p>
-                                        </StyledComment>
-                                    ))
-                                ) : (
-                                    <div>댓글이 없습니다</div>
-                                )
+                                <div>댓글이 없습니다</div>
                             )}
                         </StyledCommentBody>
                     </StyledArticleComment>

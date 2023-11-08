@@ -10,7 +10,7 @@ const SideBar = (props: any) => {
     const handleItemClick = (newPath: string) => {
         setselectbtn(newPath);
     };
-    console.log(selectbtn);
+
     return (
         <StyledSideBar>
             <StyledSideItem font_size="21px" font_weight="bold" color="on">
