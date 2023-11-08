@@ -1,7 +1,6 @@
 package ssafy.sorhy.entity.character;
 
 import lombok.Getter;
-import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.usercharacter.UserCharacter;
 
 import javax.persistence.*;

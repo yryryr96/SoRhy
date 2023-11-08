@@ -6,19 +6,13 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.user.User;
-import ssafy.sorhy.entity.usercharacter.UserCharacter;
-import ssafy.sorhy.exception.CustomException;
-import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 import ssafy.sorhy.util.response.Response;
 
 import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor

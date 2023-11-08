@@ -3,15 +3,11 @@ package ssafy.sorhy.dto.article;
 import lombok.Builder;
 import lombok.Data;
 import org.hibernate.validator.constraints.Length;
-import org.springframework.lang.Nullable;
-import org.springframework.web.multipart.MultipartFile;
 import ssafy.sorhy.dto.comment.CommentDto;
 import ssafy.sorhy.entity.article.Article;
 import ssafy.sorhy.entity.article.Category;
-import ssafy.sorhy.entity.article.SearchCond;
 import ssafy.sorhy.entity.user.User;
 
-import javax.validation.constraints.Min;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import java.util.List;

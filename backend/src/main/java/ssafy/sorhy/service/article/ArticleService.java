@@ -19,7 +19,6 @@ import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.s3.S3UploadService;
-import ssafy.sorhy.util.response.Response;
 
 import java.io.IOException;
 import java.util.List;

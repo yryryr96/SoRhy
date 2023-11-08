@@ -4,7 +4,6 @@ import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
-import ssafy.sorhy.entity.character.Character;
 import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.article.Article;
@@ -14,7 +13,6 @@ import ssafy.sorhy.entity.usercharacter.UserCharacter;
 import javax.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor

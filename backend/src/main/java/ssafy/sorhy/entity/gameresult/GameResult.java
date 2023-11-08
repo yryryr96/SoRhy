@@ -4,17 +4,13 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.game.Game;
-import ssafy.sorhy.repository.gameresult.GameResultRepository;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.List;
-import java.util.stream.Collectors;
 
 @Entity
 @NoArgsConstructor

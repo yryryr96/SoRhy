@@ -6,11 +6,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.service.gameresult.GameResultService;
-import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.util.response.Response;
-
-import javax.validation.Valid;
-import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
