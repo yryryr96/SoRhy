@@ -83,16 +83,14 @@ public class GameResultDto {
     }
 
     @Data
+    @Builder
     @NoArgsConstructor
+    @AllArgsConstructor
     public static class top3Character {
 
         private Long characterId;
+        private String characterName;
         private Long cnt;
-
-        public top3Character(Long characterId, Long cnt) {
-            this.characterId = characterId;
-            this.cnt = cnt;
-        }
     }
 
     @Data

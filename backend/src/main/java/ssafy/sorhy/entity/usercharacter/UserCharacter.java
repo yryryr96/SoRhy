@@ -38,6 +38,10 @@ public class UserCharacter {
 
     public GameResultDto.top3Character toTop3Character() {
 
-        return new GameResultDto.top3Character(this.character.getId(), this.useCount);
+        return GameResultDto.top3Character.builder()
+                .characterId(this.character.getId())
+                .characterName(this.character.getName())
+                .cnt(this.useCount)
+                .build();
     }
 }

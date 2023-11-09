@@ -115,7 +115,7 @@ public class User {
                 .win(this.win)
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
-                .top3CharacterList(top3CharacterList)
+                .top3Characters(top3CharacterList)
                 .build();
     }
 

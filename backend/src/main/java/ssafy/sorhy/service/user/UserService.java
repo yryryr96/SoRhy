@@ -19,6 +19,7 @@ import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
+import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import javax.persistence.EntityManager;
 import java.util.List;
@@ -38,6 +39,7 @@ public class UserService {
     private final CommentRepository commentRepository;
     private final CompanyRepository companyRepository;
     private final GameResultService gameResultService;
+    private final UserCharacterService userCharacterService;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -94,9 +96,9 @@ public class UserService {
         User user = findUser(nickname);
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
-        List<GameResultDto.top3Character> top3CharacterList = findTop3Characters(nickname);
+        List<GameResultDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
 
-        return user.toProfileDto(articleCount, commentCount, top3CharacterList);
+        return user.toProfileDto(articleCount, commentCount, top3Characters);
     }
 
     // 전체 유저 조회
@@ -108,23 +110,10 @@ public class UserService {
     // 유저 닉네임으로 유저 정보 조회
     public UserDto.findRes findByNickname(String nickname, Pageable pageable) {
 
-        List<GameResultDto.top3Character> resultList = findTop3Characters(nickname);
         User user = findUser(nickname);
+        List<GameResultDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
         List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname, pageable);
 
-        return user.toFindDto(resultList, gameResults);
-    }
-
-    public List<GameResultDto.top3Character> findTop3Characters(String nickname) {
-
-        return em.createQuery("select new ssafy.sorhy.dto.gameresult.GameResultDto$top3Character(gr.characterId, count(gr.characterId)) " +
-                        "from GameResult gr " +
-                        "join gr.user u " +
-                        "where u.nickname = :nickname " +
-                        "group by gr.characterId " +
-                        "order by count(gr.characterId) desc", GameResultDto.top3Character.class)
-                .setParameter("nickname", nickname)
-                .setMaxResults(3)
-                .getResultList();
+        return user.toFindDto(top3Characters, gameResults);
     }
 }
