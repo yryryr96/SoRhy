@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
+import ssafy.sorhy.entity.log.LoginHistory;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
@@ -19,6 +20,7 @@ import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
+import ssafy.sorhy.service.history.HistoryService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import javax.persistence.EntityManager;
@@ -40,6 +42,7 @@ public class UserService {
     private final CompanyRepository companyRepository;
     private final GameResultService gameResultService;
     private final UserCharacterService userCharacterService;
+    private final HistoryService historyService;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -75,8 +78,9 @@ public class UserService {
 
         User user = findUser(nickname);
         if (encoder.matches(request.getPassword(), user.getPassword())) {
-            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24);// 만료시간 하루
 
+            String token = JwtTokenUtil.createToken(user.getNickname(), secretKey, 60 * 1000 * 60 * 24);// 만료시간 하루
+            historyService.save(new LoginHistory(nickname));
             return UserDto.loginRes.builder()
                     .token(token)
                     .companyId(user.getCompany().getId())
