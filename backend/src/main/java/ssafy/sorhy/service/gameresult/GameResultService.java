@@ -83,9 +83,9 @@ public class GameResultService {
                 .collect(Collectors.toList());
     }
 
-    public List<GameResultDto.otherUserDto> getOtherUserRecord(String nickname, Pageable pageable) {
+    public List<GameResultDto.gameRecordInfo> getGameRecordInfo(String nickname, Pageable pageable) {
 
-        List<GameResultDto.otherUserDto> result = new ArrayList<>();
+        List<GameResultDto.gameRecordInfo> result = new ArrayList<>();
         User user = findUser(nickname);
 
         List<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
@@ -93,7 +93,7 @@ public class GameResultService {
 
             Game game = gameResult.getGame();
             List<OtherUserDto> enteredUsers = gameResultRepository.findOtherUserDtoByGameId(game.getId());
-            result.add(new GameResultDto.otherUserDto(game, gameResult, enteredUsers));
+            result.add(new GameResultDto.gameRecordInfo(game, gameResult, enteredUsers));
         }
         return result;
     }

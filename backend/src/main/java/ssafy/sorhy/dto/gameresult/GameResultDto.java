@@ -102,7 +102,7 @@ public class GameResultDto {
     }
 
     @Data
-    public static class otherUserDto {
+    public static class gameRecordInfo {
 
         private Long gameId;
         private GameTitle gameTitle;
@@ -112,7 +112,7 @@ public class GameResultDto {
         private String createdAt;
         private List<OtherUserDto> enteredUsers;
 
-        public otherUserDto(Game game, GameResult gameResult, List<OtherUserDto> enteredUsers) {
+        public gameRecordInfo(Game game, GameResult gameResult, List<OtherUserDto> enteredUsers) {
             this.gameId = game.getId();
             this.gameTitle = game.getGameTitle();
             this.gameType = game.getGameType();

@@ -50,7 +50,7 @@ public class UserDto {
 
     @Data
     @Builder
-    public static class findRes {
+    public static class recordRes {
 
         private String nickname;
         private int totalScore;
@@ -58,8 +58,10 @@ public class UserDto {
         private int win;
         private int lose;
         private float winPercentage;
+        private Long ranking;
+        private double rankPercent;
         private List<GameResultDto.top3Character> top3Characters;
-        private List<GameResultDto.otherUserDto> gameResults;
+        private List<GameResultDto.gameRecordInfo> gameResults;
     }
 
     @Data

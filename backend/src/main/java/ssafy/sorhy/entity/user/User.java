@@ -87,16 +87,21 @@ public class User {
                 .build();
     }
 
-    public UserDto.findRes toFindDto(List<GameResultDto.top3Character> top3Characters,
-                                     List<GameResultDto.otherUserDto> gameResults) {
+    public UserDto.recordRes toRecordRes(List<GameResultDto.top3Character> top3Characters,
+                                         List<GameResultDto.gameRecordInfo> gameResults,
+                                         Long ranking,
+                                         float rankPercent) {
 
-        return UserDto.findRes.builder()
+        double formattedRankPercent = Math.round(rankPercent * 10) / (10.0);
+        return UserDto.recordRes.builder()
                 .nickname(this.nickname)
                 .totalScore(this.totalScore)
                 .companyName(this.company.getCompanyName())
                 .win(this.win)
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
+                .ranking(ranking)
+                .rankPercent(formattedRankPercent)
                 .top3Characters(top3Characters)
                 .gameResults(gameResults)
                 .build();

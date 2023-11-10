@@ -24,6 +24,7 @@ import ssafy.sorhy.service.history.HistoryService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import java.util.List;
 
 @Service
@@ -112,12 +113,24 @@ public class UserService {
     }
     
     // 유저 닉네임으로 유저 정보 조회
-    public UserDto.findRes findByNickname(String nickname, Pageable pageable) {
+    public UserDto.recordRes findByNickname(String nickname, Pageable pageable) {
 
         User user = findUser(nickname);
-        List<GameResultDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
-        List<GameResultDto.otherUserDto> gameResults = gameResultService.getOtherUserRecord(nickname, pageable);
 
-        return user.toFindDto(top3Characters, gameResults);
+        Object[] totalUserCountAndPersonalRank = findTotalUserCountAndPersonalRank(nickname);
+        long totalCount = (Long) totalUserCountAndPersonalRank[0];
+        long personalRank = (Long) totalUserCountAndPersonalRank[1];
+        float rankPercent = ((float) personalRank / totalCount) * 100;
+
+        List<GameResultDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
+        List<GameResultDto.gameRecordInfo> gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
+        return user.toRecordRes(top3Characters, gameResults, personalRank, rankPercent);
+    }
+
+    private Object[] findTotalUserCountAndPersonalRank(String nickname) {
+
+        Query query = em.createQuery("SELECT count(*), (SELECT count(u) from User u where u.totalScore > (select u2.totalScore from User u2 where u2.nickname = :nickname)) FROM User u");
+        query.setParameter("nickname", nickname);
+        return (Object[]) query.getSingleResult();
     }
 }

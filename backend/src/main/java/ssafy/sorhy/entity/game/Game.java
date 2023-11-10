@@ -8,6 +8,8 @@ import ssafy.sorhy.dto.game.GameDto;
 import ssafy.sorhy.entity.gameresult.GameResult;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -27,6 +29,9 @@ public class Game {
 
     @Enumerated(EnumType.STRING)
     private GameTitle gameTitle;
+
+    @Builder.Default
+    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm"));
 
     @OneToMany(mappedBy = "game")
     @Builder.Default
