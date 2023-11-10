@@ -25,7 +25,7 @@ import HR from '@/components/hr';
 
 const Article = (props: any) => {
     const { articleId } = props;
-    const [articleDetail, setArticleDetail] = useState<any[]>([]);
+    const [articleDetail, setArticleDetail] = useState<any>([]);
     const [loading, setLoading] = useState(true);
     useEffect(() => {
         articleDetailGet(articleId)
@@ -83,7 +83,7 @@ const Article = (props: any) => {
                             {loading ? (
                                 <div>Loading...</div>
                             ) : articleDetail.comments['comments'] ? (
-                                articleDetail.comments['comments'].map((comment: string, index: number) => (
+                                articleDetail.comments['comments'].map((comment: any, index: number) => (
                                     <StyledComment key={index}>
                                         <p>{comment.nickname}</p>
                                         <p>{comment.content}</p>
