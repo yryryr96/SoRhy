@@ -9,6 +9,7 @@ const Company = () => {
     useEffect(() => {
         GameRankGet('company')
             .then((res) => {
+                console.log(res.result);
                 setCompanyDetail(res.result);
                 setLoading(false);
             })
