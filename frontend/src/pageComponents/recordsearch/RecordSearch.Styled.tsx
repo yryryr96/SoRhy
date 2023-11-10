@@ -34,7 +34,7 @@ const StyledLeftContainer = styled.div`
     align-items: center;
     width: 40%;
     height: 100%;
-    border: 1px solid black;
+
     gap: 6%;
 `;
 
@@ -43,8 +43,8 @@ const StyledRightContainer = styled.div`
     flex-direction: column;
     width: 60%;
     height: 100%;
-    border: 1px solid black;
-    gap: 6%;
+
+    gap: 2%;
 `;
 
 export { StyledRecordMain, StyledRecordFrame, StyledLeftContainer, StyledRightContainer };

@@ -2,6 +2,7 @@ import styled, { css } from 'styled-components';
 
 const StyledLeftTopContainer = styled.div`
     display: flex;
+    padding: 5% 0 0 0;
     flex-direction: column;
     justify-content: center;
     width: 100%;
@@ -12,13 +13,14 @@ const StyledTopContainer = styled.div`
     display: flex;
     width: 100%;
     height: 100%;
+    gap: 10px;
 `;
 
 const StyledBottomContainer = styled.div`
     display: flex;
     flex-direction: column;
     width: 60%;
-    height: 70%;
+    height: 100%;
 
     margin-left: 40%;
     gap: 10px;
@@ -29,7 +31,7 @@ const StyledPictureSide = styled.div`
     align-items: center;
     justify-content: center;
     width: 40%;
-    height: 100%;
+    height: 80%;
 `;
 
 const StyledTitleInfo = styled.div`
@@ -37,7 +39,7 @@ const StyledTitleInfo = styled.div`
     flex-direction: column;
 
     width: 60%;
-    height: 100%;
+    height: 90%;
 `;
 
 const StyledTopTitle = styled.div`
@@ -54,7 +56,7 @@ const StyledTopTitle = styled.div`
 const StyledBottomTitle = styled.div`
     display: flex;
     width: 100%;
-    height: 40%;
+    height: 20%;
     font-size: 19px;
     color: gray;
 `;

@@ -5,7 +5,7 @@ const StyledLeftMidContainer = styled.div`
     flex-direction: column;
     width: 85%;
     height: 25%;
-    padding: 5% 5%;
+    padding: 4% 5%;
     border: 1px solid gray;
     border-radius: 20px;
 `;
@@ -15,7 +15,7 @@ const StyledMidHeader = styled.div`
     align-items: center;
     width: 100%;
     height: 25%;
-    font-size: 21px;
+    font-size: 20px;
     font-weight: bold;
     gap: 10px;
 `;
@@ -34,7 +34,7 @@ const StyledScoreHeader = styled.div`
     justify-content: center;
     width: 100%;
     height: 50%;
-    font-size: 30px;
+    font-size: 38px;
     font-weight: bold;
 
     color: #218fff;
