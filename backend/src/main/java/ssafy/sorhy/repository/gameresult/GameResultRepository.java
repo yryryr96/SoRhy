@@ -16,8 +16,9 @@ public interface GameResultRepository extends JpaRepository<GameResult, Long> {
     List<GameResult> findByUserIdOrderByDesc(Long userId, Pageable pageable);
 
     @Query(value = "select gr from GameResult gr " +
-            "join fetch gr.game g " +
-            "where g.gameTitle = :gameTitle " +
+            "join gr.game g " +
+            "where g.gameTitle = :gameTitle and (gr.user, gr.score) in " +
+            "(select gr2.user, max(gr2.score) from GameResult gr2 group by gr2.user) " +
             "order by gr.score desc",
             countQuery = "select count(gr) from GameResult gr where gr.game.gameTitle = :gameTitle"
     )
