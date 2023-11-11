@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.character.Character;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.entity.usercharacter.UserCharacter;
@@ -43,7 +44,7 @@ public class UserCharacterService {
         userCharacterInfo.get().addUseCount();
     }
 
-    public List<GameResultDto.top3Character> findTop3Character(Long userId) {
+    public List<UserDto.top3Character> findTop3Character(Long userId) {
 
         return userCharacterRepository.findTop3CharacterByUserId(userId).stream()
                 .map(UserCharacter::toTop3Character)

@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.RequestBody;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.gameresult.OtherUserDto;
+import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.game.Game;
@@ -20,6 +21,7 @@ import ssafy.sorhy.exception.ErrorCode;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
+import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
@@ -41,6 +43,7 @@ public class GameResultService {
     private final UserRepository userRepository;
     private final UserCharacterService userCharacterService;
     private final RankingService rankingService;
+    private final RankingRepository rankingRepository;
 
     public GameResultDto.saveRes save(@RequestBody GameResultDto.saveReq request, String nickname) {
 
@@ -59,37 +62,6 @@ public class GameResultService {
 
         user.updateScoreAndWinOrLose(gameResult.getScore(), gameResult.isWinner());
         return gameResult.toSaveResDto(gameResult);
-    }
-
-    public List<GameResultDto.personalRankRes> eachGameRank(String gameTitle, Pageable pageable) {
-
-        GameTitle title = GameTitle.valueOf(gameTitle);
-        return gameResultRepository.findRankByGameTitle(title, pageable)
-                .stream()
-                .map(gameResult -> GameResultDto.personalRankRes.builder()
-                        .nickname(gameResult.getUser().getNickname())
-                        .company(gameResult.getUser().getCompany().getCompanyName())
-                        .score(gameResult.getScore())
-                        .createdAt(gameResult.getCreatedAt())
-                        .top3Characters(userCharacterService.findTop3Character(gameResult.getUser().getId()))
-                        .build())
-                .collect(Collectors.toList());
-    }
-
-    public List<GameResultDto.companyRankRes> companyRank() {
-
-        List<Company> companyRankList = companyRepository.findAllByOrderByCompanyScoreDesc();
-        return companyRankList.stream()
-                .map(company -> company.toCompanyRankDto(userRepository.findCompanyFirstRankUser(company.getId())))
-                .collect(Collectors.toList());
-    }
-
-    public List<UserDto.userRankOfCompanyRes> companyUserRank(Pageable pageable, Long companyId) {
-
-        Page<User> userInCompany = userRepository.findUserRankInCompany(companyId, pageable);
-        return userInCompany.stream()
-                .map(User::toUserRankOfCompanyRes)
-                .collect(Collectors.toList());
     }
 
     public List<GameResultDto.gameRecordInfo> getGameRecordInfo(String nickname, Pageable pageable) {

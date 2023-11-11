@@ -3,6 +3,7 @@ package ssafy.sorhy.entity.company;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.entity.user.User;
 
 import javax.persistence.*;
@@ -28,7 +29,7 @@ public class Company {
         this.companyScore += userScore;
     }
 
-    public GameResultDto.companyRankRes toCompanyRankDto(Optional<User> user) {
+    public RankingDto.companyRankRes toCompanyRankDto(Optional<User> user) {
 
         String companyFirstRankUser;
 
@@ -37,7 +38,7 @@ public class Company {
         } else {
             companyFirstRankUser = user.get().getNickname();
         }
-        return GameResultDto.companyRankRes.builder()
+        return RankingDto.companyRankRes.builder()
                 .companyName(this.companyName)
                 .companyScore(this.companyScore)
                 .companyFirstRankUser(companyFirstRankUser)

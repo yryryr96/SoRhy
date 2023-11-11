@@ -6,6 +6,8 @@ import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.user.User;
 
 import javax.persistence.*;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 
 @Entity
 @Getter
@@ -17,6 +19,7 @@ public class Ranking {
 
     private GameTitle gameTitle;
     private int score = 0;
+    private String createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
@@ -31,5 +34,6 @@ public class Ranking {
     public void updateRankingScore(int score) {
 
         this.score = score;
+        this.createdAt = LocalDateTime.now().format(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
     }
 }

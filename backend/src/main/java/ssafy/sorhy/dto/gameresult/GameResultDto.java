@@ -64,44 +64,6 @@ public class GameResultDto {
     }
 
     @Data
-    @Builder
-    public static class personalRankRes {
-
-        private String nickname;
-        private int score;
-        private String createdAt;
-        private String company;
-        private List<GameResultDto.top3Character> top3Characters;
-    }
-
-    @Data
-    @Builder
-    public static class companyRankRes {
-
-        private String companyName;
-        private int companyScore;
-        private String companyFirstRankUser;
-    }
-
-    @Data
-    @Builder
-    @NoArgsConstructor
-    @AllArgsConstructor
-    public static class top3Character {
-
-        private Long characterId;
-        private String characterName;
-        private Long cnt;
-    }
-
-    @Data
-    @Builder
-    public static class companyFirstRankUserRes {
-
-        private String nickname;
-    }
-
-    @Data
     public static class gameRecordInfo {
 
         private Long gameId;

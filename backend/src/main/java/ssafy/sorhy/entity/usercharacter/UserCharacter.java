@@ -5,6 +5,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.character.Character;
 import ssafy.sorhy.entity.user.User;
 
@@ -36,9 +37,9 @@ public class UserCharacter {
         this.useCount += 1;
     }
 
-    public GameResultDto.top3Character toTop3Character() {
+    public UserDto.top3Character toTop3Character() {
 
-        return GameResultDto.top3Character.builder()
+        return UserDto.top3Character.builder()
                 .characterId(this.character.getId())
                 .characterName(this.character.getName())
                 .cnt(this.useCount)

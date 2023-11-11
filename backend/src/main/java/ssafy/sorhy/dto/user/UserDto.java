@@ -1,7 +1,9 @@
 package ssafy.sorhy.dto.user;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.user.User;
@@ -60,7 +62,7 @@ public class UserDto {
         private float winPercentage;
         private Long ranking;
         private double rankPercent;
-        private List<GameResultDto.top3Character> top3Characters;
+        private List<top3Character> top3Characters;
         private List<GameResultDto.gameRecordInfo> gameResults;
     }
 
@@ -98,17 +100,17 @@ public class UserDto {
         private int win;
         private int lose;
         private float winPercentage;
-        private List<GameResultDto.top3Character> top3Characters;
+        private List<top3Character> top3Characters;
     }
 
     @Data
     @Builder
-    public static class userRankOfCompanyRes {
+    @NoArgsConstructor
+    @AllArgsConstructor
+    public static class top3Character {
 
-        private String nickname;
-        private int totalScore;
-        private int win;
-        private int lose;
-        private float winPercentage;
+        private Long characterId;
+        private String characterName;
+        private Long cnt;
     }
 }

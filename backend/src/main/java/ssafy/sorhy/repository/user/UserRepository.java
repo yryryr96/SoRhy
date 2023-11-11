@@ -14,9 +14,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByNickname(String nickname);
 
-    @Query("select u from User u join u.company c where c.id = :companyId order by u.totalScore desc")
-    Page<User> findUserRankInCompany(Long companyId, Pageable pageable);
-
     @Query("select u from User u " +
             "join u.company c " +
             "where c.id = :companyId " +

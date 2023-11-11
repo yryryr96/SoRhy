@@ -101,7 +101,7 @@ public class UserService {
         User user = findUser(nickname);
         Long articleCount = articleRepository.countArticleByNickname(nickname);
         Long commentCount = commentRepository.countCommentByNickname(nickname);
-        List<GameResultDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
+        List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
 
         return user.toProfileDto(articleCount, commentCount, top3Characters);
     }
@@ -122,7 +122,7 @@ public class UserService {
         long personalRank = (Long) totalUserCountAndPersonalRank[1];
         float rankPercent = ((float) personalRank / totalCount) * 100;
 
-        List<GameResultDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
+        List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
         List<GameResultDto.gameRecordInfo> gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
         return user.toRecordRes(top3Characters, gameResults, personalRank, rankPercent);
     }

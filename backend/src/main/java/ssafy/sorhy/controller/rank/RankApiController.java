@@ -4,9 +4,9 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
-import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.service.gameresult.GameResultService;
+import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.util.response.Response;
 
 import java.util.List;
@@ -16,28 +16,20 @@ import java.util.List;
 @RequestMapping("/rank")
 public class RankApiController {
 
-    private final GameResultService gameResultService;
+    private final RankingService rankingService;
 
     @GetMapping("/{gameTitle}")
-    public Response<List<GameResultDto.personalRankRes>> eachGameRank(@PathVariable String gameTitle,
+    public Response<List<RankingDto.personalRankRes>> eachGameRank(@PathVariable String gameTitle,
                                                                       @PageableDefault(size=10) Pageable pageable) {
 
-        List<GameResultDto.personalRankRes> response = gameResultService.eachGameRank(gameTitle, pageable);
+        List<RankingDto.personalRankRes> response = rankingService.eachGameRank(gameTitle, pageable);
         return new Response(200, "게임 별 랭크 조회 성공", response);
     }
 
     @GetMapping("/company")
-    public Response<List<GameResultDto.companyRankRes>> companyRank() {
+    public Response<List<RankingDto.companyRankRes>> companyRank() {
 
-        List<GameResultDto.companyRankRes> response = gameResultService.companyRank();
+        List<RankingDto.companyRankRes> response = rankingService.companyRank();
         return new Response<>(200, "회사 별 랭크 조회 성공",response);
-    }
-
-    @GetMapping("/company/{companyId}")
-    public Response<List<UserDto.userRankOfCompanyRes>> companyUserRank(@PathVariable Long companyId,
-                                                                        @PageableDefault(size=10) Pageable pageable) {
-
-        List<UserDto.userRankOfCompanyRes> response = gameResultService.companyUserRank(pageable, companyId);
-        return new Response(200, "사내 랭킹 조회 성공", response);
     }
 }

@@ -3,6 +3,7 @@ package ssafy.sorhy.entity.user;
 import lombok.*;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
+import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.comment.Comment;
 import ssafy.sorhy.entity.company.Company;
@@ -87,7 +88,7 @@ public class User {
                 .build();
     }
 
-    public UserDto.recordRes toRecordRes(List<GameResultDto.top3Character> top3Characters,
+    public UserDto.recordRes toRecordRes(List<UserDto.top3Character> top3Characters,
                                          List<GameResultDto.gameRecordInfo> gameResults,
                                          Long ranking,
                                          float rankPercent) {
@@ -109,7 +110,7 @@ public class User {
 
     public UserDto.profileRes toProfileDto(Long articleCount,
                                            Long commentCount,
-                                           List<GameResultDto.top3Character> top3CharacterList) {
+                                           List<UserDto.top3Character> top3CharacterList) {
 
         return UserDto.profileRes.builder()
                 .nickname(this.nickname)
@@ -124,9 +125,9 @@ public class User {
                 .build();
     }
 
-    public UserDto.userRankOfCompanyRes toUserRankOfCompanyRes() {
+    public RankingDto.userRankOfCompanyRes toUserRankOfCompanyRes() {
 
-        return UserDto.userRankOfCompanyRes.builder()
+        return RankingDto.userRankOfCompanyRes.builder()
                 .nickname(this.nickname)
                 .totalScore(this.totalScore)
                 .win(this.win)
