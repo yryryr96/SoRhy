@@ -12,6 +12,7 @@ import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
+import ssafy.sorhy.entity.game.GameType;
 import ssafy.sorhy.entity.gameresult.GameResult;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.CustomException;
@@ -20,6 +21,7 @@ import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.game.GameRepository;
 import ssafy.sorhy.repository.gameresult.GameResultRepository;
 import ssafy.sorhy.repository.user.UserRepository;
+import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import javax.transaction.Transactional;
@@ -38,17 +40,24 @@ public class GameResultService {
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
     private final UserCharacterService userCharacterService;
+    private final RankingService rankingService;
 
     public GameResultDto.saveRes save(@RequestBody GameResultDto.saveReq request, String nickname) {
 
         User user = findUser(nickname);
         Long characterId = request.getCharacterId();
-        Game findGame = gameRepository.findById(request.getGameId())
+        Game game = gameRepository.findById(request.getGameId())
                 .orElseThrow(()-> new CustomException(ErrorCode.DATA_NOT_FOUND));
-        GameResult gameResult = request.toEntity(user, findGame);
+
+        GameResult gameResult = request.toEntity(user, game);
+        GameTitle gameTitle = game.getGameTitle();
+        int score = gameResult.getScore();
+
         userCharacterService.findByUserIdAndCharacterId(user, characterId);
-        user.updateScoreAndWinOrLose(gameResult.getScore(), gameResult.isWinner());
+        rankingService.updateRanking(user, gameTitle, score);
         gameResultRepository.save(gameResult);
+
+        user.updateScoreAndWinOrLose(gameResult.getScore(), gameResult.isWinner());
         return gameResult.toSaveResDto(gameResult);
     }
 

@@ -25,6 +25,7 @@ public class UserCharacterService {
     private final CharacterRepository characterRepository;
 
     public void findByUserIdAndCharacterId(User user, Long characterId) {
+
         Optional<UserCharacter> userCharacterInfo = userCharacterRepository.findByUserIdAndCharacterId(user.getId(), characterId);
         if (userCharacterInfo.isEmpty()) {
 
