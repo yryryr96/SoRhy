@@ -76,7 +76,6 @@ public class GameResultService {
             List<OtherUserDto> teamMember = gameResultRepository.findTeamOtherUserDtoByGameId(game.getId(), team);
             List<OtherUserDto> enemy = gameResultRepository.findEnemyOtherUserDtoByGameId(game.getId(), team);
 
-
             result.add(new GameResultDto.gameRecordInfo(game, gameResult, teamMember, enemy));
         }
         return result;
