@@ -15,6 +15,7 @@ import ssafy.sorhy.entity.game.Game;
 import ssafy.sorhy.entity.game.GameTitle;
 import ssafy.sorhy.entity.game.GameType;
 import ssafy.sorhy.entity.gameresult.GameResult;
+import ssafy.sorhy.entity.gameresult.Team;
 import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.exception.CustomException;
 import ssafy.sorhy.exception.ErrorCode;
@@ -71,8 +72,12 @@ public class GameResultService {
         for (GameResult gameResult : gameResults) {
 
             Game game = gameResult.getGame();
-            List<OtherUserDto> enteredUsers = gameResultRepository.findOtherUserDtoByGameId(game.getId());
-            result.add(new GameResultDto.gameRecordInfo(game, gameResult, enteredUsers));
+            Team team = gameResult.getTeam();
+            List<OtherUserDto> teamMember = gameResultRepository.findTeamOtherUserDtoByGameId(game.getId(), team);
+            List<OtherUserDto> enemy = gameResultRepository.findEnemyOtherUserDtoByGameId(game.getId(), team);
+
+
+            result.add(new GameResultDto.gameRecordInfo(game, gameResult, teamMember, enemy));
         }
         return result;
     }

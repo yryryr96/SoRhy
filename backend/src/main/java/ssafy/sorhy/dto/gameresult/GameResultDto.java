@@ -72,16 +72,20 @@ public class GameResultDto {
         private Long characterId;
         private boolean winner;
         private String createdAt;
-        private List<OtherUserDto> enteredUsers;
+        private int score;
+        private List<OtherUserDto> teamMember;
+        private List<OtherUserDto> enemy;
 
-        public gameRecordInfo(Game game, GameResult gameResult, List<OtherUserDto> enteredUsers) {
+        public gameRecordInfo(Game game, GameResult gameResult, List<OtherUserDto> teamMember, List<OtherUserDto> enemy ) {
             this.gameId = game.getId();
             this.gameTitle = game.getGameTitle();
             this.gameType = game.getGameType();
+            this.score = gameResult.getScore();
             this.characterId = gameResult.getCharacterId();
             this.winner = gameResult.isWinner();
             this.createdAt = gameResult.getCreatedAt();
-            this.enteredUsers = enteredUsers;
+            this.teamMember = teamMember;
+            this.enemy = enemy;
         }
     }
 }
