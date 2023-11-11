@@ -10,7 +10,7 @@ import {
 } from './LeftMid.Styled';
 
 const LeftMid = (props: any) => {
-    const { userId } = props;
+    const { totalScore,rankPercent, personalRanking } = props;
 
     return (
         <StyledLeftMidContainer>
@@ -18,8 +18,8 @@ const LeftMid = (props: any) => {
                 <Image src="/scorestandard2.svg" width={35} height={35} alt="내 점수" />내 점수는?
             </StyledMidHeader>
             <StyledMidBody>
-                <StyledScoreHeader>2555점</StyledScoreHeader>
-                <StyledScoreBody>상위 1.4% / 1333등</StyledScoreBody>
+                <StyledScoreHeader>{totalScore}점</StyledScoreHeader>
+                <StyledScoreBody>상위 {rankPercent}% / {personalRanking}등</StyledScoreBody>
             </StyledMidBody>
         </StyledLeftMidContainer>
     );

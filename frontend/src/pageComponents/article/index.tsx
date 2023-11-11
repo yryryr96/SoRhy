@@ -69,8 +69,8 @@ const Article = (props: any) => {
                                 <Input
                                     font_size="17px"
                                     type="text"
-                                    style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
-                                />
+                                   style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
+                                /> 
                                 <Button use="blue" label="작성" style={{ width: '10%' }} />
                             </StyledCommentTop>
                             <StyledComment>

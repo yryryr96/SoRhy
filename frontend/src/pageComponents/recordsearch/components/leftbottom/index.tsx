@@ -8,7 +8,7 @@ import {
 } from './LeftBottom.Styled';
 import Image from 'next/image';
 const LeftBottom = (props: any) => {
-    const { userId } = props;
+    const { top3Characters } = props;
 
     return (
         <StyledLeftBottomContainer>
@@ -24,34 +24,19 @@ const LeftBottom = (props: any) => {
             </StyledBottomHeader>
             <StyledBottomBody>
                 <StyledCharContent>
-                    <Image
-                        src="/chr2.png"
-                        width={35}
-                        height={35}
-                        alt="내 최애 캐릭터 1"
-                        style={{ borderRadius: '20px' }}
-                    />
-                    정영록정영록정영록
-                </StyledCharContent>
-                <StyledCharContent>
-                    <Image
-                        src="/chr3.png"
-                        width={35}
-                        height={35}
-                        alt="내 최애 캐릭터 2"
-                        style={{ borderRadius: '20px' }}
-                    />
-                    정영록정영록정영록
-                </StyledCharContent>
-                <StyledCharContent>
-                    <Image
-                        src="/chr4.png"
-                        width={35}
-                        height={35}
-                        alt="내 최애 캐릭터 3"
-                        style={{ borderRadius: '20px' }}
-                    />
-                    정영록정영록정영록
+                {top3Characters.map((character : any , index : number) => (
+                    <StyledCharContent key={index}>
+                        <Image
+                            src={`/chr${character.characterId}.png`}
+                            width={35}
+                            height={35}
+                            alt={`내 최애 캐릭터 ${index + 1}`}
+                            style={{ borderRadius: '20px' }}
+                        />
+                       
+                        {`${character.characterName}`}
+                    </StyledCharContent>
+                ))}
                 </StyledCharContent>
             </StyledBottomBody>
         </StyledLeftBottomContainer>
