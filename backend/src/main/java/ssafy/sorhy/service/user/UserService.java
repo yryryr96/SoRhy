@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.dto.user.UserRankInfoDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.log.LoginHistory;
 import ssafy.sorhy.entity.user.User;
@@ -24,7 +25,6 @@ import ssafy.sorhy.service.history.HistoryService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import javax.persistence.EntityManager;
-import javax.persistence.Query;
 import java.util.List;
 
 @Service
@@ -117,20 +117,12 @@ public class UserService {
 
         User user = findUser(nickname);
 
-        Object[] totalUserCountAndPersonalRank = findTotalUserCountAndPersonalRank(nickname);
-        long totalCount = (Long) totalUserCountAndPersonalRank[0];
-        long personalRank = (Long) totalUserCountAndPersonalRank[1];
-        float rankPercent = ((float) personalRank / totalCount) * 100;
+        UserRankInfoDto userRankInfo = userRepository.findUserRankInfo(nickname);
+        Long personalRanking = userRankInfo.getPersonalRank();
+        double rankPercent = userRankInfo.getRankPercent();
 
         List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
         List<GameResultDto.gameRecordInfo> gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
-        return user.toRecordRes(top3Characters, gameResults, personalRank, rankPercent);
-    }
-
-    private Object[] findTotalUserCountAndPersonalRank(String nickname) {
-
-        Query query = em.createQuery("SELECT count(*), (SELECT count(u) from User u where u.totalScore > (select u2.totalScore from User u2 where u2.nickname = :nickname)) FROM User u");
-        query.setParameter("nickname", nickname);
-        return (Object[]) query.getSingleResult();
+        return user.toRecordRes(top3Characters, gameResults, personalRanking, rankPercent);
     }
 }

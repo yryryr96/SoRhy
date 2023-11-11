@@ -38,12 +38,10 @@ import java.util.stream.Collectors;
 public class GameResultService {
 
     private final GameResultRepository gameResultRepository;
-    private final CompanyRepository companyRepository;
     private final GameRepository gameRepository;
     private final UserRepository userRepository;
     private final UserCharacterService userCharacterService;
     private final RankingService rankingService;
-    private final RankingRepository rankingRepository;
 
     public GameResultDto.saveRes save(@RequestBody GameResultDto.saveReq request, String nickname) {
 

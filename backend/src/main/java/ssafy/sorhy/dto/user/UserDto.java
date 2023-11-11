@@ -60,7 +60,7 @@ public class UserDto {
         private int win;
         private int lose;
         private float winPercentage;
-        private Long ranking;
+        private Long personalRanking;
         private double rankPercent;
         private List<top3Character> top3Characters;
         private List<GameResultDto.gameRecordInfo> gameResults;

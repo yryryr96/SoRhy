@@ -90,10 +90,9 @@ public class User {
 
     public UserDto.recordRes toRecordRes(List<UserDto.top3Character> top3Characters,
                                          List<GameResultDto.gameRecordInfo> gameResults,
-                                         Long ranking,
-                                         float rankPercent) {
+                                         Long personalRanking,
+                                         double rankPercent) {
 
-        double formattedRankPercent = Math.round(rankPercent * 10) / (10.0);
         return UserDto.recordRes.builder()
                 .nickname(this.nickname)
                 .totalScore(this.totalScore)
@@ -101,8 +100,8 @@ public class User {
                 .win(this.win)
                 .lose(this.lose)
                 .winPercentage(this.winPercentage)
-                .ranking(ranking)
-                .rankPercent(formattedRankPercent)
+                .personalRanking(personalRanking)
+                .rankPercent(rankPercent)
                 .top3Characters(top3Characters)
                 .gameResults(gameResults)
                 .build();
