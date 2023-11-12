@@ -9,7 +9,7 @@ ARG ENV
 ARG NEXT_PUBLIC_API_URL
 
 RUN echo "MY_ENV_VAR = $ENV" && \
-    echo -e "NEXT_PUBLIC_API_URL=${NEXT_PUBLIC_API_URL}" > .env
+    echo -e "NEXT_PUBLIC_API_URL=${ENV}" > .env
 
 RUN npm run build
 
@@ -21,4 +21,4 @@ WORKDIR /app
 COPY --from=builder /app ./
 
 EXPOSE 3000
-CMD ["npm", "run", "start"]
+CMD ["npm", "run", "dev"]
