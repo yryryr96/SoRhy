@@ -23,6 +23,7 @@ public class ArticleDto {
         private String nickname;
         private String title;
         private int viewCount;
+        private String imageUrl;
         private String createdAt;
     }
 

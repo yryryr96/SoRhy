@@ -13,4 +13,5 @@ import ssafy.sorhy.entity.gameresult.Team;
 public class OtherUserDto {
 
     private String nickname;
+    private Long characterId;
 }

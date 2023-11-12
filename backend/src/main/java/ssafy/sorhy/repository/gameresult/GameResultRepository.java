@@ -14,11 +14,11 @@ public interface GameResultRepository extends JpaRepository<GameResult, Long> {
     @Query("select g from GameResult g join fetch g.user u where u.id = :userId order by g.id desc")
     List<GameResult> findByUserIdOrderByDesc(Long userId, Pageable pageable);
 
-    @Query("select new ssafy.sorhy.dto.gameresult.OtherUserDto(u.nickname) " +
+    @Query("select new ssafy.sorhy.dto.gameresult.OtherUserDto(u.nickname, gr.characterId) " +
             "from GameResult gr join gr.user u join gr.game g where g.id = :gameId and gr.team = :team")
     List<OtherUserDto> findTeamOtherUserDtoByGameId(Long gameId, Team team);
 
-    @Query("select new ssafy.sorhy.dto.gameresult.OtherUserDto(u.nickname) " +
+    @Query("select new ssafy.sorhy.dto.gameresult.OtherUserDto(u.nickname, gr.characterId) " +
             "from GameResult gr join gr.user u join gr.game g where g.id = :gameId and gr.team != :team")
     List<OtherUserDto> findEnemyOtherUserDtoByGameId(Long gameId, Team team);
 }
