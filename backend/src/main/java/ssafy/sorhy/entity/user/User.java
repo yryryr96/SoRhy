@@ -123,15 +123,4 @@ public class User {
                 .top3Characters(top3CharacterList)
                 .build();
     }
-
-    public RankingDto.userRankOfCompanyRes toUserRankOfCompanyRes() {
-
-        return RankingDto.userRankOfCompanyRes.builder()
-                .nickname(this.nickname)
-                .totalScore(this.totalScore)
-                .win(this.win)
-                .lose(this.lose)
-                .winPercentage(this.winPercentage)
-                .build();
-    }
 }

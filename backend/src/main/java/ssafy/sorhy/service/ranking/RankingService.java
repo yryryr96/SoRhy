@@ -1,11 +1,9 @@
 package ssafy.sorhy.service.ranking;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.dto.user.UserDto;
 import ssafy.sorhy.entity.company.Company;
@@ -15,11 +13,9 @@ import ssafy.sorhy.entity.user.User;
 import ssafy.sorhy.repository.company.CompanyRepository;
 import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
-import ssafy.sorhy.service.user.UserService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -40,14 +36,13 @@ public class RankingService {
 
     public void updateRanking(User user, GameTitle gameTitle, int score) {
 
-        Optional<Ranking> findRanking = rankingRepository.findByUserAndGameTitle(user, gameTitle);
+        Ranking ranking = rankingRepository.findByUserAndGameTitle(user, gameTitle).orElse(null);
 
-        if(findRanking.isEmpty()) {
+        if(ranking == null) {
             save(user, gameTitle, score);
             return;
         }
 
-        Ranking ranking = findRanking.get();
         if(ranking.getScore() < score) {
 
             ranking.updateRankingScore(score);
@@ -67,13 +62,8 @@ public class RankingService {
 
         GameTitle title = GameTitle.valueOf(gameTitle);
         return rankingRepository.findByGameTitleOrderByDesc(title, pageable).stream()
-                .map(ranking -> RankingDto.personalRankRes.builder()
-                        .nickname(ranking.getUser().getNickname())
-                        .company(ranking.getUser().getCompany().getCompanyName())
-                        .score(ranking.getScore())
-                        .createdAt(ranking.getCreatedAt())
-                        .top3Characters(userCharacterService.findTop3Character(ranking.getUser().getId()))
-                        .build())
+                .map(ranking -> new RankingDto.personalRankRes(ranking,
+                        userCharacterService.findTop3Character(ranking.getUser().getId())))
                 .collect(Collectors.toList());
     }
 }

@@ -1,8 +1,11 @@
 package ssafy.sorhy.dto.ranking;
 
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import lombok.NoArgsConstructor;
 import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.entity.ranking.Ranking;
 
 import java.util.List;
 
@@ -10,6 +13,8 @@ public class RankingDto {
 
     @Data
     @Builder
+    @AllArgsConstructor
+    @NoArgsConstructor
     public static class personalRankRes {
 
         private String nickname;
@@ -17,25 +22,24 @@ public class RankingDto {
         private String createdAt;
         private String company;
         private List<UserDto.top3Character> top3Characters;
+
+        public personalRankRes(Ranking ranking, List<UserDto.top3Character> top3Characters) {
+
+            this.nickname = ranking.getUser().getNickname();
+            this.company = ranking.getUser().getCompany().getCompanyName();
+            this.score = ranking.getScore();
+            this.createdAt = ranking.getCreatedAt();
+            this.top3Characters = top3Characters;
+        }
     }
 
     @Data
     @Builder
+    @AllArgsConstructor
     public static class companyRankRes {
 
         private String companyName;
-        private int companyScore;
         private String companyFirstRankUser;
-    }
-
-    @Data
-    @Builder
-    public static class userRankOfCompanyRes {
-
-        private String nickname;
-        private int totalScore;
-        private int win;
-        private int lose;
-        private float winPercentage;
+        private int companyScore;
     }
 }

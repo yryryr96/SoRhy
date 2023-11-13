@@ -2,7 +2,6 @@ package ssafy.sorhy.entity.company;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.entity.user.User;
 
@@ -32,12 +31,8 @@ public class Company {
     public RankingDto.companyRankRes toCompanyRankDto(Optional<User> user) {
 
         String companyFirstRankUser;
+        companyFirstRankUser = user.map(User::getNickname).orElse(null);
 
-        if (user.isEmpty()) {
-            companyFirstRankUser = null;
-        } else {
-            companyFirstRankUser = user.get().getNickname();
-        }
         return RankingDto.companyRankRes.builder()
                 .companyName(this.companyName)
                 .companyScore(this.companyScore)

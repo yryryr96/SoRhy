@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import ssafy.sorhy.dto.gameresult.GameResultDto;
 import ssafy.sorhy.dto.user.UserDto;
+import ssafy.sorhy.dto.user.UserEachGameScore;
 import ssafy.sorhy.dto.user.UserRankInfoDto;
 import ssafy.sorhy.entity.company.Company;
 import ssafy.sorhy.entity.log.LoginHistory;
@@ -19,9 +20,11 @@ import ssafy.sorhy.jwt.JwtTokenUtil;
 import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.company.CompanyRepository;
+import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.history.HistoryService;
+import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
 import javax.persistence.EntityManager;
@@ -36,7 +39,6 @@ public class UserService {
     @Value("${jwt.secret}")
     private String secretKey;
 
-    private final EntityManager em;
     private final UserRepository userRepository;
     private final ArticleRepository articleRepository;
     private final CommentRepository commentRepository;
@@ -44,6 +46,7 @@ public class UserService {
     private final GameResultService gameResultService;
     private final UserCharacterService userCharacterService;
     private final HistoryService historyService;
+    private final RankingRepository rankingRepository;
 
     private final BCryptPasswordEncoder encoder;
 
@@ -124,5 +127,10 @@ public class UserService {
         List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
         List<GameResultDto.gameRecordInfo> gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
         return user.toRecordRes(top3Characters, gameResults, personalRanking, rankPercent);
+    }
+
+    public List<UserEachGameScore> eachGameTopScore(String nickname) {
+
+        return userRepository.findEachGameTopScore(nickname);
     }
 }
