@@ -16,7 +16,7 @@ import Image from 'next/image';
 import Button from '@/components/button';
 
 const LeftTop = (props: any) => {
-    const { nickname,company } = props;
+    const { nickname, company } = props;
     const [randomNumber, setRandomNumber] = useState<number>(1);
     const getRandomNumber = () => {
         const newRandomNumber = Math.floor(Math.random() * 10) + 1;
@@ -33,10 +33,10 @@ const LeftTop = (props: any) => {
                 <StyledPictureSide>
                     <Image
                         src={`/chr${randomNumber}.png`}
-                        width={120}
-                        height={120}
+                        width={180}
+                        height={180}
                         alt={'캐릭터 초상화'}
-                        style={{ borderRadius: '60px' }}
+                        style={{ borderRadius: '100px' }}
                     />
                 </StyledPictureSide>
                 <StyledTitleInfo>

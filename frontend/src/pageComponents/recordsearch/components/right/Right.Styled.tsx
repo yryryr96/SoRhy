@@ -47,10 +47,10 @@ const StyledRecord = styled.div`
     border-radius: 20px;
 `;
 
-const StyledRecordColor = styled.div<any>`
+const StyledRecordColor = styled.div.attrs<any>({})`
     display: flex;
     width: 4%;
-    background-color: ${(props) => props.background || '#218fff'};
+    background-color: ${(props) => (props.iswinner ? '#218fff' : 'red')};
 
     border-bottom-left-radius: 20px;
     border-top-left-radius: 20px;
@@ -71,6 +71,7 @@ const StyledRecordMainTop = styled.div<any>`
     height: 30%;
     padding: 0% 5%;
     font-size: 15px;
+    gap: 2px;
 `;
 const StyledRecordMainBottom = styled.div<any>`
     display: flex;

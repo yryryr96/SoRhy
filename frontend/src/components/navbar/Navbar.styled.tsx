@@ -6,7 +6,7 @@ const StyledNavbar = styled.div.attrs<any>((props) => ({}))`
         let bgColor;
         const white = props.theme.colors.white;
 
-        const height = props.pathname === '/' || props.pathname === '/others' ? '110px' : '110px';
+        const height = props.pathname === '/' || props.pathname === '/others' ? '90px' : '90px';
 
         const minwidth = props.pathname === '/' ? '1000px' : '550px';
         switch (props.pathname) {

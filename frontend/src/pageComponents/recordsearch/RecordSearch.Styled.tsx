@@ -18,7 +18,7 @@ const StyledRecordFrame = styled.div`
     align-items: center;
     width: 75%;
     height: 90%;
-    padding: 2% 2%;
+    padding: 3% 2%;
     border: 1px solid lightgray;
     border-radius: 20px;
     background-color: white;

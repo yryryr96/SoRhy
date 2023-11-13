@@ -27,7 +27,7 @@ const Ranking = () => {
         <StyledRankingMain>
             <StyledRankingFrame>
                 <StyledRankingHeader>
-                    <Image src="/ranking.svg" width={50} height={50} alt="Ranking" />
+                    <Image src="/trophy.svg" width={50} height={50} alt="Ranking" />
                     Ranking
                 </StyledRankingHeader>
                 <StyledRankingTop>

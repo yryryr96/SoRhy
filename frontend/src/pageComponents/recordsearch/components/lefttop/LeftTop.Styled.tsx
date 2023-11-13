@@ -2,11 +2,11 @@ import styled, { css } from 'styled-components';
 
 const StyledLeftTopContainer = styled.div`
     display: flex;
-    padding: 5% 0 0 0;
+    padding: 7% 0 0 1%;
     flex-direction: column;
     justify-content: center;
     width: 100%;
-    height: 30%;
+    height: 55%;
 `;
 
 const StyledTopContainer = styled.div`
@@ -19,10 +19,9 @@ const StyledTopContainer = styled.div`
 const StyledBottomContainer = styled.div`
     display: flex;
     flex-direction: column;
-    width: 60%;
+    width: 100%;
     height: 100%;
-
-    margin-left: 40%;
+    padding: 5% 7%;
     gap: 10px;
 `;
 
@@ -30,8 +29,8 @@ const StyledPictureSide = styled.div`
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 40%;
-    height: 80%;
+    width: 60%;
+    height: 100%;
 `;
 
 const StyledTitleInfo = styled.div`
@@ -56,22 +55,23 @@ const StyledTopTitle = styled.div`
 const StyledBottomTitle = styled.div`
     display: flex;
     width: 100%;
-    height: 20%;
+    height: 30%;
     font-size: 19px;
     color: gray;
 `;
 
 const StyledUpdateRecord = styled.div`
     display: flex;
-    width: 50%;
-    height: 70%;
+    width: 100%;
+    height: 100%;
+    margin-top: 20px;
 `;
 const StyledUpdateText = styled.div`
     display: flex;
     justify-content: center;
-    width: 50%;
-    height: 60%;
-    font-size: 14px;
+    width: 100%;
+    height: 30%;
+    font-size: 17px;
     color: gray;
 `;
 

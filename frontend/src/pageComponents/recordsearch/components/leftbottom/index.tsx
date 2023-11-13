@@ -23,21 +23,19 @@ const LeftBottom = (props: any) => {
                 내 최애 캐릭터는?
             </StyledBottomHeader>
             <StyledBottomBody>
-                <StyledCharContent>
-                {top3Characters.map((character : any , index : number) => (
+                {top3Characters.map((character: any, index: number) => (
                     <StyledCharContent key={index}>
                         <Image
                             src={`/chr${character.characterId}.png`}
-                            width={35}
-                            height={35}
+                            width={90}
+                            height={90}
                             alt={`내 최애 캐릭터 ${index + 1}`}
-                            style={{ borderRadius: '20px' }}
+                            style={{ borderRadius: '60px' }}
                         />
-                       
+
                         {`${character.characterName}`}
                     </StyledCharContent>
                 ))}
-                </StyledCharContent>
             </StyledBottomBody>
         </StyledLeftBottomContainer>
     );

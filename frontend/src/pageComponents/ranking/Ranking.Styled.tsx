@@ -70,17 +70,18 @@ const StyledRankingBody = styled.div`
     padding: 0 2%;
     border: 1px solid #218fff;
     border-radius: 20px;
-    gap: 4%;
+    gap: 3.5%;
 `;
 
 const StyledInnerHeader = styled.div`
     display: flex;
     flex-direction: row;
-    align-items: center;
-    justify-content: space-between;
+
     width: 100%;
     height: 10%;
-    font-size: 18px;
+    font-size: 20px;
+    font-weight: bold;
+    color: #218fff;
     border-bottom: 1px solid gray;
 `;
 
@@ -89,7 +90,7 @@ const StyledInnerBody = styled.div`
     flex-direction: column;
 
     width: 100%;
-    height: 89%;
+    height: 100%;
 
     gap: 4px;
 `;
@@ -102,7 +103,29 @@ const StyledRankInfo = styled.div`
     font-size: 18px;
 `;
 
+const StyledInfoContainer = styled.div.attrs<any>({})`
+    display: flex;
+    justify-content: center;
+    align-items: ${(props) => props.alignItems || 'flex-start'};
+    width: ${(props) => props.width || '20%'};
+    height: ${(props) => props.height || '100%'};
+    gap: 18px;
+`;
+
+const StyledEmptyText = styled.div`
+    display: flex;
+    width: 100%;
+    height: 100%;
+    justify-content: center;
+    align-items: center;
+    color: gray;
+    font-size: 40px;
+    font-weight: bold;
+`;
+
 export {
+    StyledEmptyText,
+    StyledInfoContainer,
     StyledRankingMain,
     StyledRankingFrame,
     StyledRankingHeader,

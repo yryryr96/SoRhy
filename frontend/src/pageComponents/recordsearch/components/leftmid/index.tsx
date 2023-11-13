@@ -10,7 +10,7 @@ import {
 } from './LeftMid.Styled';
 
 const LeftMid = (props: any) => {
-    const { totalScore,rankPercent, personalRanking } = props;
+    const { totalScore, rankPercent, personalRanking } = props;
 
     return (
         <StyledLeftMidContainer>
@@ -19,7 +19,9 @@ const LeftMid = (props: any) => {
             </StyledMidHeader>
             <StyledMidBody>
                 <StyledScoreHeader>{totalScore}점</StyledScoreHeader>
-                <StyledScoreBody>상위 {rankPercent}% / {personalRanking}등</StyledScoreBody>
+                <StyledScoreBody>
+                    상위 {rankPercent}% / {personalRanking}등
+                </StyledScoreBody>
             </StyledMidBody>
         </StyledLeftMidContainer>
     );

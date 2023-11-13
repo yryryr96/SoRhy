@@ -1,7 +1,13 @@
 'use client';
 
 import React, { useState, useEffect } from 'react';
-import { StyledInnerBody, StyledInnerHeader, StyledRankInfo } from '../../Ranking.Styled';
+import {
+    StyledEmptyText,
+    StyledInfoContainer,
+    StyledInnerBody,
+    StyledInnerHeader,
+    StyledRankInfo,
+} from '../../Ranking.Styled';
 import GameRankGet from '@/api/rank/GameRankGet';
 import Image from 'next/image';
 
@@ -21,23 +27,33 @@ const Balloon = () => {
     return (
         <>
             <StyledInnerHeader>
-                <p>순위</p>
-                <p>유저 닉네임</p>
-                <p>회사명</p>
-                <p>Point</p>
-                <p>모스트 캐릭터</p>
+                <StyledInfoContainer alignItems="center" width="10%">
+                    순위
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="30%">
+                    유저 닉네임
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="20%">
+                    회사명
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="15%">
+                    Point
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="25%">
+                    모스트 캐릭터
+                </StyledInfoContainer>
             </StyledInnerHeader>
             <StyledInnerBody>
                 {loading ? (
-                    <div>Loading...</div>
+                    <StyledEmptyText>Loading...</StyledEmptyText>
                 ) : BalloonDetail.length > 0 ? (
                     BalloonDetail.map((rank: any, index: number) => (
                         <StyledRankInfo key={index}>
-                            <p>{index + 1}</p>
-                            <p>{rank.nickname}</p>
-                            <p>{rank.company}</p>
-                            <p>{rank.score}</p>
-                            <p>
+                            <StyledInfoContainer width="10%">{index + 1}</StyledInfoContainer>
+                            <StyledInfoContainer width="30%">{rank.nickname}</StyledInfoContainer>
+                            <StyledInfoContainer width="20%">{rank.company}</StyledInfoContainer>
+                            <StyledInfoContainer width="15%">{rank.score}</StyledInfoContainer>
+                            <StyledInfoContainer width="25%">
                                 {rank.top3Characters.map((character, characterIndex) => (
                                     <React.Fragment key={characterIndex}>
                                         <Image
@@ -50,11 +66,11 @@ const Balloon = () => {
                                         {characterIndex < 2 && '   '}
                                     </React.Fragment>
                                 ))}
-                            </p>
+                            </StyledInfoContainer>
                         </StyledRankInfo>
                     ))
                 ) : (
-                    <div>랭킹 정보가 없습니다</div>
+                    <StyledEmptyText>랭킹 정보가 없습니다</StyledEmptyText>
                 )}
             </StyledInnerBody>
         </>

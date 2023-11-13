@@ -23,8 +23,8 @@ const StyledBottomHeader = styled.div`
 
 const StyledBottomBody = styled.div`
     display: flex;
-    flex-direction: column;
-    padding: 4% 5%;
+    flex-direction: row;
+    padding: 10% 5%;
     align-items: center;
     width: 100%;
     height: 75%;
@@ -34,14 +34,13 @@ const StyledBottomBody = styled.div`
 
 const StyledCharContent = styled.div`
     display: flex;
-    flex-direction: row;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
     width: 100%;
-    height: 30%;
-    font-size: 17px;
-
-    gap: 20px;
+    height: 100%;
+    font-size: 27px;
+    gap: 10px;
 `;
 
 export { StyledCharContent, StyledLeftBottomContainer, StyledBottomHeader, StyledBottomBody };

@@ -1,6 +1,6 @@
 'use client';
 
-import { StyledInnerBody, StyledInnerHeader, StyledRankInfo } from '../../Ranking.Styled';
+import { StyledInfoContainer, StyledInnerBody, StyledInnerHeader, StyledRankInfo } from '../../Ranking.Styled';
 import { useState, useEffect } from 'react';
 import GameRankGet from '@/api/rank/GameRankGet';
 const Company = () => {
@@ -17,14 +17,22 @@ const Company = () => {
                 console.error('에러 발생:', error);
             });
     }, []);
-    console.log(CompanyDetail)
+    console.log(CompanyDetail);
     return (
         <>
             <StyledInnerHeader>
-                <p>순위</p>
-                <p>회사명</p>
-                <p>Point</p>
-                <p>1위 유저</p>
+                <StyledInfoContainer alignItems="center" width="15%">
+                    순위
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="35%">
+                    회사명
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="25%">
+                    Total Point
+                </StyledInfoContainer>
+                <StyledInfoContainer alignItems="center" width="25%">
+                    1위 유저
+                </StyledInfoContainer>
             </StyledInnerHeader>
             <StyledInnerBody>
                 {loading ? (
@@ -32,11 +40,10 @@ const Company = () => {
                 ) : CompanyDetail.length > 0 ? (
                     CompanyDetail.map((rank: any, index: number) => (
                         <StyledRankInfo key={index}>
-                            <p>{index + 1}</p>
-                            <p>{rank.companyName}</p>
-                            <p>{rank.companyScore}</p>
-                            <p>{rank.companyFirstRankUser}</p>
-
+                            <StyledInfoContainer width="15%">{index + 1}</StyledInfoContainer>
+                            <StyledInfoContainer width="35%">{rank.companyName}</StyledInfoContainer>
+                            <StyledInfoContainer width="25%">{rank.companyScore}</StyledInfoContainer>
+                            <StyledInfoContainer width="25%">{rank.companyFirstRankUser}</StyledInfoContainer>
                         </StyledRankInfo>
                     ))
                 ) : (
