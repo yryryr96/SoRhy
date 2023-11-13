@@ -71,7 +71,7 @@ const StyledRecordMainTop = styled.div<any>`
     height: 30%;
     padding: 0% 5%;
     font-size: 15px;
-    gap: 2px;
+    gap: 4px;
 `;
 const StyledRecordMainBottom = styled.div<any>`
     display: flex;

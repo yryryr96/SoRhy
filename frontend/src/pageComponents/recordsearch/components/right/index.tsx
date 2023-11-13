@@ -45,7 +45,18 @@ const Right = (props: any) => {
                                 <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {game.gameTitle}
                                 <Image src="/spear.svg" width={10} height={10} alt="slash" />
-                                {game.createdAt}
+                                {/* 어질어질 */}
+                                <p>
+                                    {(() => {
+                                        const createdAt = new Date((game as any).createdAt);
+                                        const now: Date = new Date();
+                                        const timeDifference: number = (now as any) - (createdAt as any);
+                                        const hoursDifference: number = Math.floor(timeDifference / (1000 * 60 * 60));
+                                        const formattedDate: string = `${hoursDifference}시간 전`;
+
+                                        return formattedDate;
+                                    })()}
+                                </p>
                             </StyledRecordMainTop>
                             <StyledRecordMainBottom>
                                 <StyledRecordBottomLeft>

@@ -32,8 +32,7 @@ const Ranking = () => {
                 </StyledRankingHeader>
                 <StyledRankingTop>
                     <StyledRankingSelector onClick={() => handleItemClick('1')}>
-                        <Image src="/house.svg" width={35} height={35} alt="house" />
-                        House
+                        <Image src="/house.svg" width={35} height={35} alt="house" />내 집 마련
                     </StyledRankingSelector>
                     <StyledRankingSelector onClick={() => handleItemClick('2')}>
                         <Image src="/balloon.svg" width={35} height={35} alt="balloon" />

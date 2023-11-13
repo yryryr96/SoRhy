@@ -55,7 +55,7 @@ const House = () => {
                             <StyledInfoContainer width="10%">{index + 1}</StyledInfoContainer>
                             <StyledInfoContainer width="30%">{rank.nickname}</StyledInfoContainer>
                             <StyledInfoContainer width="20%">{rank.company}</StyledInfoContainer>
-                            <StyledInfoContainer width="15%">{rank.score}</StyledInfoContainer>
+                            <StyledInfoContainer width="15%">{rank.score.toLocaleString()}점</StyledInfoContainer>
                             <StyledInfoContainer width="25%">
                                 {rank.top3Characters.map((character, characterIndex) => (
                                     <React.Fragment key={characterIndex}>

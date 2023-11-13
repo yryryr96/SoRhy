@@ -42,7 +42,9 @@ const Company = () => {
                         <StyledRankInfo key={index}>
                             <StyledInfoContainer width="15%">{index + 1}</StyledInfoContainer>
                             <StyledInfoContainer width="35%">{rank.companyName}</StyledInfoContainer>
-                            <StyledInfoContainer width="25%">{rank.companyScore}</StyledInfoContainer>
+                            <StyledInfoContainer width="25%">
+                                {rank.companyScore.toLocaleString()}점
+                            </StyledInfoContainer>
                             <StyledInfoContainer width="25%">{rank.companyFirstRankUser}</StyledInfoContainer>
                         </StyledRankInfo>
                     ))

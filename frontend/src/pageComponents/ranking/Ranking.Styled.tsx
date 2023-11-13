@@ -70,7 +70,6 @@ const StyledRankingBody = styled.div`
     padding: 0 2%;
     border: 1px solid #218fff;
     border-radius: 20px;
-    gap: 3.5%;
 `;
 
 const StyledInnerHeader = styled.div`
@@ -101,12 +100,13 @@ const StyledRankInfo = styled.div`
     width: 100%;
     height: 10%;
     font-size: 18px;
+    border-bottom: 0.5px dotted gray;
 `;
 
 const StyledInfoContainer = styled.div.attrs<any>({})`
     display: flex;
     justify-content: center;
-    align-items: ${(props) => props.alignItems || 'flex-start'};
+    align-items: ${(props) => props.alignItems || 'center'};
     width: ${(props) => props.width || '20%'};
     height: ${(props) => props.height || '100%'};
     gap: 18px;
