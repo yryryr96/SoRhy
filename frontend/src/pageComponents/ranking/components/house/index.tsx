@@ -57,7 +57,7 @@ const House = () => {
                         </StyledRankInfo>
                     ))
                 ) : (
-                    <div>댓글이 없습니다</div>
+                    <div>랭킹 정보가 없습니다</div>
                 )}
             </StyledInnerBody>
         </>

@@ -64,10 +64,9 @@ const Right = (props: any) => {
                     </StyledRecordMain>
                     
                     <StyledRecordVS>
-                    {game.enteredUsers.map((user : any, index : any) => (
-                        <div key={index} >
                         <StyledVsContainer >
-                            <StyledTeamContainer style={{ gap: '7px' }}>
+                        {game.teamMember.map((team : any, index : any) => (
+                            <StyledTeamContainer key={index} style={{ gap: '7px' }}>
                                 <Image
                                     src="/chr5.png"
                                     width={20}
@@ -75,68 +74,28 @@ const Right = (props: any) => {
                                     alt="팀원 1"
                                     style={{ borderRadius: '20px' }}
                                 />
-                                팀원1
+                                {team.nickname}
                             </StyledTeamContainer>
-                            <StyledTeamContainer style={{ gap: '7px' }}>
-                                <Image
-                                    src="/chr5.png"
-                                    width={20}
-                                    height={20}
-                                    alt="팀원 1"
-                                    style={{ borderRadius: '20px' }}
-                                />
-                                팀원1
-                            </StyledTeamContainer>
-                            <StyledTeamContainer style={{ gap: '7px' }}>
-                                <Image
-                                    src="/chr5.png"
-                                    width={20}
-                                    height={20}
-                                    alt="팀원 1"
-                                    style={{ borderRadius: '20px' }}
-                                />
-                                팀원1
-                            </StyledTeamContainer>
+                        ))}
                         </StyledVsContainer>
                         <Image src="/versa.svg" width={35} height={35} alt="versa" />
                         <StyledVsContainer>
-                            <StyledTeamContainer style={{ gap: '7px' }}>
+                        {game.enemy.map((user : any, index : any) => (
+                            <StyledTeamContainer key={index} style={{ gap: '7px' }}>
                                 <Image
-                                    src="/chr6.png"
+                                    src="/chr5.png"
                                     width={20}
                                     height={20}
                                     alt="팀원 1"
                                     style={{ borderRadius: '20px' }}
                                 />
-                                팀원2
+                                {user.nickname}
                             </StyledTeamContainer>
-                            <StyledTeamContainer style={{ gap: '7px' }}>
-                                <Image
-                                    src="/chr7.png"
-                                    width={20}
-                                    height={20}
-                                    alt="팀원 1"
-                                    style={{ borderRadius: '20px' }}
-                                />
-                                팀원3
-                            </StyledTeamContainer>
-                            <StyledTeamContainer style={{ gap: '7px' }}>
-                                <Image
-                                    src="/chr8.png"
-                                    width={20}
-                                    height={20}
-                                    alt="팀원 1"
-                                    style={{ borderRadius: '20px' }}
-                                />
-                                팀원4
-                            </StyledTeamContainer>
-                        </StyledVsContainer>
-                        </div>
                         ))}
+                        </StyledVsContainer>
                     </StyledRecordVS>
                 </StyledRecord>
-
-                ))}
+            ))}
             </StyledRightBody>
         </>
     );

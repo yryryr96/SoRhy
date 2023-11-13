@@ -33,7 +33,7 @@ const FreeBoard = (props: any) => {
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-
+    console.log(freeBoard)
     return (
         <StyledContentsBox>
             {freeBoard.length > 0 ? (

@@ -17,14 +17,14 @@ const Company = () => {
                 console.error('에러 발생:', error);
             });
     }, []);
+    console.log(CompanyDetail)
     return (
         <>
             <StyledInnerHeader>
                 <p>순위</p>
-                <p>유저 닉네임</p>
                 <p>회사명</p>
                 <p>Point</p>
-                <p>모스트 캐릭터</p>
+                <p>1위 유저</p>
             </StyledInnerHeader>
             <StyledInnerBody>
                 {loading ? (
@@ -33,14 +33,14 @@ const Company = () => {
                     CompanyDetail.map((rank: any, index: number) => (
                         <StyledRankInfo key={index}>
                             <p>{index + 1}</p>
-                            <p>{rank.nickname}</p>
-                            <p>{rank.company}</p>
-                            <p>{rank.score}</p>
-                            <p>미정이</p>
+                            <p>{rank.companyName}</p>
+                            <p>{rank.companyScore}</p>
+                            <p>{rank.companyFirstRankUser}</p>
+
                         </StyledRankInfo>
                     ))
                 ) : (
-                    <div>댓글이 없습니다</div>
+                    <div></div>
                 )}
             </StyledInnerBody>
         </>
