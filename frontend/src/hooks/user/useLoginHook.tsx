@@ -41,8 +41,8 @@ export const useLoginHook = () => {
     })
 
     const [inputState, setInputState] = useState({
-        nickname: 1,
-        password: 1      
+        nickname: '',
+        password: ''      
     })
 
     const handleUserId = (data:any) => {

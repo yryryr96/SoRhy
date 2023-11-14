@@ -5,37 +5,56 @@ import Button from '@/components/button';
 import Image from 'next/image';
 import { useRouter } from 'next/navigation';
 import { useSignupHook } from '@/hooks/user/useSignupHook';
+import { StyledLoginForm, StyledLoginFrame, StyledLoginInputBox, StyledLoginMain, StyledLoginTextContainer } from '../login/Login.Styled';
+import { StyledSignupForm, StyledSignupFormButton, StyledSignupFrame, StyledSignupMain, StyledTextContainer, StyledTextPtag } from './SignUp.Styled';
+import HR from '@/components/hr';
 
 const Signup = () => {
     const { user, inputState, handleChange, handleSubmit } = useSignupHook();
     return (
-        <div>
-            <h2>SignUp</h2>
-            <form onSubmit={handleSubmit}>
-                <div>
-                    <label>닉네임:</label>
-                    <Input type="text" name="nickname" onChange={handleChange} inputstate={inputState.nickname} />
-                </div>
-                <div>
-                    <label>비밀번호:</label>
-                    <Input type="password" name="password" onChange={handleChange} inputstate={inputState.password} />
-                </div>
-                <div>
-                    <label>비밀번호 확인:</label>
-                    <Input
-                        type="password"
-                        name="confirmPassword"
-                        onChange={handleChange}
-                        inputstate={inputState.confirmPassword}
-                    />
-                </div>
-                <div>
-                    <label>회사 번호:</label>
-                    <Input type="number" name="companyId" onChange={handleChange} inputstate={inputState.companyId} />
-                </div>
-                <Button use="SignUpLogin" label="회원가입" type="submit"></Button>
-            </form>
-        </div>
+        <StyledSignupMain>
+            <StyledSignupFrame>
+                <StyledSignupForm onSubmit={handleSubmit}>
+                    <StyledTextContainer>
+                        <h2 style={{textAlign:"center"}}>회원가입</h2>
+                        <HR />
+                    </StyledTextContainer>                    
+                    <div>
+                    <StyledTextPtag>닉네임</StyledTextPtag>
+                    <StyledLoginInputBox>
+                        <Input type="text" name="nickname" onChange={handleChange} inputstate={inputState.nickname} width={25.5} height={5}/>
+                    </StyledLoginInputBox>
+                    </div>
+
+                    <div>
+                    <StyledTextPtag>비밀번호</StyledTextPtag>
+                    <StyledLoginInputBox>
+                        <Input type="password" name="password" onChange={handleChange} inputstate={inputState.password} width={25.5} height={5}/>
+                    </StyledLoginInputBox>
+                    </div>
+
+                    <div>
+                    <StyledTextPtag>비밀번호 확인</StyledTextPtag>
+                    <StyledLoginInputBox>
+                        <Input
+                            type="password"
+                            name="confirmPassword"
+                            onChange={handleChange}
+                            inputstate={inputState.confirmPassword}
+                            width={25.5} 
+                            height={5}
+                        />
+                    </StyledLoginInputBox>
+                    </div>
+
+                    <div>
+                    <StyledTextPtag>회사</StyledTextPtag>
+                        <Input style={{border:"1px solid black"}} type="number" name="companyId" onChange={handleChange} inputstate={inputState.companyId} />
+                    </div>
+                    <StyledSignupFormButton type="submit">회원가입</StyledSignupFormButton>
+                </StyledSignupForm>
+            </StyledSignupFrame>
+        </StyledSignupMain>
     );
 };
 
