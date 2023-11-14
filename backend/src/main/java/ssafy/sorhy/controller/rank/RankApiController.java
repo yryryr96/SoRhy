@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.*;
+import ssafy.sorhy.dto.ranking.CompanyRankDto;
 import ssafy.sorhy.dto.ranking.RankingDto;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.ranking.RankingService;
@@ -27,9 +28,9 @@ public class RankApiController {
     }
 
     @GetMapping("/company")
-    public Response<List<RankingDto.companyRankRes>> companyRank() {
+    public Response<List<CompanyRankDto>> companyRank() {
 
-        List<RankingDto.companyRankRes> response = rankingService.companyRank();
+        List<CompanyRankDto> response = rankingService.companyRank();
         return new Response<>(200, "회사 별 랭크 조회 성공",response);
     }
 }

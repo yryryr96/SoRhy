@@ -32,14 +32,4 @@ public class RankingDto {
             this.top3Characters = top3Characters;
         }
     }
-
-    @Data
-    @Builder
-    @AllArgsConstructor
-    public static class companyRankRes {
-
-        private String companyName;
-        private String companyFirstRankUser;
-        private int companyScore;
-    }
 }

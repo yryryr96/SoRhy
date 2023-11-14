@@ -27,16 +27,4 @@ public class Company {
     public void updateCompanyScore(int userScore) {
         this.companyScore += userScore;
     }
-
-    public RankingDto.companyRankRes toCompanyRankDto(Optional<User> user) {
-
-        String companyFirstRankUser;
-        companyFirstRankUser = user.map(User::getNickname).orElse(null);
-
-        return RankingDto.companyRankRes.builder()
-                .companyName(this.companyName)
-                .companyScore(this.companyScore)
-                .companyFirstRankUser(companyFirstRankUser)
-                .build();
-    }
 }
