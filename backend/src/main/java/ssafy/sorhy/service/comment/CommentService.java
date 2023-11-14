@@ -15,6 +15,7 @@ import ssafy.sorhy.repository.article.ArticleRepository;
 import ssafy.sorhy.repository.comment.CommentRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @Transactional
@@ -72,10 +73,12 @@ public class CommentService {
     public CommentDto.pagingRes findComments(Long articleId, Pageable pageable) {
 
         Page<Comment> result = commentRepository.findByArticleIdOrderByIdDesc(articleId, pageable);
+        List<CommentDto.basicRes> comments = result.stream()
+                .map(Comment::toBasicRes)
+                .collect(Collectors.toList());
+
         return CommentDto.pagingRes.builder()
-                .comments(result.stream()
-                        .map(Comment::toBasicRes)
-                        .collect(Collectors.toList()))
+                .comments(comments)
                 .totalElement(result.getTotalElements())
                 .totalPage(result.getTotalPages())
                 .build();

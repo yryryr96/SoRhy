@@ -24,10 +24,8 @@ import ssafy.sorhy.repository.ranking.RankingRepository;
 import ssafy.sorhy.repository.user.UserRepository;
 import ssafy.sorhy.service.gameresult.GameResultService;
 import ssafy.sorhy.service.history.HistoryService;
-import ssafy.sorhy.service.ranking.RankingService;
 import ssafy.sorhy.service.usercharacter.UserCharacterService;
 
-import javax.persistence.EntityManager;
 import java.util.List;
 
 @Service
@@ -46,7 +44,6 @@ public class UserService {
     private final GameResultService gameResultService;
     private final UserCharacterService userCharacterService;
     private final HistoryService historyService;
-    private final RankingRepository rankingRepository;
 
     private final BCryptPasswordEncoder encoder;
 
