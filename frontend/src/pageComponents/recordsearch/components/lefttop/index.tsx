@@ -1,6 +1,5 @@
 'use client';
-
-import { useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
     StyledUpdateRecord,
     StyledTopTitle,
@@ -16,12 +15,15 @@ import Image from 'next/image';
 import Button from '@/components/button';
 
 const LeftTop = (props: any) => {
-    const { nickname, company } = props;
+    const { nickname, company, win, lose } = props;
     const [randomNumber, setRandomNumber] = useState<number>(1);
     const getRandomNumber = () => {
         const newRandomNumber = Math.floor(Math.random() * 10) + 1;
 
         setRandomNumber(newRandomNumber);
+    };
+    const handleRefreshClick = () => {
+        window.location.reload();
     };
     useEffect(() => {
         getRandomNumber();
@@ -42,13 +44,21 @@ const LeftTop = (props: any) => {
                 <StyledTitleInfo>
                     <StyledTopTitle>{nickname}</StyledTopTitle>
                     <StyledBottomTitle>소속 : {company}</StyledBottomTitle>
+                    <StyledBottomTitle>
+                        통합 전적 : {win} 승 {lose} 패
+                    </StyledBottomTitle>
                 </StyledTitleInfo>
             </StyledTopContainer>
             <StyledBottomContainer>
                 <StyledUpdateRecord>
-                    <Button use="blue" label="전적 업데이트" style={{ width: '100%', borderRadius: '8px' }} />
+                    <Button
+                        use="blue"
+                        label="전적 업데이트"
+                        onClick={handleRefreshClick}
+                        style={{ width: '100%', borderRadius: '8px' }}
+                    />
                 </StyledUpdateRecord>
-                <StyledUpdateText>15분전 갱신됨</StyledUpdateText>
+                <StyledUpdateText>너무 잦은 업데이트는 No No!</StyledUpdateText>
             </StyledBottomContainer>
         </StyledLeftTopContainer>
     );

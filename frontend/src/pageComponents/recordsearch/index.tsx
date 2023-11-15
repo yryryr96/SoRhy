@@ -30,7 +30,12 @@ const RecordSearch = (props: any) => {
                 <StyledRecordMain>
                     <StyledRecordFrame>
                         <StyledLeftContainer>
-                            <LeftTop nickname={userInfo.nickname} company={userInfo.companyName} />
+                            <LeftTop
+                                nickname={userInfo.nickname}
+                                company={userInfo.companyName}
+                                win={userInfo.win}
+                                lose={userInfo.lose}
+                            />
                             <LeftMid
                                 totalScore={userInfo.totalScore}
                                 rankPercent={userInfo.rankPercent}

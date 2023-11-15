@@ -44,7 +44,6 @@ const FreeBoard = (props: any) => {
                     <StyledCenterContainer>
                         <StyledCenterHead>{freeBoard[0].title}</StyledCenterHead>
                         <StyledCenterTail>
-                            {' '}
                             {freeBoard[0].createdAt} | 사진 | {freeBoard[0].nickname}
                         </StyledCenterTail>
                     </StyledCenterContainer>

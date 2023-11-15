@@ -35,16 +35,16 @@ const Ranking = () => {
                         <Image src="/house.svg" width={35} height={35} alt="house" />내 집 마련
                     </StyledRankingSelector>
                     <StyledRankingSelector onClick={() => handleItemClick('2')}>
-                        <Image src="/balloon.svg" width={35} height={35} alt="balloon" />
-                        Balloon
+                        <Image src="/watermelon.svg" width={35} height={35} alt="balloon" />
+                        수박 부시기
                     </StyledRankingSelector>
                     <StyledRankingSelector onClick={() => handleItemClick('3')}>
                         <Image src="/swim.svg" width={35} height={35} alt="swim" />
-                        Swim
+                        수영 레이싱
                     </StyledRankingSelector>
                     <StyledRankingSelector onClick={() => handleItemClick('4')}>
                         <Image src="/enterprise.svg" width={35} height={35} alt="enterprise" />
-                        Company
+                        회사 랭킹
                     </StyledRankingSelector>
                 </StyledRankingTop>
                 <StyledRankingBody>

@@ -1,6 +1,5 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import {
     StyledRightHeaderTop,
     StyledRightHeaderBottom,
@@ -16,6 +15,7 @@ import {
     StyledRightHeader,
     StyledRightBody,
     StyledTeamContainer,
+    StyledChart,
 } from './Right.Styled';
 import Image from 'next/image';
 import GameResultChart from './components/resultChart';
@@ -32,7 +32,7 @@ const Right = (props: any) => {
                     전적 히스토리
                 </StyledRightHeaderTop>
                 <StyledRightHeaderBottom>
-                    <GameResultChart gameResult={gameResult}/>
+                    <GameResultChart gameResult={gameResult} />
                 </StyledRightHeaderBottom>
             </StyledRightHeader>
             <StyledRightBody>
@@ -74,7 +74,7 @@ const Right = (props: any) => {
                                 </StyledRecordBottomLeft>
                                 <StyledRecordBottomRight>
                                     <p style={{ color: '#218fff' }}>
-                                        {game.score}점
+                                        {game.score.toLocaleString()}점
                                         <Image
                                             src="/cuteline.svg"
                                             width={30}

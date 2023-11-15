@@ -21,9 +21,9 @@ const StyledRightHeaderTop = styled.div`
 `;
 const StyledRightHeaderBottom = styled.div`
     display: flex;
-    width: 100%;
+    width: 45%;
     height: 70%;
-    padding : 0 2.5%;
+    padding: 0 2.5%;
     border: 1px solid lightgray;
     border-radius: 20px;
 `;
@@ -130,7 +130,14 @@ const StyledTeamContainer = styled.div`
     height: 20%;
 `;
 
+const StyledChart = styled.div`
+    display: flex;
+    width: 55%;
+    height: 100%;
+`;
+
 export {
+    StyledChart,
     StyledRightHeaderTop,
     StyledRightHeaderBottom,
     StyledTeamContainer,

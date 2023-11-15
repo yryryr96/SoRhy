@@ -18,7 +18,7 @@ const LeftMid = (props: any) => {
                 <Image src="/scorestandard2.svg" width={35} height={35} alt="내 점수" />내 점수는?
             </StyledMidHeader>
             <StyledMidBody>
-                <StyledScoreHeader>{totalScore}점</StyledScoreHeader>
+                <StyledScoreHeader>{totalScore.toLocaleString()}점</StyledScoreHeader>
                 <StyledScoreBody>
                     상위 {rankPercent}% / {personalRanking}등
                 </StyledScoreBody>

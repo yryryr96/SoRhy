@@ -46,7 +46,7 @@ const StyledTopTitle = styled.div`
 
     align-items: center;
     width: 100%;
-    height: 60%;
+    height: 65%;
 
     font-size: 33px;
     font-weight: bold;
