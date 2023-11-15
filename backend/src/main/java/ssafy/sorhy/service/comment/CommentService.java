@@ -48,10 +48,9 @@ public class CommentService {
 
             commentRepository.delete(comment);
             return "delete success";
-        } else {
-
-            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
         }
+
+        throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
     }
 
     public String update(Long commentId, String nickname, CommentDto.saveReq request) {
@@ -64,10 +63,9 @@ public class CommentService {
 
             comment.update(request);
             return "update success!";
-        } else {
-
-            throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
         }
+
+        throw new CustomException(ErrorCode.UNAUTHORIZED_USER);
     }
 
     public CommentDto.pagingRes findComments(Long articleId, Pageable pageable) {

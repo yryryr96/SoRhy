@@ -10,7 +10,7 @@ import java.util.Optional;
 public interface UserCharacterRepository extends JpaRepository<UserCharacter, Long> {
 
     @Query("select uc from UserCharacter uc join fetch uc.user u join fetch uc.character c " +
-            "where uc.user.id = :userId and uc.character.id = :characterId")
+            "where u.id = :userId and c.id = :characterId")
     Optional<UserCharacter> findByUserIdAndCharacterId(Long userId, Long characterId);
 
     @Query(nativeQuery = true,

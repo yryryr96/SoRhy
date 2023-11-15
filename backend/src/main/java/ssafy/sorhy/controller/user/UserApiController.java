@@ -23,8 +23,6 @@ import java.util.List;
 public class UserApiController {
 
     private final UserService userService;
-    private final UserRepository userRepository;
-    private final UserCharacterService userCharacterService;
 
     @PostMapping("/join")
     public Response<UserDto.joinRes> save(@Valid @RequestBody UserDto.joinReq request) {

@@ -16,14 +16,6 @@ public interface UserRepository extends JpaRepository<User, Long> {
 
     boolean existsByNickname(String nickname);
 
-    @Query("select u from User u " +
-            "join u.company c " +
-            "where c.id = :companyId " +
-            "and " +
-            "u.totalScore = (select max(u2.totalScore) from User u2 join u2.company c2 where c2.id = :companyId and u2.totalScore != 0)"
-    )
-    Optional<User> findCompanyFirstRankUser(Long companyId);
-
     @Query(value = "select new ssafy.sorhy.dto.user.UserRankInfoDto(count(u), (select count(u)+1 from User u where u.totalScore > (select u2.totalScore from User u2 where u2.nickname = :nickname))) from User u")
     UserRankInfoDto findUserRankInfo(String nickname);
 
