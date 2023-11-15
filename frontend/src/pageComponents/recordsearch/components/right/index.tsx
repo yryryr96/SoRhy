@@ -1,5 +1,6 @@
 'use client';
 
+import { useEffect, useState } from 'react';
 import {
     StyledRightHeaderTop,
     StyledRightHeaderBottom,
@@ -17,6 +18,7 @@ import {
     StyledTeamContainer,
 } from './Right.Styled';
 import Image from 'next/image';
+import GameResultChart from './components/resultChart';
 
 const Right = (props: any) => {
     const { gameResult } = props;
@@ -29,7 +31,9 @@ const Right = (props: any) => {
                     <Image src="/history.svg" width={38} height={38} alt="전적 히스토리" />
                     전적 히스토리
                 </StyledRightHeaderTop>
-                <StyledRightHeaderBottom></StyledRightHeaderBottom>
+                <StyledRightHeaderBottom>
+                    <GameResultChart gameResult={gameResult}/>
+                </StyledRightHeaderBottom>
             </StyledRightHeader>
             <StyledRightBody>
                 {gameResult.map((game: any, index: number) => (

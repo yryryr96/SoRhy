@@ -23,6 +23,7 @@ const StyledRightHeaderBottom = styled.div`
     display: flex;
     width: 100%;
     height: 70%;
+    padding : 0 2.5%;
     border: 1px solid lightgray;
     border-radius: 20px;
 `;
