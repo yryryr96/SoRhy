@@ -35,6 +35,7 @@ const StyledContentContainer = styled.div`
 
     border-radius: 10px;
     box-shadow: 1px 1px 2px 1px lightgray;
+    cursor : pointer;
 `;
 
 const StyledLeftContainer = styled.div`
