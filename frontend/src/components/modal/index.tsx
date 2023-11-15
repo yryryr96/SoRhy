@@ -93,7 +93,12 @@ const Modal = (props: ModalType) => {
                             <Image src="/bluepicture.svg" width={19} height={19} alt="사진 첨부" />
                             <Label>사진 첨부</Label>
                         </RowForm>
-                        <Input font_size="15px" type="file" onChange={(e: any) => setImage(e.target.files[0])} />
+                        <Input
+                            inputstate={'true'}
+                            font_size="15px"
+                            type="file"
+                            onChange={(e: any) => setImage(e.target.files[0])}
+                        />
                     </Form>
                 </ModalCenter>
                 <div style={{ display: 'flex', justifyContent: 'space-evenly', width: '100%' }}>

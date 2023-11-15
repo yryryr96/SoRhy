@@ -1,10 +1,12 @@
-import styled, {css} from 'styled-components'
+import styled, { css } from 'styled-components';
 
 const StyledLoginMain = styled.div`
     display: flex;
     /* position: absolute; */
     flex-direction: column;
     /* justify-content: center; */
+    background-image: url('/background12.jpg');
+    background-size: cover;
     align-items: center;
     padding: 7% 0;
     width: 100vw;
@@ -24,66 +26,60 @@ const StyledLoginFrame = styled.div`
     background-color: white;
     box-shadow: rgba(0, 0, 0, 0.25) 0px 0.0625em 0.0625em, rgba(0, 0, 0, 0.25) 0px 0.125em 0.5em,
         rgba(255, 255, 255, 0.1) 0px 0px 0px 1px inset;
-    gap: 20px;
+    gap: 5px;
 `;
 
 const StyledLoginForm = styled.form`
-    
     display: flex;
     flex-direction: column;
     justify-content: space-between;
-    width : 100%;
-    height : 90%;
+    width: 100%;
+    height: 90%;
     background-color: white;
-    gap: 10px;
-    
+    gap: 5px;
 `;
 
 const StyledLoginInnerForm = styled.div`
-
-    display : flex;
+    display: flex;
     border: 1px solid black;
     background-color: white;
     width: 100%;
 `;
 
 const StyledLoginInnerFormInput = styled.input`
-
     border: 2px solid black;
     background-color: white;
     height: 25%;
     font-size: 20px;
-    padding : 3%
+    padding: 3%;
 `;
 
 const StyledLoginInputBox = styled.div`
-    
-    border : 1px solid black;
+    height: 60%;
 `;
 
 const StyledLoginFormButton = styled.button`
-
-    color : #fff;
-    font-size : 15px;
-    border-radius : 10px;
-    border : transparent;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 10px;
+    border: transparent;
     background-color: #318fff;
     width: 100px;
-    height : 40px;
-    cursor : pointer;
+    height: 40px;
+    cursor: pointer;
 `;
 const StyledSignupButton = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    color : #fff;
-    font-size : 15px;
-    border-radius : 10px;
-    border : transparent;
+    color: #fff;
+    font-size: 15px;
+    border-radius: 10px;
+    border: transparent;
     background-color: #318fff;
     width: 100px;
-    height : 40px;
-    cursor : pointer;
+    height: 40px;
+    cursor: pointer;
 `;
 const StyledLoginButtonBox = styled.div.attrs<any>((props: any) => ({}))`
     ${(props: any) => {
@@ -97,10 +93,10 @@ const StyledLoginButtonBox = styled.div.attrs<any>((props: any) => ({}))`
 `;
 
 const StyledLoginTextContainer = styled.div`
-    display:"flex";
-    width:"100%"; 
-    justify-content:"center";
-    align-items: "center";
+    display: 'flex';
+    width: '100%';
+    justify-content: 'center';
+    align-items: 'center';
 `;
 
 export {
@@ -113,5 +109,5 @@ export {
     StyledLoginButtonBox,
     StyledSignupButton,
     StyledLoginInputBox,
-    StyledLoginTextContainer
-}
+    StyledLoginTextContainer,
+};

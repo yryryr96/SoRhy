@@ -22,7 +22,15 @@ const MainPage = () => {
             <Image src="/Logo.png" priority={true} width={430} height={110} alt="Logo" />
             <hr />
             <StyledMainSearchBox>
-                <Input type="text" name="userId" onChange={handleInputChange} width={30} height={8} font_size={22} />
+                <Input
+                    type="text"
+                    name="userId"
+                    onChange={handleInputChange}
+                    width={30}
+                    height={8}
+                    font_size={22}
+                    inputstate={'true'}
+                />
                 <Image src="/Loupe.svg" priority={true} width={50} height={50} alt="GG" onClick={handleLoupeClick} />
             </StyledMainSearchBox>
 
