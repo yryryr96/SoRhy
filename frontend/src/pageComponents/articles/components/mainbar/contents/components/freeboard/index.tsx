@@ -13,7 +13,6 @@ import {
     StyledCenterTail,
 } from '../../Contents.Styled';
 import Image from 'next/image';
-import ArticleDetail from '../../../../../../article';
 
 const FreeBoard = (props: any) => {
     const { category } = props;
@@ -33,7 +32,7 @@ const FreeBoard = (props: any) => {
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-    console.log(freeBoard)
+
     return (
         <StyledContentsBox>
             {freeBoard.length > 0 ? (

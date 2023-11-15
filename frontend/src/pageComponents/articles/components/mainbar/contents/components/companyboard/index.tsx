@@ -29,7 +29,6 @@ const CompanyBoard = (props: any) => {
         articleReadGet(category)
             .then((res) => {
                 setCompanyBoard(res.result.articles);
-                console.log(res.result.articles, '야');
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
@@ -55,7 +54,6 @@ const CompanyBoard = (props: any) => {
                             <StyledCenterContainer>
                                 <StyledCenterHead>{companyBoard[0].title}</StyledCenterHead>
                                 <StyledCenterTail>
-                           
                                     {companyBoard[0].createdAt} | 사진 | {companyBoard[0].nickname}
                                 </StyledCenterTail>
                             </StyledCenterContainer>

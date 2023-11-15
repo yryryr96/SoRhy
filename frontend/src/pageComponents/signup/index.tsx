@@ -76,7 +76,14 @@ const Signup = () => {
                     </StyledInputLabelContainer>
                     <StyledInputLabelContainer>
                         <StyledTextPtag>회사</StyledTextPtag>
-                        <SelectBox value={selectedCompany} onChange={(e) => setSelectedCompany(e.target.value)}>
+                        <SelectBox
+                            name="companyId"
+                            value={selectedCompany}
+                            onChange={(e) => {
+                                setSelectedCompany(e.target.value);
+                                handleChange({ target: { name: 'companyId', value: e.target.value } });
+                            }}
+                        >
                             <option value="1">직방</option>
                             <option value="2">삼성전자</option>
                             <option value="3">삼성전기</option>

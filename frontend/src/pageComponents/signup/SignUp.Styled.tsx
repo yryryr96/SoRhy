@@ -40,7 +40,7 @@ const StyledSignupForm = styled.form`
 
 const StyledSignupFormButton = styled.button`
     color: #fff;
-    font-size: 15px;
+    font-size: 18px;
     border-radius: 10px;
     border: transparent;
     background-color: #318fff;

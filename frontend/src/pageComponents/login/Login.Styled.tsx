@@ -19,8 +19,8 @@ const StyledLoginFrame = styled.div`
     align-items: center;
     justify-content: space-around;
     width: 30%;
-    height: 80%;
-    padding: 2% 2%;
+    height: 85%;
+    padding: 1% 2% 1% 2%;
     border: 1px solid lightgray;
     border-radius: 20px;
     background-color: white;
@@ -60,11 +60,11 @@ const StyledLoginInputBox = styled.div`
 
 const StyledLoginFormButton = styled.button`
     color: #fff;
-    font-size: 15px;
+    font-size: 18px;
     border-radius: 10px;
     border: transparent;
     background-color: #318fff;
-    width: 100px;
+    width: 100%;
     height: 40px;
     cursor: pointer;
 `;
@@ -73,11 +73,11 @@ const StyledSignupButton = styled.div`
     justify-content: center;
     align-items: center;
     color: #fff;
-    font-size: 15px;
+    font-size: 18px;
     border-radius: 10px;
     border: transparent;
-    background-color: #318fff;
-    width: 100px;
+    background-color: #87cefe;
+    width: 100%;
     height: 40px;
     cursor: pointer;
 `;
@@ -85,8 +85,11 @@ const StyledLoginButtonBox = styled.div.attrs<any>((props: any) => ({}))`
     ${(props: any) => {
         return css`
             display: flex;
+            flex-direction: column;
             justify-content: space-between;
             width: 100%;
+            gap: 10px;
+
             /* margin-top:10px; */
         `;
     }}
@@ -94,7 +97,7 @@ const StyledLoginButtonBox = styled.div.attrs<any>((props: any) => ({}))`
 
 const StyledLoginTextContainer = styled.div`
     display: 'flex';
-    width: '100%';
+    width: 100%;
     justify-content: 'center';
     align-items: 'center';
 `;

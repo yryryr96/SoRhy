@@ -19,14 +19,14 @@ export const useSignupHook = (): SignupHookType => {
         nickname: '',
         password: '',
         confirmPassword: '',
-        companyId: 0,
+        companyId: '0',
     });
 
     const [inputState, setInputState] = useState({
         nickname: '',
         password: '',
         confirmPassword: '',
-        companyId: 0,
+        companyId: '0',
     });
 
     const passwordRegex = /^(?=.*[A-Za-z])(?=.*\d)(?=.*[$@$!%*#?&])[A-Za-z\d$@$!%*#?&]{8,}$/; //최소 8 자, 최소 하나의 문자, 하나의 숫자 및 하나의 특수 문자
@@ -85,10 +85,11 @@ export const useSignupHook = (): SignupHookType => {
             });
             alert('닉네임을 입력해주세요');
             return;
-        } else if (user.companyId === 0) {
+        } else if (user.companyId === '0') {
+            console.log(user.companyId, '고고');
             setInputState({
                 ...inputState,
-                ['companyId']: 0,
+                ['companyId']: '0',
             });
             alert('회사 번호를 입력해주세요');
             return;

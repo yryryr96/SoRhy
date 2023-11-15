@@ -55,7 +55,9 @@ const Article = (props: any) => {
                             작성자 : {articleDetail.nickname} | 작성 일자 : {articleDetail.createdAt} | 조회 수 :
                             {articleDetail.viewCount}
                             <StyledArticleBody>
-                                <Image src={articleDetail.imgUrl} width={375} height={375} alt="업로드 이미지" />
+                                {articleDetail.imgUrl && (
+                                    <Image src={articleDetail.imgUrl} width={375} height={375} alt="업로드 이미지" />
+                                )}
                                 {articleDetail.content}
                             </StyledArticleBody>
                         </>
@@ -69,8 +71,8 @@ const Article = (props: any) => {
                                 <Input
                                     font_size="17px"
                                     type="text"
-                                   style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
-                                /> 
+                                    style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
+                                />
                                 <Button use="blue" label="작성" style={{ width: '10%' }} />
                             </StyledCommentTop>
                             <StyledComment>

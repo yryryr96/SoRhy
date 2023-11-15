@@ -14,6 +14,7 @@ import {
     StyledLoginTextContainer,
     StyledSignupButton,
 } from './Login.Styled';
+import { StyledInputLabelContainer } from '../signup/SignUp.Styled';
 import { useRouter } from 'next/navigation';
 import { StyledTextContainer, StyledTextPtag } from '../signup/SignUp.Styled';
 import HR from '@/components/hr';
@@ -38,34 +39,35 @@ const Login = () => {
             <StyledLoginFrame>
                 <StyledLoginForm onSubmit={handleSubmit}>
                     <StyledTextContainer>
-                        <h2 style={{ textAlign: 'center' }}>로그인</h2>
+                        <h2 style={{ textAlign: 'center', color: '#218fff' }}>로그인</h2>
                         <HR width="100%" leftmargin="0%" />
                     </StyledTextContainer>
-
-                    <StyledTextPtag>닉네임</StyledTextPtag>
-                    <StyledLoginInputBox>
-                        <Input
-                            type="text"
-                            name="nickname"
-                            onChange={handleChange}
-                            inputstate={inputState.nickname}
-                            width={25.5}
-                            height={5}
-                        />
-                    </StyledLoginInputBox>
-
-                    <StyledTextPtag>비밀번호</StyledTextPtag>
-                    <StyledLoginInputBox>
-                        <Input
-                            type="password"
-                            name="password"
-                            onChange={handleChange}
-                            inputstate={inputState.password}
-                            width={25.5}
-                            height={5}
-                        />
-                    </StyledLoginInputBox>
-
+                    <StyledInputLabelContainer style={{ gap: '15px' }}>
+                        <StyledTextPtag>닉네임</StyledTextPtag>
+                        <StyledLoginInputBox>
+                            <Input
+                                type="text"
+                                name="nickname"
+                                onChange={handleChange}
+                                inputstate={inputState.nickname}
+                                width={25.5}
+                                height={5}
+                            />
+                        </StyledLoginInputBox>
+                    </StyledInputLabelContainer>
+                    <StyledInputLabelContainer style={{ gap: '15px' }}>
+                        <StyledTextPtag>비밀번호</StyledTextPtag>
+                        <StyledLoginInputBox>
+                            <Input
+                                type="password"
+                                name="password"
+                                onChange={handleChange}
+                                inputstate={inputState.password}
+                                width={25.5}
+                                height={5}
+                            />
+                        </StyledLoginInputBox>
+                    </StyledInputLabelContainer>
                     <StyledLoginButtonBox>
                         <StyledLoginFormButton type="submit">로그인</StyledLoginFormButton>
                         <StyledSignupButton onClick={handleButtonClick}>회원가입</StyledSignupButton>

@@ -29,7 +29,7 @@ const Modal = (props: ModalType) => {
         const ArticleData = {
             title: title,
             content: content,
-            category: 'COMPANY',
+            category: 'TIP',
         };
         const jsonArticle = JSON.stringify(ArticleData);
         const ArticleForm = new FormData();
@@ -39,10 +39,12 @@ const Modal = (props: ModalType) => {
                 type: 'application/json',
             })
         );
-        ArticleForm.append('file', image);
-        console.log(ArticleForm);
+        if (image) {
+            ArticleForm.append('file', image);
+        }
         try {
             await articleSavePost(ArticleForm);
+            console.log('성공!');
         } catch (error) {
             console.error('게시글 저장 오류', error);
         }
