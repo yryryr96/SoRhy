@@ -33,24 +33,24 @@ const Tips = (props: any) => {
     };
     return (
         <StyledContentsBox>
-            {tipsBoard.length > 0 ? (
-                <StyledContentContainer onClick={() => handleContentClick(tipsBoard[0].articleId)}>
+            {tipsBoard.length > 0 ? tipsBoard.map(article => (
+                <StyledContentContainer onClick={() => handleContentClick(article.articleId)}>
                     <StyledLeftContainer>
                         <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
-                        {tipsBoard[0].articleId}
+                        {article.articleId}
                     </StyledLeftContainer>
                     <StyledCenterContainer>
-                        <StyledCenterHead>{tipsBoard[0].title}</StyledCenterHead>
+                        <StyledCenterHead>{article.title}</StyledCenterHead>
                         <StyledCenterTail>
                             {' '}
-                            {tipsBoard[0].createdAt} | 사진 | {tipsBoard[0].nickname}
+                            {article.createdAt} | 사진 | {article.nickname}
                         </StyledCenterTail>
                     </StyledCenterContainer>
                     <StyledRightContainer>
-                        <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
+                        {article.imageUrl ? <Image src={article.imageUrl} width={100} height={95} style={{borderRadius:"10px", backgroundSize:"cover"}} alt="썸네일" /> : null}
                     </StyledRightContainer>
                 </StyledContentContainer>
-            ) : (
+            )) : (
                 <div>Loading...</div>
             )}
         </StyledContentsBox>

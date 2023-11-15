@@ -45,23 +45,23 @@ const CompanyBoard = (props: any) => {
         <>
             {isToken ? (
                 <StyledContentsBox>
-                    {companyBoard.length > 0 ? (
-                        <StyledContentContainer onClick={() => handleContentClick(companyBoard[0].articleId)}>
+                    {companyBoard.length > 0 ? companyBoard.map(article => (
+                        <StyledContentContainer onClick={() => handleContentClick(article.articleId)}>
                             <StyledLeftContainer>
                                 <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
-                                {companyBoard[0].articleId}
+                                {article.articleId}
                             </StyledLeftContainer>
                             <StyledCenterContainer>
                                 <StyledCenterHead>{companyBoard[0].title}</StyledCenterHead>
                                 <StyledCenterTail>
-                                    {companyBoard[0].createdAt} | 사진 | {companyBoard[0].nickname}
+                                    {article.createdAt} | 사진 | {article.nickname}
                                 </StyledCenterTail>
                             </StyledCenterContainer>
                             <StyledRightContainer>
-                                <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
+                                {article.imageUrl ? <Image src={article.imageUrl} width={100} height={95} style={{borderRadius:"10px", backgroundSize:"cover"}} alt="썸네일" /> : null}
                             </StyledRightContainer>
                         </StyledContentContainer>
-                    ) : (
+                    )) : (
                         <div>Loading..</div>
                     )}
                 </StyledContentsBox>
