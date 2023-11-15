@@ -3,6 +3,7 @@ package ssafy.sorhy.controller.article;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.lang.Nullable;
 import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
@@ -23,7 +24,7 @@ public class ArticleApiController {
     @PostMapping("/article")
     public Response<ArticleDto.basicRes> save(
             @RequestPart @Valid ArticleDto.saveReq request,
-            @RequestPart MultipartFile file,
+            @RequestPart @Nullable MultipartFile file,
             Authentication authentication) throws IOException {
 
         String nickname = authentication.getName();
