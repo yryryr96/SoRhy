@@ -32,28 +32,29 @@ const FreeBoard = (props: any) => {
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-
+    console.log(freeBoard)
     return (
         <StyledContentsBox>
-            {freeBoard.length > 0 ? (
-                <StyledContentContainer onClick={() => handleContentClick(freeBoard[0].articleId)}>
+            {freeBoard.length > 0 ? freeBoard.map(article => (
+                <StyledContentContainer onClick={() => handleContentClick(article.articleId)}>
                     <StyledLeftContainer>
                         <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
-                        {freeBoard[0].articleId}
+                        {article.articleId}
                     </StyledLeftContainer>
                     <StyledCenterContainer>
-                        <StyledCenterHead>{freeBoard[0].title}</StyledCenterHead>
+                        <StyledCenterHead>{article.title}</StyledCenterHead>
                         <StyledCenterTail>
-                            {freeBoard[0].createdAt} | 사진 | {freeBoard[0].nickname}
+                            {article.createdAt} | 사진 | {article.nickname}
                         </StyledCenterTail>
                     </StyledCenterContainer>
                     <StyledRightContainer>
-                        <Image src="/friends.jpg" width={100} height={100} alt="쌍둥바오" />
+                        {article.imageUrl ? <Image src={article.imageUrl} width={100} height={95} style={{borderRadius:"10px", backgroundSize:"cover"}} alt="썸네일" /> : null}
                     </StyledRightContainer>
                 </StyledContentContainer>
-            ) : (
+            )) : (
                 <div>Loading...</div>
             )}
+            
         </StyledContentsBox>
     );
 };

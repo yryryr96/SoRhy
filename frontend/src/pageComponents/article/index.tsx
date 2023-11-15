@@ -48,7 +48,7 @@ const Article = (props: any) => {
                                 {articleDetail.category === 'FREE'
                                     ? '자유 게시판'
                                     : articleDetail.category === 'TIP'
-                                    ? 'Tips'
+                                    ? '팁 게시판'
                                     : '회사 게시판'}
                             </StyledArticleHeader>
                             <StyledArticleTop> {articleDetail.title}</StyledArticleTop>

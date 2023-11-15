@@ -36,7 +36,8 @@ const RightBar = () => {
             {issueData.slice(0, 7).map((item, index) => (
         <React.Fragment key={index}>
             <StyledRightItem onClick={()=>handleTitleClick(item.articleId)}>
-                <Image src="/freedom.png" width={32} height={18} alt="자유" />
+
+                <Image src={`/${item.category}.png`} width={32} height={18} alt="자유" />
                 {item.title}
             </StyledRightItem>
             <HR />
