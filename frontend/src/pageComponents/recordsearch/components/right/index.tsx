@@ -1,6 +1,9 @@
 'use client';
-
+import { useRouter } from 'next/navigation';
+import userSearchGet from '@/api/search/userSearchGet';
 import {
+    StyledPageContent,
+    StyledPageContainer,
     StyledRightHeaderTop,
     StyledRightHeaderBottom,
     StyledVsContainer,
@@ -19,11 +22,23 @@ import {
 } from './Right.Styled';
 import Image from 'next/image';
 import GameResultChart from './components/resultChart';
+import { useState } from 'react';
 
 const Right = (props: any) => {
-    const { gameResult } = props;
+    const { gameResult, nickname } = props;
+    const [gameInfo, setGameInfo] = useState<any>(gameResult);
+    const router = useRouter();
 
-    console.log(gameResult.characterId);
+    const handlePageClick = async (pageNumber: number) => {
+        try {
+            const res = await userSearchGet(nickname, pageNumber - 1);
+            setGameInfo(res.result.gameResults);
+
+            router.push(`/recordsearch/${nickname}?page=${pageNumber - 1}`);
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    };
     return (
         <>
             <StyledRightHeader>
@@ -32,11 +47,11 @@ const Right = (props: any) => {
                     전적 히스토리
                 </StyledRightHeaderTop>
                 <StyledRightHeaderBottom>
-                    <GameResultChart gameResult={gameResult} />
+                    <GameResultChart gameResult={gameInfo.gameRecordInfo} />
                 </StyledRightHeaderBottom>
             </StyledRightHeader>
             <StyledRightBody>
-                {gameResult.map((game: any, index: number) => (
+                {gameInfo.gameRecordInfo.map((game: any, index: number) => (
                     <StyledRecord key={index}>
                         <StyledRecordColor iswinner={game.winner} />
                         <StyledRecordMain>
@@ -97,7 +112,7 @@ const Right = (props: any) => {
                                 {game.teamMember.map((team: any, index: any) => (
                                     <StyledTeamContainer key={index} style={{ gap: '7px' }}>
                                         <Image
-                                            src="/chr5.png"
+                                            src={`/chr${team.characterId}.png`}
                                             width={20}
                                             height={20}
                                             alt="팀원 1"
@@ -109,22 +124,42 @@ const Right = (props: any) => {
                             </StyledVsContainer>
                             <Image src="/versa.svg" width={35} height={35} alt="versa" />
                             <StyledVsContainer>
-                                {game.enemy.map((user: any, index: any) => (
-                                    <StyledTeamContainer key={index} style={{ gap: '7px' }}>
+                                {game.enemy.length > 0 ? (
+                                    game.enemy.map((user: any, index: any) => (
+                                        <StyledTeamContainer key={index} style={{ gap: '7px' }}>
+                                            <Image
+                                                src={`/chr${user.characterId}.png`}
+                                                width={20}
+                                                height={20}
+                                                alt="팀원 1"
+                                                style={{ borderRadius: '20px' }}
+                                            />
+                                            {user.nickname}
+                                        </StyledTeamContainer>
+                                    ))
+                                ) : (
+                                    <StyledTeamContainer style={{ gap: '7px' }}>
                                         <Image
-                                            src="/chr5.png"
+                                            src={`/chr${game.teamMember[0].characterId}.png`}
                                             width={20}
                                             height={20}
                                             alt="팀원 1"
                                             style={{ borderRadius: '20px' }}
                                         />
-                                        {user.nickname}
+                                        {game.teamMember[0].nickname}
                                     </StyledTeamContainer>
-                                ))}
+                                )}
                             </StyledVsContainer>
                         </StyledRecordVS>
                     </StyledRecord>
                 ))}
+                <StyledPageContainer>
+                    {Array.from({ length: gameInfo.totalPage }, (_, index) => index + 1).map((pageNumber) => (
+                        <StyledPageContent onClick={() => handlePageClick(pageNumber)} key={pageNumber}>
+                            {pageNumber}
+                        </StyledPageContent>
+                    ))}
+                </StyledPageContainer>
             </StyledRightBody>
         </>
     );

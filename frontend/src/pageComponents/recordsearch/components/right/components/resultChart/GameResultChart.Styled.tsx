@@ -21,7 +21,7 @@ const StyledResultContainer = styled.div`
 
 const StyledWinPercentText = styled.h3`
     position: absolute;
-    left: 46.3%;
+    left: 46.25%;
     top: 19.7%;
 `;
 export { StyledResultContainer, StyledResultChartContainer, StyledWinPercentText };

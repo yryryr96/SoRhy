@@ -23,7 +23,6 @@ const RecordSearch = (props: any) => {
                 console.error('에러가 발생하였습니다:', error);
             });
     }, []);
-    console.log(userInfo);
     return (
         <>
             {loading ? (
@@ -44,7 +43,7 @@ const RecordSearch = (props: any) => {
                             <LeftBottom top3Characters={userInfo.top3Characters} />
                         </StyledLeftContainer>
                         <StyledRightContainer>
-                            <Right gameResult={userInfo.gameResults} />
+                            <Right gameResult={userInfo.gameResults} nickname={userInfo.nickname} />
                         </StyledRightContainer>
                     </StyledRecordFrame>
                 </StyledRecordMain>

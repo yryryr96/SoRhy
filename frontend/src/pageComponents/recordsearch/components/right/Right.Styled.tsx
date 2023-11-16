@@ -32,7 +32,7 @@ const StyledRightHeaderBottom = styled.div`
 const StyledRightBody = styled.div`
     display: flex;
     flex-direction: column;
-    padding: 3% 3%;
+    padding: 3% 3% 0% 3%;
     width: 90%;
     height: 90%;
     border: 1px solid gray;
@@ -44,7 +44,7 @@ const StyledRecord = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 20%;
+    height: 17%;
     border: 1px solid #bfbfbf;
     border-radius: 20px;
 `;
@@ -131,6 +131,27 @@ const StyledTeamContainer = styled.div`
     height: 20%;
 `;
 
+const StyledPageContainer = styled.div`
+    display: flex;
+
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 4%;
+    margin-top: 2%;
+`;
+
+const StyledPageContent = styled.div`
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 7%;
+    height: 100%;
+    font-weight: bold;
+    color: gray;
+    gap: 2px;
+`;
+
 const StyledChart = styled.div`
     display: flex;
     width: 55%;
@@ -138,6 +159,8 @@ const StyledChart = styled.div`
 `;
 
 export {
+    StyledPageContent,
+    StyledPageContainer,
     StyledChart,
     StyledRightHeaderTop,
     StyledRightHeaderBottom,
