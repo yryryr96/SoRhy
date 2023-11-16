@@ -82,6 +82,7 @@ public class ArticleDto {
 
         @Length(min = 2)
         private String word;
+        private String category;
     }
 
     @Data

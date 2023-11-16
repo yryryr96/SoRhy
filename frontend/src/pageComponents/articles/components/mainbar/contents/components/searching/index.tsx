@@ -13,30 +13,38 @@ import {
     StyledCenterTail,
 } from '../../Contents.Styled';
 import Image from 'next/image';
-
-const FreeBoard = (props: any) => {
-    const { category } = props;
-    const path = props.selectbtn;
-    const [freeBoard, setFreeBoard] = useState<any[]>([]);
+import { useArticleStore } from '@/stores/useArticleStore';
+import { useSearchBoardStore } from '@/stores/useSearchBoardStore';
+import articleSearchGet from '@/api/article/articleSearchGet';
+const Searching = () => {
+    const { searchOption, setSearchOption, nowboard, setNowboard, searchKeyword, setSearchKeyword } = useSearchBoardStore();
+    const { selectbtn, setselectbtn } = useArticleStore();
+    const [searching, setSearching] = useState<any[]>([]);
     const router = useRouter();
-
+    console.log("검색", searchOption);
     useEffect(() => {
-        articleReadGet(category)
+        const datas = {
+            searchCond: searchOption,
+            word: searchKeyword,
+            category: nowboard
+        };
+        articleSearchGet(datas)
             .then((res) => {
-                setFreeBoard(res.result.articles);
+                setSearching(res.data.result.articles);
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
             });
-    }, []);
+    }, [searchOption]);
+    
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-    console.log(freeBoard);
+    
     return (
         <StyledContentsBox>
-            {freeBoard.length > 0 ? (
-                freeBoard.map((article: any, index: any) => (
+            {searching.length > 0 ? (
+                searching.map((article: any, index: any) => (
                     <StyledContentContainer key={index} onClick={() => handleContentClick(article.articleId)}>
                         <StyledLeftContainer>
                             <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
@@ -46,7 +54,7 @@ const FreeBoard = (props: any) => {
                             <StyledCenterHead>{article.title}</StyledCenterHead>
                             <StyledCenterTail>
                                 {' '}
-                                {freeBoard[0].nickname} | {freeBoard[0].createdAt}
+                                {searching[0].nickname} | {searching[0].createdAt}
                             </StyledCenterTail>
                         </StyledCenterContainer>
                         <StyledRightContainer>
@@ -69,4 +77,4 @@ const FreeBoard = (props: any) => {
     );
 };
 
-export default FreeBoard;
+export default Searching;

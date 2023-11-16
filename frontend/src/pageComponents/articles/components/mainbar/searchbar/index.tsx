@@ -12,16 +12,43 @@ import {
 import HR from '@/components/hr';
 import Image from 'next/image';
 import Modal from '@/components/modal';
-
+import { useSearchBoardStore } from '@/stores/useSearchBoardStore';
+import { useArticleStore } from '@/stores/useArticleStore';
 const SearchBar = () => {
-    const [selectedOption, setSelectedOption] = useState<String>('');
+    // const [selectedOption, setSelectedOption] = useState<String>('');
+    const { searchOption, setSearchOption, searchKeyword, setSearchKeyword, setNowboard } = useSearchBoardStore();
+    const { selectbtn, setselectbtn } = useArticleStore();
     const [modalVisible, setModalVisible] = useState(false);
     const [modalText, setModalText] = useState('');
     const openModal = () => {
         setModalVisible(true);
         setModalText('여러분의 이야기를 들려주세요 !');
     };
-
+    const handleKeywordChange = (event: any) => {
+        setSearchKeyword(event.target.value);
+    };
+    const handleSearch = (event: any) => {
+        event.preventDefault();
+        console.log(selectbtn);
+        switch (selectbtn) {
+            case '1':
+                setNowboard('FREE');
+                break;
+            case '2':
+                setNowboard('COMPANY');
+                break;
+            case '3':
+                setNowboard('TIP');
+                break;
+            default:
+                setNowboard('FREE');
+        }
+        setselectbtn('4');
+    };
+    const handleSelectChange = (event: any) => {
+        console.log(event.target.value)
+        setSearchOption(event.target.value);
+    };
     return (
         <StyledSearchBar>
             <TopContainer>
@@ -45,13 +72,21 @@ const SearchBar = () => {
                     <Image src="/hoticon.svg" width={35} height={35} alt="Hot" />
                     Hot
                 </ClickBox>
-                <SelectBox>
-                    <option value="option1">자유 게시판</option>
-                    <option value="option2">회사 게시판</option>
-                    <option value="option3">Tips</option>
-                </SelectBox>
-                <SearchInput type="text" placeholder="키워드를 입력하세요" />
-                <SearchButton type="submit">검색</SearchButton>
+                <form onSubmit={handleSearch} style={{ display: 'flex' }}>
+                    <SelectBox onChange={handleSelectChange}>
+                        <option value="NONE">전체</option>
+                        <option value="NICKNAME">닉네임</option>
+                        <option value="TITLE">제목</option>
+                        <option value="CONTENT">내용</option>
+                    </SelectBox>
+                    <SearchInput
+                        type="text"
+                        placeholder="키워드를 입력하세요"
+                        value={searchKeyword}
+                        onChange={handleKeywordChange}
+                    />
+                    <SearchButton type="submit">검색</SearchButton>
+                </form>
                 {modalVisible && (
                     <Modal
                         isOpen={modalVisible}

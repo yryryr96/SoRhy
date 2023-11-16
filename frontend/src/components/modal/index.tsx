@@ -21,7 +21,7 @@ const Modal = (props: ModalType) => {
     const router = useRouter();
 
     const [title, setTitle] = useState('');
-    const [selectedBoard, setSelectedBoard] = useState('0');
+    const [settingBoard, setSettingBoard] = useState('FREE');
     const [content, setContent] = useState('');
     const [image, setImage] = useState(null);
 
@@ -29,7 +29,7 @@ const Modal = (props: ModalType) => {
         const ArticleData = {
             title: title,
             content: content,
-            category: selectedBoard,
+            category: settingBoard,
         };
         const jsonArticle = JSON.stringify(ArticleData);
         const ArticleForm = new FormData();
@@ -80,7 +80,7 @@ const Modal = (props: ModalType) => {
                             <Label>게시판 선택</Label>
                         </RowForm>
 
-                        <SelectBox value={selectedBoard} onChange={(e) => setSelectedBoard(e.target.value)}>
+                        <SelectBox value={settingBoard} onChange={(e) => setSettingBoard(e.target.value)}>
                             <option value="FREE">자유 게시판</option>
                             <option value="COMPANY">회사 게시판</option>
                             <option value="TIP">Tips</option>

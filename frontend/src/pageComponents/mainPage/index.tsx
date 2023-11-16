@@ -38,8 +38,15 @@ const MainPage = () => {
                     font_size={22}
                     inputstate={'true'}
                 />
-                <div style={{cursor:"pointer"}}>
-                <Image src="/Loupe.svg" priority={true} width={50} height={50} alt="GG" onClick={handleLoupeClick} />
+                <div style={{ cursor: 'pointer' }}>
+                    <Image
+                        src="/Loupe.svg"
+                        priority={true}
+                        width={50}
+                        height={50}
+                        alt="GG"
+                        onClick={handleLoupeClick}
+                    />
                 </div>
             </StyledMainSearchBox>
 

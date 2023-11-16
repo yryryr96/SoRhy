@@ -93,11 +93,11 @@ public class ArticleApiController {
 
     @PostMapping("/articles/search")
     public Response<ArticleDto.pagingRes> searchArticle(@RequestBody @Valid ArticleDto.searchReq request,
-                                                        @RequestParam String category,
                                                         @PageableDefault(size=6) Pageable pageable,
                                                         Authentication authentication) {
 
         ArticleDto.pagingRes response;
+        String category = request.getCategory();
         if (category.equals("COMPANY")) {
 
             String nickname = authentication.getName();
