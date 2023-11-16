@@ -26,6 +26,7 @@ const StyledRightHeaderBottom = styled.div`
     padding: 0 2.5%;
     border: 1px solid lightgray;
     border-radius: 20px;
+    margin-top: 20px;
 `;
 
 const StyledRightBody = styled.div`
@@ -96,7 +97,7 @@ const StyledRecordBottomRight = styled.div<any>`
     width: 60%;
     height: 100%;
 
-    font-size: 20px;
+    font-size: 19px;
     font-weight: bold;
     gap: 3px;
 `;
@@ -125,7 +126,7 @@ const StyledTeamContainer = styled.div`
     display: flex;
     justify-content: center;
     align-items: center;
-    font-size: 15px;
+    font-size: 14px;
     width: 100%;
     height: 20%;
 `;

@@ -47,7 +47,11 @@ const Right = (props: any) => {
                                 <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {game.gameType === 'MULTI' ? '멀티' : '싱글'}
                                 <Image src="/spear.svg" width={10} height={10} alt="slash" />
-                                {game.gameTitle}
+                                {game.gameTitle === 'SWIM'
+                                    ? '수영 레이싱'
+                                    : game.gameTitle === 'HOUSE'
+                                    ? '내 집 마련'
+                                    : '수박 부시기'}
                                 <Image src="/spear.svg" width={10} height={10} alt="slash" />
                                 {/* 어질어질 */}
                                 <p>
@@ -83,7 +87,7 @@ const Right = (props: any) => {
                                             style={{ borderRadius: '20px' }}
                                         />
                                     </p>
-                                    <p style={{ fontSize: '16px' }}>{game.characterId}번 캐릭터</p>
+                                    <p style={{ fontSize: '15px' }}>{game.characterId}번 캐릭터</p>
                                 </StyledRecordBottomRight>
                             </StyledRecordMainBottom>
                         </StyledRecordMain>

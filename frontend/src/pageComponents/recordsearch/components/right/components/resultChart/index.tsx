@@ -36,8 +36,8 @@ const GameResultChart = (props: any) => {
                 <StyledWinPercentText>{winPercent}%</StyledWinPercentText>
             </StyledResultChartContainer>
             <StyledResultContainer>
-                <div style={{ fontSize: '20px', fontWeight: 'bold' }}>최근 5경기 통계</div>
-                <div style={{ fontSize: '19px' }}>
+                <div style={{ fontSize: '18px', fontWeight: 'bold' }}>최근 5경기 통계</div>
+                <div style={{ fontSize: '17px' }}>
                     {winCount} 승 {5 - winCount} 패
                     <Image src="/cuteline.svg" width={30} height={30} alt="내 점수" style={{ borderRadius: '20px' }} />
                 </div>

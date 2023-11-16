@@ -27,8 +27,8 @@ const LeftBottom = (props: any) => {
                     <StyledCharContent key={index}>
                         <Image
                             src={`/chr${character.characterId}.png`}
-                            width={90}
-                            height={90}
+                            width={80}
+                            height={80}
                             alt={`내 최애 캐릭터 ${index + 1}`}
                             style={{ borderRadius: '60px' }}
                         />

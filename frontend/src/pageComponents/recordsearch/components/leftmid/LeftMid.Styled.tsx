@@ -34,7 +34,7 @@ const StyledScoreHeader = styled.div`
     justify-content: center;
     width: 100%;
     height: 50%;
-    font-size: 38px;
+    font-size: 33px;
     font-weight: bold;
 
     color: #218fff;
@@ -46,7 +46,7 @@ const StyledScoreBody = styled.div`
     justify-content: center;
     width: 100%;
     height: 50%;
-    font-size: 17px;
+    font-size: 15px;
 `;
 
 export { StyledScoreHeader, StyledScoreBody, StyledLeftMidContainer, StyledMidBody, StyledMidHeader };

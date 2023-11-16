@@ -39,7 +39,8 @@ const StyledCharContent = styled.div`
     align-items: center;
     width: 100%;
     height: 100%;
-    font-size: 27px;
+    font-size: 18px;
+    font-weight: bold;
     gap: 10px;
 `;
 

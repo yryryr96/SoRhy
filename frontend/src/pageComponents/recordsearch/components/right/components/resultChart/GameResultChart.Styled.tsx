@@ -3,8 +3,8 @@ import styled, { css } from 'styled-components';
 const StyledResultChartContainer = styled.div`
     display: flex;
     align-items: center;
-    width: 50%;
-    height: 90%;
+    width: 40%;
+    height: 92%;
 `;
 
 const StyledResultContainer = styled.div`
@@ -21,7 +21,7 @@ const StyledResultContainer = styled.div`
 
 const StyledWinPercentText = styled.h3`
     position: absolute;
-    left: 46.7%;
-    top: 19%;
+    left: 46.3%;
+    top: 19.7%;
 `;
 export { StyledResultContainer, StyledResultChartContainer, StyledWinPercentText };
