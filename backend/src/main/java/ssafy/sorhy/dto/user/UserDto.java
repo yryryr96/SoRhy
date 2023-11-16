@@ -64,7 +64,7 @@ public class UserDto {
         private Long personalRanking;
         private double rankPercent;
         private List<top3Character> top3Characters;
-        private List<GameResultDto.gameRecordInfo> gameResults;
+        private GameResultDto.searchGameRecordRes gameResults;
     }
 
     @Data

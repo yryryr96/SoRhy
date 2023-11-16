@@ -63,13 +63,15 @@ public class GameResultService {
         return gameResult.toSaveResDto(gameResult);
     }
 
-    public List<GameResultDto.gameRecordInfo> getGameRecordInfo(String nickname, Pageable pageable) {
+    public GameResultDto.searchGameRecordRes getGameRecordInfo(String nickname, Pageable pageable) {
 
         List<GameResultDto.gameRecordInfo> result = new ArrayList<>();
         User user = findUser(nickname);
 
-        List<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
-        for (GameResult gameResult : gameResults) {
+        Page<GameResult> gameResults = gameResultRepository.findByUserIdOrderByDesc(user.getId(), pageable);
+
+        int totalPages = gameResults.getTotalPages();
+        for (GameResult gameResult : gameResults.getContent()) {
 
             Game game = gameResult.getGame();
             Team team = gameResult.getTeam();
@@ -78,7 +80,8 @@ public class GameResultService {
 
             result.add(new GameResultDto.gameRecordInfo(game, gameResult, teamMember, enemy));
         }
-        return result;
+
+        return new GameResultDto.searchGameRecordRes(totalPages, result);
     }
 
     private User findUser(String nickname) {

@@ -89,7 +89,7 @@ public class User {
     }
 
     public UserDto.recordRes toRecordRes(List<UserDto.top3Character> top3Characters,
-                                         List<GameResultDto.gameRecordInfo> gameResults,
+                                         GameResultDto.searchGameRecordRes gameResults,
                                          Long personalRanking,
                                          double rankPercent) {
 

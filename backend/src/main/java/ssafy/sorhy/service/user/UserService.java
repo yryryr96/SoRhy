@@ -122,7 +122,7 @@ public class UserService {
         double rankPercent = userRankInfo.getRankPercent();
 
         List<UserDto.top3Character> top3Characters = userCharacterService.findTop3Character(user.getId());
-        List<GameResultDto.gameRecordInfo> gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
+        GameResultDto.searchGameRecordRes gameResults = gameResultService.getGameRecordInfo(nickname, pageable);
         return user.toRecordRes(top3Characters, gameResults, personalRanking, rankPercent);
     }
 

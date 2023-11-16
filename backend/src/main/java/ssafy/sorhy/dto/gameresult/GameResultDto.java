@@ -88,4 +88,12 @@ public class GameResultDto {
             this.enemy = enemy;
         }
     }
+
+    @Data
+    @AllArgsConstructor
+    public static class searchGameRecordRes {
+
+        private int totalPage;
+        private List<gameRecordInfo> gameRecordInfo;
+    }
 }
