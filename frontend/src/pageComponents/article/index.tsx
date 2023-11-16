@@ -22,15 +22,61 @@ import Image from 'next/image';
 import Button from '@/components/button';
 import Input from '@/components/input';
 import HR from '@/components/hr';
+import articleCommentPost from './../../api/article/articleCommentPost';
+import { useRouter } from 'next/navigation';
+import { StyledPageContainer, StyledPageContent } from '../recordsearch/components/right/Right.Styled';
 
 const Article = (props: any) => {
+    const router = useRouter();
     const { articleId } = props;
     const [articleDetail, setArticleDetail] = useState<any>([]);
     const [loading, setLoading] = useState(true);
+    const [comments, setComments] = useState<any>([]);
+    const [commentContent, setCommentContent] = useState<string>("");
+
+    const handleChange = (event:any) => {
+        setCommentContent(event.target.value);
+    }
+
+    const saveComment = () => {
+
+        const data = {
+            "content" : commentContent
+        }
+        console.log(commentContent)
+
+        if (data.content) {
+            articleCommentPost(articleId, data)
+            .then((res) => {
+                window.location.reload()
+            })
+        } else {
+            console.log("data없음")
+        }
+    }
+
+    const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+        if (event.key === 'Enter') {
+            saveComment();
+        }
+    };
+
+    const handlePageClick = async (pageNumber: number) => {
+        try {
+            const res = await articleDetailGet(articleId, pageNumber - 1);
+            setComments(res.result.comments);
+
+            // router.push(`/recordsearch/${nickname}?page=${pageNumber - 1}`);
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    };
+
     useEffect(() => {
         articleDetailGet(articleId)
             .then((res) => {
                 setArticleDetail(res.result);
+                setComments(res.result.comments)
                 setLoading(false);
             })
             .catch((error) => {
@@ -38,6 +84,7 @@ const Article = (props: any) => {
             });
     }, []);
 
+    console.log(articleDetail)
     return (
         <ArticleContainer>
             <StyledArticle>
@@ -72,8 +119,10 @@ const Article = (props: any) => {
                                     font_size="17px"
                                     type="text"
                                     style={{ border: '1px solid gray', borderRadius: '5px', width: '90%' }}
+                                    onChange={handleChange}
+                                    onKeyDown={handleKeyDown}
                                 />
-                                <Button use="blue" label="작성" style={{ width: '10%' }} />
+                                <Button use="blue" label="작성" style={{ width: '10%' }} onClick={saveComment}/>
                             </StyledCommentTop>
                             <StyledComment>
                                 <p>작성자</p>
@@ -84,8 +133,8 @@ const Article = (props: any) => {
                         <StyledCommentBody>
                             {loading ? (
                                 <div>Loading...</div>
-                            ) : articleDetail.comments['comments'] ? (
-                                articleDetail.comments['comments'].map((comment: any, index: number) => (
+                            ) : comments['comments'] ? (
+                                comments['comments'].map((comment: any, index: number) => (
                                     <StyledComment key={index}>
                                         <p>{comment.nickname}</p>
                                         <p>{comment.content}</p>
@@ -96,6 +145,13 @@ const Article = (props: any) => {
                                 <div>댓글이 없습니다</div>
                             )}
                         </StyledCommentBody>
+                        <StyledPageContainer>
+                            {Array.from({ length: comments?.totalPage }, (_, index) => index + 1).map((pageNumber) => (
+                                <StyledPageContent onClick={() => handlePageClick(pageNumber)} key={pageNumber}>
+                                    {pageNumber}
+                                </StyledPageContent>
+                            ))}
+                        </StyledPageContainer>
                     </StyledArticleComment>
                 </StyledArticleContent>
                 <StyledRightContent>

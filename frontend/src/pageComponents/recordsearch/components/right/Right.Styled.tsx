@@ -150,6 +150,7 @@ const StyledPageContent = styled.div`
     font-weight: bold;
     color: gray;
     gap: 2px;
+    cursor: pointer;
 `;
 
 const StyledChart = styled.div`

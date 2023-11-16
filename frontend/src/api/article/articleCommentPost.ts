@@ -5,7 +5,7 @@ import api from "../api";
 const articleCommentPost = async (articleId: any, commentDatas: any) => {
     try {
         const accessToken = localStorage.getItem("accessToken");
-        const response = await api.post(`/${articleId}/comment`, commentDatas, {
+        const response = await api.post(`article/${articleId}/comment`, commentDatas, {
             headers: {
                 Authorization: `Bearer ${accessToken}`,
             },

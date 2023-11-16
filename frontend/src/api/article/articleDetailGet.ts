@@ -2,9 +2,9 @@
 
 import api from '../api';
 
-const articleDetailGet = async (articleId: any) => {
+const articleDetailGet = async (articleId: any, page: any=0) => {
     try {
-        const res = await api.get('/article/' + articleId, {});
+            const res = await api.get(`/article/${articleId}?page=${page}`, {});
         return res.data;
     } catch (error) {
         console.error('Error: ', error);
