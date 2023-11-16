@@ -29,7 +29,7 @@ const Modal = (props: ModalType) => {
         const ArticleData = {
             title: title,
             content: content,
-            category: 'TIP',
+            category: selectedBoard,
         };
         const jsonArticle = JSON.stringify(ArticleData);
         const ArticleForm = new FormData();
@@ -81,9 +81,9 @@ const Modal = (props: ModalType) => {
                         </RowForm>
 
                         <SelectBox value={selectedBoard} onChange={(e) => setSelectedBoard(e.target.value)}>
-                            <option value="0">자유 게시판</option>
-                            <option value="1">회사 게시판</option>
-                            <option value="2">Tips</option>
+                            <option value="FREE">자유 게시판</option>
+                            <option value="COMPANY">회사 게시판</option>
+                            <option value="TIP">Tips</option>
                         </SelectBox>
 
                         <RowForm>
