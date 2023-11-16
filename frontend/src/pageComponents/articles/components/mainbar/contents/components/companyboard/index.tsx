@@ -54,7 +54,7 @@ const CompanyBoard = (props: any) => {
                             <StyledCenterContainer>
                                 <StyledCenterHead>{article.title}</StyledCenterHead>
                                 <StyledCenterTail>
-                                    {article.createdAt} | 사진 | {article.nickname}
+                                    {companyBoard[0].nickname} | {companyBoard[0].createdAt}
                                 </StyledCenterTail>
                             </StyledCenterContainer>
                             <StyledRightContainer>

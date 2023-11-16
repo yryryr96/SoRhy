@@ -43,7 +43,7 @@ const Tips = (props: any) => {
                         <StyledCenterHead>{article.title}</StyledCenterHead>
                         <StyledCenterTail>
                             {' '}
-                            {article.createdAt} | 사진 | {article.nickname}
+                            {tipsBoard[0].nickname} | {tipsBoard[0].createdAt}
                         </StyledCenterTail>
                     </StyledCenterContainer>
                     <StyledRightContainer>
