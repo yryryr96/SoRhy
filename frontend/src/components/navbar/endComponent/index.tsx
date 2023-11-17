@@ -30,21 +30,6 @@ const EndComponent = () => {
                         <StyledNavLink href="/login">로그인</StyledNavLink>
                     )}
                     {!isLogin && <StyledNavLink href="/signup">회원가입</StyledNavLink>}
-
-                    {isLogin && userInformation && (
-                        <StyledPropfileLink href="/mypage">
-                            {profileImg && (
-                                <Image
-                                    src={profileImg}
-                                    alt="man"
-                                    width={20}
-                                    height={20}
-                                    style={{ border: '1px solid black', borderRadius: '50%' }}
-                                ></Image>
-                            )}
-                            <StyledProfileName>{userInformation.name}</StyledProfileName>
-                        </StyledPropfileLink>
-                    )}
                 </>
             )}
         </StyledEndComp>

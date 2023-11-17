@@ -11,19 +11,30 @@ import {
     StyledRightContainer,
     StyledCenterHead,
     StyledCenterTail,
+    StyledArticlePage,
+    StyledArticleContent,
 } from '../../Contents.Styled';
 import Image from 'next/image';
 
 const FreeBoard = (props: any) => {
     const { category } = props;
     const path = props.selectbtn;
-    const [freeBoard, setFreeBoard] = useState<any[]>([]);
+    const [freeBoard, setFreeBoard] = useState<any>([]);
     const router = useRouter();
+    const handlePageClick = async (pageNumber: number) => {
+        try {
+            const res = await articleReadGet(category, pageNumber - 1);
+            setFreeBoard(res.result);
 
+            router.push(`/articles?category=${category}?page=${pageNumber - 1}`);
+        } catch (error) {
+            console.error('Error: ', error);
+        }
+    };
     useEffect(() => {
-        articleReadGet(category)
+        articleReadGet(category, 0)
             .then((res) => {
-                setFreeBoard(res.result.articles);
+                setFreeBoard(res.result);
             })
             .catch((error) => {
                 console.error('에러 발생:', error);
@@ -32,11 +43,11 @@ const FreeBoard = (props: any) => {
     const handleContentClick = (articleId: number) => {
         router.push(`/article/${articleId}`);
     };
-    console.log(freeBoard);
+
     return (
         <StyledContentsBox>
-            {freeBoard.length > 0 ? (
-                freeBoard.map((article: any, index: any) => (
+            {freeBoard.articles ? (
+                freeBoard.articles.map((article: any, index: any) => (
                     <StyledContentContainer key={index} onClick={() => handleContentClick(article.articleId)}>
                         <StyledLeftContainer>
                             <Image src="/blueicon.svg" alt="blue-button" width={40} height={30} />
@@ -46,7 +57,7 @@ const FreeBoard = (props: any) => {
                             <StyledCenterHead>{article.title}</StyledCenterHead>
                             <StyledCenterTail>
                                 {' '}
-                                {freeBoard[0].nickname} | {freeBoard[0].createdAt}
+                                {freeBoard.articles[index].nickname} | {freeBoard.articles[index].createdAt}
                             </StyledCenterTail>
                         </StyledCenterContainer>
                         <StyledRightContainer>
@@ -64,7 +75,14 @@ const FreeBoard = (props: any) => {
                 ))
             ) : (
                 <div>Loading...</div>
-            )}
+            )}{' '}
+            <StyledArticlePage>
+                {Array.from({ length: freeBoard.totalPage }, (_, index) => index + 1).map((pageNumber) => (
+                    <StyledArticleContent onClick={() => handlePageClick(pageNumber)} key={pageNumber}>
+                        {pageNumber}
+                    </StyledArticleContent>
+                ))}
+            </StyledArticlePage>
         </StyledContentsBox>
     );
 };

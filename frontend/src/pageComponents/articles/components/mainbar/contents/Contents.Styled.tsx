@@ -4,7 +4,7 @@ const StyledContentsBox = styled.div`
     display: flex;
     flex-direction: column;
     width: 38vw;
-    height: 74vh;
+    height: 80vh;
     padding: 2% 2%;
     border: 1px solid lightgray;
     background-color: white;
@@ -30,12 +30,12 @@ const StyledContentContainer = styled.div`
     display: flex;
     flex-direction: row;
     width: 100%;
-    height: 26%;
+    height: 19%;
     border: 1px solid lightgray;
 
     border-radius: 10px;
     box-shadow: 1px 1px 2px 1px lightgray;
-    cursor : pointer;
+    cursor: pointer;
 `;
 
 const StyledLeftContainer = styled.div`
@@ -83,7 +83,28 @@ const StyledCenterTail = styled.div`
     font-size: 16px;
 `;
 
+const StyledArticlePage = styled.div`
+    display: flex;
+    width: 90%;
+    height: 5%;
+    align-items: center;
+    justify-content: center;
+    margin-left: 7%;
+`;
+
+const StyledArticleContent = styled.div`
+    display: flex;
+
+    width: 10%;
+    height: 100%;
+    font-weight: bold;
+    color: gray;
+    cursor: pointer;
+`;
+
 export {
+    StyledArticleContent,
+    StyledArticlePage,
     StyledContentsBox,
     StyledContentContainer,
     StyledLeftContainer,

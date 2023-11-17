@@ -9,7 +9,6 @@ const Company = () => {
     useEffect(() => {
         GameRankGet('company')
             .then((res) => {
-                console.log(res.result);
                 setCompanyDetail(res.result);
                 setLoading(false);
             })
@@ -17,7 +16,7 @@ const Company = () => {
                 console.error('에러 발생:', error);
             });
     }, []);
-    console.log(CompanyDetail);
+
     return (
         <>
             <StyledInnerHeader>

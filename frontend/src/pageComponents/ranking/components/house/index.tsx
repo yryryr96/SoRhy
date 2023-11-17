@@ -18,7 +18,6 @@ const House = () => {
     useEffect(() => {
         GameRankGet('HOUSE')
             .then((res) => {
-                console.log(res.result);
                 setHouseDetail(res.result);
 
                 setLoading(false);

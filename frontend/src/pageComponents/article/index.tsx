@@ -32,28 +32,25 @@ const Article = (props: any) => {
     const [articleDetail, setArticleDetail] = useState<any>([]);
     const [loading, setLoading] = useState(true);
     const [comments, setComments] = useState<any>([]);
-    const [commentContent, setCommentContent] = useState<string>("");
+    const [commentContent, setCommentContent] = useState<string>('');
 
-    const handleChange = (event:any) => {
+    const handleChange = (event: any) => {
         setCommentContent(event.target.value);
-    }
+    };
 
     const saveComment = () => {
-
         const data = {
-            "content" : commentContent
-        }
-        console.log(commentContent)
+            content: commentContent,
+        };
 
         if (data.content) {
-            articleCommentPost(articleId, data)
-            .then((res) => {
-                window.location.reload()
-            })
+            articleCommentPost(articleId, data).then((res) => {
+                window.location.reload();
+            });
         } else {
-            console.log("data없음")
+            console.log('No data');
         }
-    }
+    };
 
     const handleKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
         if (event.key === 'Enter') {
@@ -76,7 +73,7 @@ const Article = (props: any) => {
         articleDetailGet(articleId)
             .then((res) => {
                 setArticleDetail(res.result);
-                setComments(res.result.comments)
+                setComments(res.result.comments);
                 setLoading(false);
             })
             .catch((error) => {
@@ -84,7 +81,6 @@ const Article = (props: any) => {
             });
     }, []);
 
-    console.log(articleDetail)
     return (
         <ArticleContainer>
             <StyledArticle>
@@ -122,7 +118,7 @@ const Article = (props: any) => {
                                     onChange={handleChange}
                                     onKeyDown={handleKeyDown}
                                 />
-                                <Button use="blue" label="작성" style={{ width: '10%' }} onClick={saveComment}/>
+                                <Button use="blue" label="작성" style={{ width: '10%' }} onClick={saveComment} />
                             </StyledCommentTop>
                             <StyledComment>
                                 <p>작성자</p>

@@ -6,7 +6,6 @@ export const useLogoutHook = () => {
     const logout = useUserStore((state: any) => state.logout);
 
     const hanedleLogout = () => {
-        console.log('아으');
         router.push('/');
         localStorage.setItem('accessToken', '');
 

@@ -44,7 +44,6 @@ const Modal = (props: ModalType) => {
         }
         try {
             await articleSavePost(ArticleForm);
-            console.log('성공!');
         } catch (error) {
             console.error('게시글 저장 오류', error);
         }

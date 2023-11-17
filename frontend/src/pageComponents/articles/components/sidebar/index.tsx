@@ -25,7 +25,7 @@ const SideBar = (props: any) => {
                 회사 게시판
             </StyledSideItem>
             <StyledSideItem font_size="21px" font_weight="bold" color="on">
-                나머지
+                ETC
                 <Image src="/rightarrow.svg" priority={true} width={20} height={15} alt="오른쪽 화살표" />
             </StyledSideItem>
             <HR />

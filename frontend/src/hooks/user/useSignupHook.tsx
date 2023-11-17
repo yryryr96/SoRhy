@@ -86,7 +86,6 @@ export const useSignupHook = (): SignupHookType => {
             alert('닉네임을 입력해주세요');
             return;
         } else if (user.companyId === '0') {
-            console.log(user.companyId, '고고');
             setInputState({
                 ...inputState,
                 ['companyId']: '0',
@@ -94,14 +93,12 @@ export const useSignupHook = (): SignupHookType => {
             alert('회사 번호를 입력해주세요');
             return;
         } else {
-            console.log();
             axios({
                 method: 'post',
                 url: `${process.env.NEXT_PUBLIC_API_URL}/user/join`,
                 data: { ...user },
             })
                 .then((res) => {
-                    console.log(res);
                     router.push('/');
                 })
                 .catch((err) => console.log(err));

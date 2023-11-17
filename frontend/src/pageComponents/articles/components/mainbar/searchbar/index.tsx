@@ -29,7 +29,7 @@ const SearchBar = () => {
     };
     const handleSearch = (event: any) => {
         event.preventDefault();
-        console.log(selectbtn);
+
         switch (selectbtn) {
             case '1':
                 setNowboard('FREE');
@@ -43,10 +43,9 @@ const SearchBar = () => {
             default:
                 setNowboard('FREE');
         }
-        setselectbtn('4');
+        setselectbtn('0');
     };
     const handleSelectChange = (event: any) => {
-        console.log(event.target.value)
         setSearchOption(event.target.value);
     };
     return (
