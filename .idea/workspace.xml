@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="AutoImportSettings">
+    <option name="autoReloadType" value="SELECTIVE" />
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="d296bc98-c5c4-41b4-aeaa-9c913155d41d" name="Changes" comment="">
+      <change beforePath="$PROJECT_DIR$/frontend/src/api/article/articleReadGet.ts" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/api/article/articleReadGet.ts" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/button/Button.styled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/button/Button.styled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modal/Modal.styled.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modal/Modal.styled.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/components/modal/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/components/modal/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pageComponents/articles/components/mainbar/contents/components/companyboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pageComponents/articles/components/mainbar/contents/components/companyboard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pageComponents/articles/components/mainbar/contents/components/freeboard/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pageComponents/articles/components/mainbar/contents/components/freeboard/index.tsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/frontend/src/pageComponents/articles/components/mainbar/searchbar/index.tsx" beforeDir="false" afterPath="$PROJECT_DIR$/frontend/src/pageComponents/articles/components/mainbar/searchbar/index.tsx" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="ProjectId" id="2XlUtIVidGPe2MoalFmpQDfWR2J" />
+  <component name="ProjectViewState">
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true"
+  }
+}]]></component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="d296bc98-c5c4-41b4-aeaa-9c913155d41d" name="Changes" comment="" />
+      <created>1699203373824</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1699203373824</updated>
+    </task>
+    <servers />
+  </component>
+</project>
