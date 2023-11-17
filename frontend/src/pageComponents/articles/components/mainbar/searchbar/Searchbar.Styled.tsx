@@ -48,7 +48,7 @@ const ClickBox = styled.div.attrs<any>((props) => ({
 `;
 
 const SelectBox = styled.select`
-    width: 5vw;
+    width: 7vw;
     padding: 10px;
     border: 1px solid #ccc;
     border-radius: 4px;
