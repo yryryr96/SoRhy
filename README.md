@@ -86,7 +86,7 @@
 
 ## 💻 ERD
 
- - [Update 예정]
+ <img src="https://github.com/yryryr96/Algorithm/assets/122415720/3b1376f6-afdb-4138-9e37-26d3e8cf1277" width=600>
 
 ## 🎓 Git Rule
 
